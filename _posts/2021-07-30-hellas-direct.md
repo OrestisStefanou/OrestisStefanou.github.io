@@ -11,7 +11,7 @@ author: Orestis Stefanou
 description: "Hellas Direct"
 ---
 
-###This is an article with the reason to join Hellas Direct
+### This is an article with the reason to join Hellas Direct
 - Ασφαλίζεσαι online, σε 1 λεπτό!
 - Αποζημιώνεσαι 2 φορές πιο γρήγορα.
 - Δίπλα σου 24/7, για να μιλάς με εμάς όποτε μας χρειαστείς.
