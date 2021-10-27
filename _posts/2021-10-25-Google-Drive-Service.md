@@ -85,3 +85,51 @@ Endpoint to get access token using the authentication code given by the user
 			f.write(json_string)
 			f.close()
 		```				
+### Files Endpoints
+- GET /v1/files  
+Get user's files metadata
+	- Query parameters
+		- query:string -> To filter the files you want in the response
+			Visit [google drive query examples](https://developers.google.com/drive/api/v3/search-files) for more information on how to query
+	- Headers
+		- Authorization: \<access_token> (access_token in string format)
+	- Response
+		- Status Code:200
+		- Data(JSON)
+			```
+			{
+				"Files":[
+					{
+					  "id": string,
+					  "mimeType": string,
+					  "name": string,
+					  "parents": [
+					    string
+					  ],
+					  "size": string,
+					  "webContentLink": string,
+					  "webViewLink": string
+					}
+				]
+			}
+			```			
+	- Python Example
+		```
+		url = f"{baseURL}/files"
+		try:
+			f = open("token.json", "r")
+			access_token = f.read()
+			f.close()
+		except:
+			print("Token not found")
+			return
+		payload = {'query': query_string}
+		headers = {'Authorization': access_token}
+		r = requests.get(url,headers=headers,params=payload)
+		if r.status_code == 200:
+			files = r.json()['Files']
+			for file in files:
+				print(json.dumps(file,indent=2))
+		else:
+			print(r.json())
+		```			
