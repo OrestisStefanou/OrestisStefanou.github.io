@@ -72,16 +72,16 @@ Endpoint to get access token using the authentication code given by the user
 			}
 			```			
 	- Python Example
-			```
-			url = f"{baseURL}/token"
-			payload = {'code': auth_code}
-			headers = {'Content-type': 'application/x-www-form-urlencoded'}
-			r = requests.post(url, data=payload,headers=headers)
-			response = r.json()
-			if r.status_code == 200:
-				json_string = json.dumps(response['AccessToken'])
-				#Save the token for future requests
-				f = open("token.json", "w")
-				f.write(json_string)
-				f.close()
-			```				
+		```
+		url = f"{baseURL}/token"
+		payload = {'code': auth_code}
+		headers = {'Content-type': 'application/x-www-form-urlencoded'}
+		r = requests.post(url, data=payload,headers=headers)
+		response = r.json()
+		if r.status_code == 200:
+			json_string = json.dumps(response['AccessToken'])
+			#Save the token for future requests
+			f = open("token.json", "w")
+			f.write(json_string)
+			f.close()
+		```				
