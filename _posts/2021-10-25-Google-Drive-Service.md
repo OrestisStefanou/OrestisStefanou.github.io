@@ -22,11 +22,11 @@ Google Drive api uses oauth2 authentication,so in order to get access to your cl
 ## Endpoints
 ### Base url:https://radiant-gorge-35067.herokuapp.com
 ### Authentication Endpoints
-- /v1//authenticationURL
+- GET /v1/authenticationURL  
 Endpoint to get the url that the user needs to authenticate their google drive account
 	- Query Parameters
 		- scope:string (The scope of the permissions you need access to).Available values:
-			- DriveScope -> See, edit, create, and delete all of your Google Drive files
+			- DriveScope(Default) -> See, edit, create, and delete all of your Google Drive files
 			- DriveAppdataScope -> See, create, and delete its own configuration data in your Google Drive
 			- DriveFileScope -> See, edit, create, and delete only the specific Google Drive files you use with this app
 			- DriveMetadataScope -> View and manage metadata of files in your Google Drive
@@ -34,12 +34,54 @@ Endpoint to get the url that the user needs to authenticate their google drive a
 			- DrivePhotosReadonlyScope -> View the photos, videos and albums in your Google Photos
 			- DriveReadonlyScope -> See and download all your Google Drive files
 			- DriveScriptsScope -> Modify your Google Apps Script scripts' behavior
-		- Response
-			- Status Code:200
-			- Data
-				```
-				{
-					"message":string
-					"authURL":string
+	- Response
+		- Status Code:200
+		- Data(JSON)
+			```
+			{
+				"message":string,
+				"authURL":string
+			}
+			```
+	- Example in Python
+		```
+		url = f"{baseURL}/authenticationURL"
+		payload = {'scope': 'DriveScope'}
+		r = requests.get(url,params=payload)
+		```
+  
+
+- POST /v1/token  
+Endpoint to get access token using the authentication code given by the user
+	- Request Data
+		- code:string -> authentication code given by the user
+	- Headers
+		- Content-type: application/x-www-form-urlencoded
+	- Response
+		- Status Code:200
+		- Data(JSON)
+			```
+			{
+				"message":string,
+				"AccessToken":{
+					"access_token":string,
+					"token_type":string,
+					"refresh_token":string,
+					"expiry":time
 				}
-				```
+			}
+			```			
+	- Python Example
+			```
+			url = f"{baseURL}/token"
+			payload = {'code': auth_code}
+			headers = {'Content-type': 'application/x-www-form-urlencoded'}
+			r = requests.post(url, data=payload,headers=headers)
+			response = r.json()
+			if r.status_code == 200:
+				json_string = json.dumps(response['AccessToken'])
+				#Save the token for future requests
+				f = open("token.json", "w")
+				f.write(json_string)
+				f.close()
+			```				
