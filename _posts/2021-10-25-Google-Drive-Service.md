@@ -18,3 +18,28 @@ If you have a service that needs access to your user's google drive or you are j
 Google Drive api uses oauth2 authentication,so in order to get access to your client's google drive you need an access token to perform a request on the user’s behalf.To get an access token we send a url to the user where they have to accept that your service can have access to their google drive account.After the user accepts,google returns to the user an authentication code which the user has to send back to us in order to generate the access token.In the diagram below we can see the authentication flow( 'Requesting Service' is the service that needs to access the google drive of it's users and is using google drive service to achieve that)
 
 <center><img src='./assets/img/posts/20211025/auth_flow.png'></center>
+
+## Endpoints
+### Base url:https://radiant-gorge-35067.herokuapp.com
+### Authentication Endpoints
+- /v1//authenticationURL
+Endpoint to get the url that the user needs to authenticate their google drive account
+	- Query Parameters
+		- scope:string (The scope of the permissions you need access to).Available values:
+			- DriveScope -> See, edit, create, and delete all of your Google Drive files
+			- DriveAppdataScope -> See, create, and delete its own configuration data in your Google Drive
+			- DriveFileScope -> See, edit, create, and delete only the specific Google Drive files you use with this app
+			- DriveMetadataScope -> View and manage metadata of files in your Google Drive
+			- DriveMetadataReadonlyScope -> See information about your Google Drive files
+			- DrivePhotosReadonlyScope -> View the photos, videos and albums in your Google Photos
+			- DriveReadonlyScope -> See and download all your Google Drive files
+			- DriveScriptsScope -> Modify your Google Apps Script scripts' behavior
+		- Response
+			- Status Code:200
+			- Data
+				```
+				{
+					"message":string
+					"authURL":string
+				}
+				```
