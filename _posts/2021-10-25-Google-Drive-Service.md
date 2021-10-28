@@ -309,7 +309,7 @@ Endpoint to add a permission to a file.A permission is the ability to share a fi
 
     - Response
 		- Status Code:200
-		- Data(JSON)
+		- Data(JSON)  
 	    	```
 			{
 				message: string
