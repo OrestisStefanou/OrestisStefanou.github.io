@@ -138,8 +138,8 @@ Endpoint to download a file with binary content
 	- Headers 
 		- Authorization: \<access_token> (access_token in string format)
 	- Response
-	 	- Status Code:200
-	 	- Data (application/binary)
+		- Status Code:200
+		- Data (application/binary)
 	 		- The bytes of the file
 	- Python Example
 		```
@@ -161,7 +161,7 @@ Endpoint to download a file with binary content
 		else:
 			print(r.json())
 		```			
-- GET /v1/files/download_exported/\<file_id>
+- GET /v1/files/download_exported/\<file_id>  
 Endpoint to export a file in the desired format and download it
 	- Query parameters
 		- mimeType:string -> mimeType that you want to export the file 
@@ -193,3 +193,88 @@ Endpoint to export a file in the desired format and download it
 		else:
 			print(r.json())
 		```			
+
+- POST /v1/files/folder  
+Endpoint to create a folder in the user's drive 
+	- Request data(JSON)
+	```
+	{
+		"folder_name":string,
+		"parent_id":string(Optional)
+	}
+	```
+		- folder_name is the name of the new folder
+		- parent_id is the id of the parent folder,if none given the folder is created in user's home directory
+	- Headers
+		- Authorization: \<access_token> (access_token in string format)
+	- Response
+		- Status Code:200
+		- Data(JSON)
+		```
+		{
+			'id': string, 
+			'kind': string,
+			'mimeType': string,
+			'name': string
+		}
+		```
+	- Python Example
+		```
+		url = f"{baseURL}/files/folder"
+		try:
+			f = open("token.json", "r")
+			access_token = f.read()
+			f.close()
+		except:
+			print("Token not found")
+			return
+		#print("Access token is:",access_token)
+		headers = {'Authorization': access_token}
+		if parent_id:
+			payload = {'folder_name': folder_name , "parent_id": parent_id }
+		else:
+			payload = {'folder_name': folder_name}
+		r = requests.post(url, json=payload,headers=headers)
+		response = r.json()
+		print(response)
+
+		```
+
+- POST /v1/files/file  
+Endpoint to upload a file
+	- Request Data(MultipartForm)
+		- parent_id:string (Optional)
+		- file:bytes -> Bytes of the file you want to upload
+	- Headers
+		- Authorization: \<access_token> (access_token in string format)
+	-Response
+		- Status Code:200
+		- Data(JSON)
+		```
+		{
+			'id': string, 
+			'kind': string,
+			'mimeType': string,
+			'name': string
+		}
+		```
+	- Python Example
+		```
+		url = f"{baseURL}/files/file"
+		try:
+			f = open("token.json", "r")
+			access_token = f.read()
+			f.close()
+		except:
+			print("Token not found")
+			return
+		#print("Access token is:",access_token)
+		headers = {'Authorization': access_token}
+		files = {'file': open(filepath, 'rb')}
+		if parent_id:
+			payload = {'parent_id': parent_id}
+			r = requests.post(url, data=payload,files=files,headers=headers)
+		else:
+			r = requests.post(url,files=files,headers=headers)
+		print(r.json())
+		```
