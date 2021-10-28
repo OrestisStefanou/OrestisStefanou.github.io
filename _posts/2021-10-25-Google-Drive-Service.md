@@ -292,20 +292,20 @@ Endpoint to add a permission to a file.A permission is the ability to share a fi
 		}
 		```
 		role: The role granted by this permission.Valid values are:
-        	- owner
-        	- organizer
-        	- fileOrganizer
-        	- writer
-        	- commenter
-        	- reader
+        - owner
+        - organizer
+        - fileOrganizer
+        - writer
+        - commenter
+        - reader
 
         type: The type of the grantee. Valid values are:
-        	 - user
-        	 - group
-        	 - anyone  
-        	 When creating a permission, if type is user or group, you must provide an emailAddress for the user or group
+        - user
+        - group
+        - anyone  
+        When creating a permission, if type is user or group, you must provide an emailAddress for the user or group
     - Headers
-       	- Authorization: \<access_token> (access_token in string format)
+    	- Authorization: \<access_token> (access_token in string format)
 
     - Response
     	- Status Code:200
