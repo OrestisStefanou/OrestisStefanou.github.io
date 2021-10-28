@@ -133,3 +133,63 @@ Get user's files metadata
 		else:
 			print(r.json())
 		```			
+- GET /v1/files/download/\<file_id>  
+Endpoint to download a file with binary content
+	- Headers 
+		- Authorization: \<access_token> (access_token in string format)
+	- Response
+	 	- Status Code:200
+	 	- Data (application/binary)
+	 		- The bytes of the file
+	- Python Example
+		```
+		url = f"{baseURL}/files/download/{file_id}"
+		try:
+			f = open("token.json", "r")
+			access_token = f.read()
+			f.close()
+		except:
+			print("Token not found")
+			return
+		headers = {'Authorization': access_token}
+		r = requests.get(url,headers=headers)	
+		if r.status_code == 200:
+			#print(r.content)
+			f = open(filepath,"wb")
+			f.write(r.content)
+			f.close()
+		else:
+			print(r.json())
+		```			
+- GET /v1/files/download_exported/\<file_id>
+Endpoint to export a file in the desired format and download it
+	- Query parameters
+		- mimeType:string -> mimeType that you want to export the file 
+			Visit [Google Workspace formats and supported export MIME types](https://developers.google.com/drive/api/v3/ref-export-formats) for the available mimeTypes
+	- Headers
+		- Authorization: \<access_token> (access_token in string format)
+	- Response
+		- Status Code:200
+		- Data (application/binary)
+			- The bytes of the file
+	- Python Example
+		```
+		url = f"{baseURL}/files/download_exported/{file_id}"
+		payload = {"mimeType":mimeType}
+		try:
+			f = open("token.json", "r")
+			access_token = f.read()
+			f.close()
+		except:
+			print("Token not found")
+			return
+		headers = {'Authorization': access_token}
+		r = requests.get(url,headers=headers,params=payload)	
+		if r.status_code == 200:
+			#print(r.content)
+			f = open(filepath,"wb")
+			f.write(r.content)
+			f.close()
+		else:
+			print(r.json())
+		```			
