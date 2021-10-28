@@ -278,3 +278,102 @@ Endpoint to upload a file
 			r = requests.post(url,files=files,headers=headers)
 		print(r.json())
 		```
+
+### Permission Endpoints
+- POST /v1/permissions/permission  
+Endpoint to add a permission to a file.A permission is the ability to share a file with other users
+	- Request Data(JSON)
+		```
+		{
+			file_id: string,
+			role: string,
+			type: string, 
+			emails: []string
+		}
+		```
+		role: The role granted by this permission.Valid values are:
+        	- owner
+        	- organizer
+        	- fileOrganizer
+        	- writer
+        	- commenter
+        	- reader
+
+        type: The type of the grantee. Valid values are:
+        	 - user
+        	 - group
+        	 - anyone  
+        	 When creating a permission, if type is user or group, you must provide an emailAddress for the user or group
+    - Headers
+       	- Authorization: \<access_token> (access_token in string format)
+
+    - Response
+    	- Status Code:200
+    	- Data(JSON)
+    	```
+		{
+			message: string
+		}
+		```
+	- Python Example
+		```
+		url = f"{baseURL}/permissions/permission"
+		try:
+			f = open("token.json", "r")
+			access_token = f.read()
+			f.close()
+		except:
+			print("Token not found")
+			return
+		#print("Access token is:",access_token)
+		headers = {'Authorization': access_token}
+		emails = ["email1@gmail.com","email2@gmail.com"]
+		payload = {
+			'file_id': file_id,
+			"role":"reader",
+			"type":"user",
+			"emails":emails
+		}
+		r = requests.post(url, json=payload,headers=headers)
+		print(r.json())
+		```
+
+- GET /v1/permissions/\<file_id>  
+	Endpoint to get the permissions of a file
+
+	- Headers
+		- Authorization: \<access_token> (access_token in string format)
+
+	- Response
+		- Status Code:200
+		- Data(JSON)
+		```
+		{
+			"Permissions":[
+				{
+					"emailAddress": string,
+  					"role": string,
+  					"type": string
+				}
+			]
+		}
+		```
+	- Python Example
+		```
+		url = f"{baseURL}/permissions/{file_id}"
+		try:
+			f = open("token.json", "r")
+			access_token = f.read()
+			f.close()
+		except:
+			print("Token not found")
+			return
+		headers = {'Authorization': access_token}
+		r = requests.get(url,headers=headers)
+		if r.status_code == 200:
+			permissions = r.json()['Permissions']
+			for permission in permissions:
+				print(json.dumps(permission,indent=2))
+		else:
+			print(r.json())	
+		```
