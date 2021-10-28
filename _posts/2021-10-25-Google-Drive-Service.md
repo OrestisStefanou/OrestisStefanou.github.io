@@ -310,11 +310,11 @@ Endpoint to add a permission to a file.A permission is the ability to share a fi
     - Response
 		- Status Code:200
 		- Data(JSON)
-    	```
-		{
-			message: string
-		}
-		```
+	    	```
+			{
+				message: string
+			}
+			```
 	- Python Example
 		```
 		url = f"{baseURL}/permissions/permission"
