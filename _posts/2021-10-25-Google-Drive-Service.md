@@ -305,11 +305,11 @@ Endpoint to add a permission to a file.A permission is the ability to share a fi
         - anyone  
         When creating a permission, if type is user or group, you must provide an emailAddress for the user or group
     - Headers
-    	- Authorization: \<access_token> (access_token in string format)
+		- Authorization: \<access_token> (access_token in string format)
 
     - Response
-    	- Status Code:200
-    	- Data(JSON)
+		- Status Code:200
+		- Data(JSON)
     	```
 		{
 			message: string
