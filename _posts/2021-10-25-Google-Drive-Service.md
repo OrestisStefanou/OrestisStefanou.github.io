@@ -5,7 +5,7 @@ show_date: true
 title: "Google Drive Service"
 date: 2021-10-25
 img: posts/20211025/Google-Drive.jpg
-tags: [saas, api]
+tags: [saas, api, golang]
 author: Stefanou Orestis
 description: "An api that works on top of google drive api to provide simpler endpoints for basic operations"
 ---
