@@ -4,8 +4,8 @@ description: 'My Projects' # this means to ignore newlines until "baseurl:"
 permalink: ':title:output_ext'
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://orestisstefanou.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-logo: "/assets/img/branding/logo.svg"
-logo-icon: "/assets/img/branding/logo.svg"
+logo: "/assets/img/branding/logo.jpg"
+logo-icon: "/assets/img/branding/logo.jpg"
 logo-icon-SEO: "/assets/img/branding/background.jpg" # must be a non SVG file
 
 # Night/Dark mode
