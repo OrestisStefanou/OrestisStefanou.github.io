@@ -12,23 +12,25 @@ description: "An API to fetch, categorise and aggregate bank account transaction
 Moneytoring is an api that provides functionality for users to link their bank accounts, see their transactions, categorize them with standard or custom categories and aggregate them
 
 ### Create an account
-Send a POST request to **/signup** endpoint with body(json)
 ```
-{
-    "username": string,
-    "email": string,
-    "password": string,
-}
+curl -X 'POST' \
+  'http://127.0.0.1:8000/signup' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": "ironman",
+  "email": "ironman@gmail.com",
+  "password": "jarvissendhelp"
+}'
 ```
 
 ### Get access token to provide in requests
-Send a POST request to **/token** endpoint with body(form-data)
-Set header 'Content-Type: application/x-www-form-urlencoded'
 ```
-{
-    "username": string,
-    "password": string,
-}
+curl -X 'POST' \
+  'http://127.0.0.1:8000/token' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -d 'grant_type=&username=ironman%40gmail.com&password=jarvissendhelp&scope=&client_id=&client_secret='
 ```
 In the response you will receive the access_token
 ```
@@ -41,10 +43,14 @@ In the response you will receive the access_token
 For the rest of the endpoints an access token should be provided in the headers
 -H 'Authorization: Bearer < access_token >'
 
-## How to link a bank account
-1. Send a GET request to **/institutions** endpoint with query parameter the country code of the bank you want to link.
-Example to get available banks in Cyprus
-GET /institutions?country_code=CY
+### How to link a bank account
+1. Example to get available banks in Cyprus
+```
+curl -X 'GET' \
+  'http://127.0.0.1:8000/institutions?country_code=CY' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access_token >'
+```
 
 Response
 ```
@@ -65,14 +71,17 @@ Response
   }
 ```
 
-Lets say we want to link our bank account of bank of Cyprus
-
-2. Send a POST request to **/bank_connections** endpoint with body(json)
+2. Lets say we want to create a connection with bank of Cyprus
 ```
-{
+curl -X 'POST' \
+  'http://127.0.0.1:8000/bank_connections' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access_token >' \
+  -H 'Content-Type: application/json' \
+  -d '{
   "institution_id": "BANKOFCYPRUS_BCYPCY2NXXX",
-  "redirect_uri": "some_url"    -> Where to redirect the user after they finish with the linking procedure
-}
+  "redirect_uri": "random_url.com"
+}'
 ```
 
 Response
@@ -88,11 +97,17 @@ Response
   "bank_accounts": []
 }
 ```
-User must open the "link" field if the response to start(and finish) the bank linking procedure
+User must open the "link" field of the response to start(and finish) the bank linking procedure
 
-Assuming that the user linked their account successfully we can then fetch the bank account ids
+3. Assuming that the user linked their account successfully we can then fetch the bank account ids
 
-3. Send a GET request to **/bank_connections** endpoints
+```
+curl -X 'GET' \
+  'http://127.0.0.1:8000/bank_connections' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access_token >'
+```
+
 Response
 ```
 [
@@ -120,11 +135,18 @@ Response
 ]
 ```
 
-## Fetch transactions
+### Fetch transactions
 
 Lets say we want to fetch the transactions of bank account with id "7e944232-bda9-40bc-b784-660c7ab5fe78"
 
-We send a GET request to **/account_transactions/7e944232-bda9-40bc-b784-660c7ab5fe78** endpoint. There are some optional query parameters here if we wish some filtering
+```
+curl -X 'GET' \
+  'http://127.0.0.1:8000/account_transactions/7e944232-bda9-40bc-b784-660c7ab5fe78' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access_token >'
+```
+
+There are some optional query parameters here if we wish some filtering
 
 - from_date: Return transactions that were booked after this date
 - to_date: Return transactions that were booked before this date
@@ -163,7 +185,127 @@ Response
 ]
 ```
 
-If we want to fetch the transactions of all our bank accounts for all institutions that we have linked:
-We send a GET request to **/account_transactions** endpoint. Same optional query parameters exist here as well
+To fetch the transactions of all our bank accounts for all institutions that we have linked:
 
-## Categorize transactions
+curl -X 'GET' \
+  'http://127.0.0.1:8000/account_transactions' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access_token >'
+
+Same optional query parameters exist here as well
+
+### Categorize transactions
+Let's say we want to set category=food for transaction with id 2022090401927908-1
+
+```
+curl -X 'PUT' \
+  'http://127.0.0.1:8000/account_transactions/2022090401927908-1/category?category=food&set_all=false' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access_token >'
+```
+
+By setting query parameter **set_all = True** all transactions with the same information will be categorised as food 
+
+To set custom category=Alderaan Coffe for transaction with id 2022090401927908-1
+
+```
+curl -X 'PUT' \
+  'http://127.0.0.1:8000/account_transactions/2022090401927908-1/custom_category?category=Alderaan%20Coffe&set_all=false' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access_token >'
+```
+
+By setting query parameter **set_all = True** all transactions with the same information will be categorised as food 
+
+
+### Aggregation
+1. To get total amount that we spent for a specific account
+
+```
+curl -X 'GET' \
+  'http://127.0.0.1:8000/account_transactions/7e944232-bda9-40bc-b784-660c7ab5fe78/total_spent' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access token >'
+```
+
+Response
+```
+{
+  "total_spent": -4050
+}
+```
+
+There are some optional query parameters here if we wish some filtering
+
+- from_date: Return transactions that were booked after this date
+- to_date: Return transactions that were booked before this date
+- category: Return transactions that are marked with this category
+- custom_category: Return transactions that are marked with this category
+
+2. To get total amount spent for all accounts
+
+```
+curl -X 'GET' \
+  'http://127.0.0.1:8000/transactions/total_spent' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access token >'
+```
+
+Response
+```
+{
+  "total_spent": -8055
+}
+```
+
+There are some optional query parameters here if we wish some filtering
+
+- from_date: Return transactions that were booked after this date
+- to_date: Return transactions that were booked before this date
+- category: Return transactions that are marked with this category
+- custom_category: Return transactions that are marked with this category
+
+3. To get total amount credited for a specific account
+```
+curl -X 'GET' \
+  'http://127.0.0.1:8000/account_transactions/7e944232-bda9-40bc-b784-660c7ab5fe78/total_credited' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access token >'
+```
+
+Response
+```
+{
+  "total_credited": 12150
+}
+```
+
+There are some optional query parameters here if we wish some filtering
+
+- from_date: Return transactions that were booked after this date
+- to_date: Return transactions that were booked before this date
+- category: Return transactions that are marked with this category
+- custom_category: Return transactions that are marked with this category
+
+4. To get total amount spent for all accounts
+
+```
+curl -X 'GET' \
+  'http://127.0.0.1:8000/transactions/total_credited' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer < access token >'
+```
+
+Response
+```
+{
+  "total_credited": 24165
+}
+```
+
+There are some optional query parameters here if we wish some filtering
+
+- from_date: Return transactions that were booked after this date
+- to_date: Return transactions that were booked before this date
+- category: Return transactions that are marked with this category
+- custom_category: Return transactions that are marked with this category
