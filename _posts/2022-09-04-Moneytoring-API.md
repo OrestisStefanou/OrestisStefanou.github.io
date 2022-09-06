@@ -11,6 +11,8 @@ description: "An API to fetch, categorise and aggregate bank account transaction
 ---
 Moneytoring is an api that provides functionality for users to link their bank accounts, see their transactions, categorize them with standard or custom categories and aggregate them
 
+## Source code: https://github.com/OrestisStefanou/moneytoring
+
 ### Create an account
 ```
 curl -X 'POST' \
