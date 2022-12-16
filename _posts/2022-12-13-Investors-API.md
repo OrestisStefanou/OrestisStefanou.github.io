@@ -27,6 +27,7 @@ At the moment the database is getting populated manually by me by running a scri
 ## GraphQL schema overview
 
 ### Root types
+```
 query: Query {
     topCompositeStocks(
         day: Int!
@@ -109,7 +110,9 @@ query: Query {
     ): [CompositeStockStockLeaderTechLeaderStockLeadersIndexStock!]!
 }
 
+```
 ### Object Types
+```
 type CompositeStock {
     compRating: Int!
     epsRating: Int!
@@ -201,3 +204,4 @@ type StockAppereancesCount {
     name: String!
     count: Int!
 }
+```
