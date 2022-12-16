@@ -14,3 +14,12 @@ As a software engineer who works at a company that provides a platform to invest
 ## System high level architecture
 
 <center><img src='./assets/img/posts/20221213/architecture.png'></center>
+
+
+## Data fetching high level flowchart
+
+<center><img src='./assets/img/posts/20221213/flowchart1.png'></center>
+
+
+## How is database getting populated with data
+At the moment the database is getting populated manually by me by running a script once a week to scrape the data from investors.com and store them in the database
