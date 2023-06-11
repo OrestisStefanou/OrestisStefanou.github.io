@@ -66,3 +66,365 @@ This is not the best user experience so I came up with a solution:
     - overall_rating -> A combination of the 4 ratings above, because of the impact of earnings and previous price performance on stock price, double weighting is given to both the Earnings per Share and the Relative Price Strength ratings. Normal weight is given to the Industry Group Relative Strength, SMR, and Accumulation/Distribution ratings.
 
     - vol_chg_pct -> Volume traded yesterday vs average daily volume last 50 days.
+
+## Stock Collections
+- Tech Leaders: Stock leaders in the technology industry.
+- REIT Leaders: Stock leaders in the real estate investment trust industry.
+- Dividend Leaders: Stocks with high dividend yield and dividend growth %.
+- Utility Leaders: Stock leaders in the utilities industry.
+- Top 200 stocks:  Top 200 stocks with the highest overall rating. 
+- EPS rating Leaders: Stocks with the highest eps rating.
+- Price Relative Strength Leaders: Stocks with the highest price relative strength  rating.
+- Stocks under heavy buying by institutions.
+- Stock under heavy selling by institutions.
+
+
+## Benefits for the users
+- Can get a sense of the direction of the market.
+- Identify highest and lowest performing industries.
+- Find top performing stocks in each sector.
+- Easy to understand metrics to compare a stock’s performance with the rest of the stocks.
+- Different ways to filter stocks either by collections or sectors.
+
+
+## Endpoints Documentation
+
+### Economic Indicators
+**GET /economic_indicators/{indicator}/time_series**
+indicator:
+- Treasury_Yield
+- Interest_Rate
+- Inflation
+- Unemployment
+
+Example response schema
+```
+{
+  "indicator": "Treasury_Yield",
+  "unit": "string",
+  "time_series": [
+    {
+      "value": 0,
+      "registered_date": "string",
+      "registered_date_ts": 0
+    }
+  ]
+}
+```
+
+### World Indices
+**GET /world_indices/{index}/time_series**
+index:
+- S%26P%20500 -> S&P 500
+- Dow%20Jones%20Industrial%20Average -> Dow Jones Industrial Average
+- NASDAQ%20Composite -> NASDAQ Composite
+- NYSE%20COMPOSITE -> NYSE Composite
+
+Example response schema
+```
+{
+  "index": "S&P 500",
+  "time_series": [
+    {
+      "open_price": 0,
+      "high_price": 0,
+      "low_price": 0,
+      "close_price": 0,
+      "volume": 0,
+      "registered_date": "string",
+      "registered_date_ts": 0
+    }
+  ]
+}
+```
+
+### Collections
+**GET /collections/dividend_leaders**
+Example response schema
+```
+[
+  {
+    "symbol": "string",
+    "name": "string",
+    "yield_pct": 0,
+    "dividend_growth_pct": 0
+  }
+]
+```
+
+**GET /collections/reit_leaders**
+Example response schema
+```
+[
+  {
+    "symbol": "string",
+    "name": "string",
+    "yield_pct": 0,
+    "dividend_growth_pct": 0
+  }
+]
+```
+
+**GET /collections/utility_leaders**
+Example response schema
+```
+[
+  {
+    "symbol": "string",
+    "name": "string",
+    "yield_pct": 0,
+    "dividend_growth_pct": 0
+  }
+]
+```
+
+**GET /collections/tech_leaders**
+Example response schema
+```
+[
+  {
+    "symbol": "string",
+    "name": "string",
+    "comp_rating": 0,
+    "eps_rating": 0,
+    "rs_rating": 0,
+    "annual_eps_change_pct": 0,
+    "last_qtr_eps_change_pct": 0,
+    "next_qtr_eps_change_pct": 0,
+    "last_qtr_sales_change_pct": 0,
+    "return_on_equity": "string"
+  }
+]
+```
+
+**GET /collections/top_200_overall_rated_stocks**
+Example response schema
+```
+[
+  {
+    "overall_rating": 0,
+    "eps_rating": 0,
+    "rs_rating": 0,
+    "name": "string",
+    "symbol": "string",
+    "fifty_two_wk_high": 0,
+    "closing_price": 0,
+    "vol_chg_pct": 0,
+    "acc_dis_rating": "string",
+    "smr_rating": "string",
+    "sector": "string"
+  }
+]
+```
+
+**GET /collections/eps_rating_leaders**
+Example response schema
+```
+[
+  {
+    "overall_rating": 0,
+    "eps_rating": 0,
+    "rs_rating": 0,
+    "name": "string",
+    "symbol": "string",
+    "fifty_two_wk_high": 0,
+    "closing_price": 0,
+    "vol_chg_pct": 0,
+    "acc_dis_rating": "string",
+    "smr_rating": "string",
+    "sector": "string"
+  }
+]
+```
+
+**GET /collections/price_strength_rating_leaders**
+Example response schema
+```
+[
+  {
+    "overall_rating": 0,
+    "eps_rating": 0,
+    "rs_rating": 0,
+    "name": "string",
+    "symbol": "string",
+    "fifty_two_wk_high": 0,
+    "closing_price": 0,
+    "vol_chg_pct": 0,
+    "acc_dis_rating": "string",
+    "smr_rating": "string",
+    "sector": "string"
+  }
+]
+```
+
+**GET /collections/stocks_under_heavy_buying**
+Example response schema
+```
+[
+  {
+    "overall_rating": 0,
+    "eps_rating": 0,
+    "rs_rating": 0,
+    "name": "string",
+    "symbol": "string",
+    "fifty_two_wk_high": 0,
+    "closing_price": 0,
+    "vol_chg_pct": 0,
+    "acc_dis_rating": "string",
+    "smr_rating": "string",
+    "sector": "string"
+  }
+]
+```
+
+**GET /collections/stocks_under_heavy_selling**
+Example response schema
+```
+[
+  {
+    "overall_rating": 0,
+    "eps_rating": 0,
+    "rs_rating": 0,
+    "name": "string",
+    "symbol": "string",
+    "fifty_two_wk_high": 0,
+    "closing_price": 0,
+    "vol_chg_pct": 0,
+    "acc_dis_rating": "string",
+    "smr_rating": "string",
+    "sector": "string"
+  }
+]
+```
+
+### Sectors
+**GET /sectors/{sector}/stocks**
+
+sector:
+- ENERGY
+- INSURANCE
+- COMPUTER
+- AGRICULTURE
+- AEROSPACE
+- METALS
+- FOOD_BEV
+- ELECTRONICS
+- APPAREL
+- OFFICE
+- MACHINE
+- RETAIL
+- ALCOHOL_TOB
+- CHEMICAL
+- BUSINESS SVC
+- MISC
+- AUTO
+- UTILITY
+- S&Ls
+- BANKS
+- MEDICAL
+- CONSUMER
+- MINING
+- TELECOM
+- CHIPS
+- MEDIA
+- TRANSPORT
+- BUILDING
+- LEISURE
+- REAL ESTATE
+- SOFTWARE
+- FINANCE
+- INTERNET
+
+Example response schema
+```
+[
+  {
+    "overall_rating": 0,
+    "eps_rating": 0,
+    "rs_rating": 0,
+    "name": "string",
+    "symbol": "string",
+    "fifty_two_wk_high": 0,
+    "closing_price": 0,
+    "vol_chg_pct": 0,
+    "acc_dis_rating": "string",
+    "smr_rating": "string",
+    "sector": "string"
+  }
+]
+```
+
+**GET /sectors/performance**
+Example response schema
+```
+[
+  {
+    "date": "string",
+    "sectors_performance": [
+      {
+        "sector": "ENERGY",
+        "daily_price_change_pct": 0,
+        "start_of_year_price_change_pct": 0
+      }
+    ]
+  }
+]
+```
+
+**GET /sectors/{sector}/performance**
+Example response schema
+```
+[
+  {
+    "date": "string",
+    "sector_performance": {
+      "sector": "ENERGY",
+      "daily_price_change_pct": 0,
+      "start_of_year_price_change_pct": 0
+    }
+  }
+]
+```
+
+### Stocks
+**GET /stocks/{symbol}/profile**
+Example response schema
+```
+{
+  "overall_rating": 0,
+  "eps_rating": 0,
+  "rs_rating": 0,
+  "name": "string",
+  "symbol": "string",
+  "fifty_two_wk_high": 0,
+  "closing_price": 0,
+  "vol_chg_pct": 0,
+  "acc_dis_rating": "string",
+  "smr_rating": "string",
+  "sector": "string"
+}
+```
+
+**GET /stocks/{symbol}/historical_performance**
+Example response schema
+```
+{
+  "symbol": "string",
+  "name": "string",
+  "sector": "ENERGY",
+  "historical_performance": [
+    {
+      "date": "string",
+      "performance": {
+        "overall_rating": 0,
+        "eps_rating": 0,
+        "rs_rating": 0,
+        "closing_price": 0,
+        "vol_chg_pct": 0,
+        "acc_dis_rating": "string",
+        "smr_rating": "string"
+      }
+    }
+  ]
+}
+```
