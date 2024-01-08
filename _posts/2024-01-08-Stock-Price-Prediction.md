@@ -5,7 +5,7 @@ show_date: true
 title: "Stock Price Prediction End to End"
 date: 2024-01-08
 img: posts/20240108/algorithmic-trading.png
-tags: [investing, stock-market, python]
+tags: [investing, stock-market, machine-learning]
 author: Stefanou Orestis
 description: "An end to end machine learning project to predict and serve stock price predictions"
 ---
@@ -227,11 +227,50 @@ for name, classifier in classifiers.items():
 
 ### Results
 **Random Forest Classifier**
-Overall Accuracy: 72.84%
-<br/> Normalized confusion matrix<br/>
+Overall Accuracy: 72.84% <br/> 
+Normalized confusion matrix<br/>
 
 | Label | Down | Up  |
 | :---  | :--: | --: |
 | Down  | 0.74 | 0.26|
 | Up    | 0.28 | 0.72|
 
+
+**XGBoost Classifier**
+Overall Accuracy: 63.61% <br/> 
+Normalized confusion matrix<br/>
+
+| Label | Down | Up  |
+| :---  | :--: | --: |
+| Down  | 0.70 | 0.30|
+| Up    | 0.41 | 0.59|
+
+
+**KNN Classifier**
+Overall Accuracy: 59.50% <br/> 
+Normalized confusion matrix<br/>
+
+| Label | Down | Up  |
+| :---  | :--: | --: |
+| Down  | 0.60 | 0.40|
+| Up    | 0.41 | 0.59|
+
+
+**MLP Classifier**
+Overall Accuracy: 53.37% <br/> 
+Normalized confusion matrix<br/>
+
+| Label | Down | Up  |
+| :---  | :--: | --: |
+| Down  | 0.45 | 0.55|
+| Up    | 0.36 | 0.64|
+
+
+**SVC**
+Overall Accuracy: 55.37% <br/> 
+Normalized confusion matrix<br/>
+
+| Label | Down | Up  |
+| :---  | :--: | --: |
+| Down  | 0.53 | 0.47|
+| Up    | 0.38 | 0.62|
