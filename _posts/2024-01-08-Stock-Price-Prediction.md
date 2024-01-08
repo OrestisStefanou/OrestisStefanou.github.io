@@ -82,9 +82,9 @@ In our case the target is binary value 0/1 with 0 meaning that the stock price w
 - Price to book ratio
 - Price to sales ratio
 
-The reason we are using arctan percentage change instead of plain percentage change is because we have cases like this one
-Q1 total revenue = 0
-Q2 total revenue = 1000000
+The reason we are using arctan percentage change instead of plain percentage change is because we have cases like this one <br/>
+Q1 total revenue = 0 <br/>
+Q2 total revenue = 1000000 <br/>
 In cases where any of the fields from the financial statements was zero we replaced it with a very small value(0.01) to be able to calculate the percentage change. In cases like this though the percentage change would be a huge number so we are using the arctan percentage for a better data distribution.
 
 The data above are stored in an sqlite table with name `price_prediction_dataset`. By running the code below we split our dataset to train and test set.
@@ -99,7 +99,7 @@ import pandas as pd
 def split_data_to_train_and_test(
     df: pd.DataFrame,
     cutoff_date: dt.datetime,
-    cutoff_date_column_name: str = "fiscal_date_ending"
+    cutoff_date_column_name: str
 ) -> Tuple[pd.DataFrame]:
     """
     Returns (train_set_df, test_set_df)
@@ -160,3 +160,77 @@ X_test = test_set.drop(cols_to_drop, axis=1)
 ```
 
 ## Modelling
+We will try algorithms from different families to find which one performs the best and more specifically these ones:
+- XGBoost
+- Random Forrest
+- KNN
+- Support Vector Machine
+- MLP
+
+
+```
+from sklearn.metrics import accuracy_score, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.ensemble import RandomForestClassifier
+import xgboost as xgb
+from sklearn.neural_network import MLPClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+import numpy as np
+from sklearn.preprocessing import (
+    OneHotEncoder,
+)
+from sklearn.pipeline import make_pipeline
+from sklearn.compose import make_column_transformer
+import pandas as pd
+
+
+classifiers = {
+    'RandomForest': RandomForestClassifier(),
+    'XGBoost': xgb.XGBClassifier(),
+    'MLP': MLPClassifier(),
+    'KNN': KNeighborsClassifier(),
+    'SVM': SVC()
+}
+
+column_transformer = make_column_transformer(
+    (
+        OneHotEncoder(), ['sector']
+    ),
+    remainder='passthrough'
+)
+
+# Loop through classifiers
+for name, classifier in classifiers.items():
+    classifier_pipeline = make_pipeline(column_transformer, classifier)
+    classifier_pipeline.fit(X_train, y_train)
+    y_pred = classifier_pipeline.predict(X_test)
+
+    # Evaluate performance
+    accuracy = accuracy_score(y_test, y_pred)
+    print(f"\nPerformance for {name}:")
+    print(f"Overall Accuracy: {accuracy:.2%}")
+
+    # Plot the confusion matrix
+    y_test_labels = [label_mapping[y] for y in y_test]
+    y_pred_labels = [label_mapping[y] for y in y_pred]
+    conf_matrix = confusion_matrix(y_test_labels, y_pred_labels, labels=labels, normalize='true')
+
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(conf_matrix, annot=True, fmt='f', cmap='Blues', xticklabels=labels, yticklabels=labels)
+    plt.title(f'Confusion Matrix - {name}')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.show()
+``` 
+
+### Results
+**Random Forest Classifier**
+Overall Accuracy: 72.84%
+<br/> Normalized confusion matrix<br/>
+| Label       | Down        | Up            |
+| :---        |    :----:   |          ---: |
+| Down        | 0.74        | 0.26          |
+| Up          | 0.28        | 0.72          |
+
