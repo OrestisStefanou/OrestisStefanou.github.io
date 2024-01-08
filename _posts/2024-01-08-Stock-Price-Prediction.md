@@ -86,3 +86,77 @@ The reason we are using arctan percentage change instead of plain percentage cha
 Q1 total revenue = 0
 Q2 total revenue = 1000000
 In cases where any of the fields from the financial statements was zero we replaced it with a very small value(0.01) to be able to calculate the percentage change. In cases like this though the percentage change would be a huge number so we are using the arctan percentage for a better data distribution.
+
+The data above are stored in an sqlite table with name `price_prediction_dataset`. By running the code below we split our dataset to train and test set.
+
+```
+import datetime as dt
+import sqlite3
+
+import numpy as np
+import pandas as pd
+
+def split_data_to_train_and_test(
+    df: pd.DataFrame,
+    cutoff_date: dt.datetime,
+    cutoff_date_column_name: str = "fiscal_date_ending"
+) -> Tuple[pd.DataFrame]:
+    """
+    Returns (train_set_df, test_set_df)
+    """
+    df['DateColumn'] = pd.to_datetime(df[cutoff_date_column_name])
+    # Split the data into train and test based on the cutoff date
+    train_set = df[df['DateColumn'] < cutoff_date].copy()
+    test_set = df[df['DateColumn'] >= cutoff_date].copy()
+
+    train_set.drop(['DateColumn',], axis=1, inplace=True)
+    test_set.drop(['DateColumn',], axis=1, inplace=True)
+    
+    train_set = train_set.reset_index(drop=True)
+    test_set = test_set.reset_index(drop=True)
+
+    return train_set, test_set 
+
+
+db_conn = sqlite3.connect('database.db')
+
+query = '''
+    SELECT * 
+    FROM price_prediction_dataset
+    WHERE DATE(Date) <= date('now', '-6 months')
+    ORDER BY DATE(Date)
+'''
+
+dataset = pd.read_sql(query, db_conn)
+dataset.dropna(inplace=True)
+
+# Create categorical target
+bins = [-float('inf'), 0, float('inf')]
+labels = ['down', 'up']
+label_mapping = {0: 'down', 1: 'up'}
+
+dataset['next_six_months_pct_change_range'] = pd.cut(
+    dataset['price_pct_change_next_six_months'],
+    bins=bins,
+    labels=[0, 1],
+    right=False
+)
+
+train_set, test_set = utils.split_data_to_train_and_test(
+    df=dataset,
+    cutoff_date=dt.datetime(2023,5,1),
+    cutoff_date_column_name='Date'
+)
+
+cols_to_drop = ['symbol', 'Date', 'price_pct_change_next_six_months', 'next_six_months_pct_change_range']
+target_col = 'next_six_months_pct_change_range'
+
+y_train = train_set[target_col]
+X_train = train_set.drop(cols_to_drop, axis=1)
+
+y_test = test_set[target_col]
+X_test = test_set.drop(cols_to_drop, axis=1)
+
+```
+
+## Modelling
