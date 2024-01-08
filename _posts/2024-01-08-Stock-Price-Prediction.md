@@ -274,3 +274,30 @@ Normalized confusion matrix<br/>
 | :---  | :--: | --: |
 | Down  | 0.53 | 0.47|
 | Up    | 0.38 | 0.62|
+
+
+From the results above we can see that Random Forest outperforms the rest of the algorithms so we choose this one for our predictions.
+### Feature Importance (Top 20)
+
+| Feature                                            | Importance          |
+| -------------------------------------------------- | -------------------- |
+| treasury_yield                                     | 0.069806             |
+| interest_rate                                      | 0.038903             |
+| sector_pct_change_last_six_months                  | 0.038497             |
+| sector_pct_change_last_month                       | 0.030899             |
+| sector_pct_change_last_three_months                | 0.029667             |
+| price_volatility_last_six_months                   | 0.027291             |
+| price_volatility_last_three_months                 | 0.025358             |
+| price_to_sales_ratio                               | 0.024609             |
+| price_to_book_ratio                                | 0.023293             |
+| price_volatility_last_month                        | 0.022188             |
+| price_pct_change_last_six_months                   | 0.022102             |
+| price_pct_change_last_month                        | 0.022063             |
+| pe_ratio                                           | 0.021414             |
+| price_pct_change_last_three_months                 | 0.021333             |
+| return_on_assets                                   | 0.019453             |
+| operating_profit_margin                            | 0.019330             |
+| cash_to_debt_ratio                                 | 0.019183             |
+| assets_to_liabilities_ratio                        | 0.018904             |
+| property_plant_equipment_arctan_pct_change         | 0.018851             |
+| revenue_per_share                                  | 0.018741             |
