@@ -229,8 +229,9 @@ for name, classifier in classifiers.items():
 **Random Forest Classifier**
 Overall Accuracy: 72.84%
 <br/> Normalized confusion matrix<br/>
-| Label       | Down        | Up            |
-| :---        |    :----:   |          ---: |
-| Down        | 0.74        | 0.26          |
-| Up          | 0.28        | 0.72          |
+
+| Label | Down | Up  |
+| :---  | :--: | --: |
+| Down  | 0.74 | 0.26|
+| Up    | 0.28 | 0.72|
 
