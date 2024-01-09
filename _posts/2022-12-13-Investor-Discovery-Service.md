@@ -9,13 +9,9 @@ tags: [investing, stock-market, python]
 author: Stefanou Orestis
 description: "A web service that provides market aggregation data"
 ---
-As a software engineer who works at a company that provides a platform to invest money in stocks I am eager to understand what kind of data we should provide to our clients to help them make better decisions. From my experience as a beginner retail investor and from the feeback that our users gave us I identified the problems below:
-- Users feel overwhelmed by the number of stocks that they can invest in.
-- Lack of data to help users narrow down their options.
-- No data to understand how the market is performing.
-- Insufficient data to understand how a stock is performing compared with the rest of the stocks.
 
-This is not the best user experience so I came up with a solution:
+Investor Discovery Service is a web api that provides market data to help any investor who wants to take data driven decisions. It provides data that help you compare the performance of a stock compared to the rest of the stocks, the financials of a stock and the state of the economy and the market in general. It also provides estimations of stocks prices in different timelines using machine learning.
+
 ## Provide market data on three levels
 1. The Big Picture
     1. Major indices performance data
@@ -66,6 +62,9 @@ This is not the best user experience so I came up with a solution:
     - overall_rating -> A combination of the 4 ratings above, because of the impact of earnings and previous price performance on stock price, double weighting is given to both the Earnings per Share and the Relative Price Strength ratings. Normal weight is given to the Industry Group Relative Strength, SMR, and Accumulation/Distribution ratings.
 
     - vol_chg_pct -> Volume traded yesterday vs average daily volume last 50 days.
+
+- Price estimations using machine learning
+  - Using the financials of a stock along with many other factors(sector, interest rates, treasury yields etc.) a machine learning model is trained that returns the probabilities of the price going up or down 3 months and 6 months from today. It also returns the factors that lead the model to these predictions so that the users can use it as an extra source of research instead of a black box.
 
 ## Stock Collections
 - Tech Leaders: Stock leaders in the technology industry.
@@ -426,5 +425,142 @@ Example response schema
       }
     }
   ]
+}
+```
+
+### Machine Learning
+**GET /price_predictions/fundamentals_models/six_months_prediction?symbol=MSFT**
+Example response
+```
+{
+  "prediction_probabilites": {
+    "up": 0.63,
+    "down": 0.37
+  },
+  "prediction_factors": {
+    "up": [
+      "Total revenue change quarter over quarter",
+      "Cost of services sold change quarter over quarter",
+      "Common stock shares outstanding change quarter over quarter",
+      "Operating cashflow change quarter over quarter",
+      "Total current liabilities change quarter over quarter",
+      "Operating income change quarter over quarter",
+      "Net proceeds from long-term debt and capital securities issuance change quarter over quarter",
+      "Earnings per share",
+      "Capital expenditure change quarter over quarter",
+      "Price to earnings ratio",
+      "Dividend payout change quarter over quarter",
+      "Return on equity",
+      "Total assets change quarter over quarter",
+      "Assets to liabilities ratio",
+      "Cash and Cash Equivalents change quarter over quarter",
+      "Total shareholder equity change quarter over quarter",
+      "Price to book ratio",
+      "Long term debt change quarter over quarter",
+      "Stock returns last 6 months",
+      "Stock Sector",
+      "Cashflow from financing change quarter over quarter",
+      "Treasury Yield",
+      "Payments for repurchase of equity change quarter over quarter",
+      "Total current assets change quarter over quarter",
+      "Stock Sector performance last 3 months",
+      "Cash to debt ratio",
+      "Property plant equipment change quarter over quarter",
+      "Return on assets",
+      "Revenue per share",
+      "Interest Rates"
+    ],
+    "down": [
+      "Net interest income change quaerter over quarter",
+      "Cashflow from investment change quarter over quarter",
+      "Stock price volatility last 1 month",
+      "Stock Sector performance last 6 months",
+      "Gross profit margin",
+      "Stock Sector performance last 1 month",
+      "Stock price volatility last 6 months",
+      "Current debt change quarter over quarter",
+      "Stock returns last 3 months",
+      "Total liabilities change quarter over quarter",
+      "Net income change quaerter over quarter",
+      "Operating profit margin",
+      "Stock price volatility last 3 months",
+      "Gross profit change quarter over quarter",
+      "Stock Sector",
+      "EBITDA change quarter over quarter",
+      "Price to sales ratio",
+      "Stock returns last 1 month",
+      "Inventory change quarter over quarter",
+      "Book value per share",
+      "Current net receivables change quarter over quarter"
+    ]
+  }
+}
+```
+
+**GET /price_predictions/fundamentals_models/three_months_prediction?symbol=MSFT**
+Example response
+```
+{
+  "prediction_probabilites": {
+    "up": 0.40,
+    "down": 0.60
+  },
+  "prediction_factors": {
+    "up": [
+      "Total revenue change quarter over quarter",
+      "Cost of services sold change quarter over quarter",
+      "Common stock shares outstanding change quarter over quarter",
+      "Operating cashflow change quarter over quarter",
+      "Total current liabilities change quarter over quarter",
+      "Operating income change quarter over quarter",
+      "Net proceeds from long-term debt and capital securities issuance change quarter over quarter",
+      "Earnings per share",
+      "Capital expenditure change quarter over quarter",
+      "Price to earnings ratio",
+      "Dividend payout change quarter over quarter",
+      "Return on equity",
+      "Total assets change quarter over quarter",
+      "Assets to liabilities ratio",
+      "Cash and Cash Equivalents change quarter over quarter",
+      "Total shareholder equity change quarter over quarter",
+      "Price to book ratio",
+      "Long term debt change quarter over quarter",
+      "Stock returns last 6 months",
+      "Stock Sector",
+      "Cashflow from financing change quarter over quarter",
+      "Treasury Yield",
+      "Payments for repurchase of equity change quarter over quarter",
+      "Total current assets change quarter over quarter",
+      "Stock Sector performance last 3 months",
+      "Cash to debt ratio",
+      "Property plant equipment change quarter over quarter",
+      "Return on assets",
+      "Revenue per share",
+      "Interest Rates"
+    ],
+    "down": [
+      "Net interest income change quaerter over quarter",
+      "Cashflow from investment change quarter over quarter",
+      "Stock price volatility last 1 month",
+      "Stock Sector performance last 6 months",
+      "Gross profit margin",
+      "Stock Sector performance last 1 month",
+      "Stock price volatility last 6 months",
+      "Current debt change quarter over quarter",
+      "Stock returns last 3 months",
+      "Total liabilities change quarter over quarter",
+      "Net income change quaerter over quarter",
+      "Operating profit margin",
+      "Stock price volatility last 3 months",
+      "Gross profit change quarter over quarter",
+      "Stock Sector",
+      "EBITDA change quarter over quarter",
+      "Price to sales ratio",
+      "Stock returns last 1 month",
+      "Inventory change quarter over quarter",
+      "Book value per share",
+      "Current net receivables change quarter over quarter"
+    ]
+  }
 }
 ```
