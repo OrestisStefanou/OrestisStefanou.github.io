@@ -20,7 +20,7 @@ Investor Discovery Service is a web api that provides market data to help any in
     1. Performance of each sector
     2. Top performing stocks from each sector
 3. Stocks
-    1. [Metrics that compare the performance of a stock with the rest of the stocks](#stock-data)
+    1. [Metrics that compare the performance of a stock with the rest of the stocks](#stock-performance-data)
     2. [Financials of a stock (income statements, balance sheets, cash flows)](#stock-financials)
     3. [Price estimations using machine learning](#machine-learning)
 
@@ -389,7 +389,7 @@ Example response schema
 ]
 ```
 
-### Stock Data
+### Stock Performance Data
 **GET /stocks/{symbol}/profile**
 Example response schema
 ```
