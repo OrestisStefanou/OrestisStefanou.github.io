@@ -14,7 +14,7 @@ Investor Discovery Service is a web api that provides market data to help any in
 
 ## Provide market data on three levels
 1. The Big Picture
-    1. [Major indices performance data](###world-indices)
+    1. [Major indices performance data](#world-indices)
     2. Economic Indicators data
 2. Sectors
     1. Performance of each sector
@@ -501,7 +501,6 @@ Example response
 }
 ```
 
-### Stock Financials
 **GET /price_predictions/fundamentals_models/three_months_prediction?symbol=MSFT**
 Example response
 ```
@@ -570,6 +569,7 @@ Example response
 }
 ```
 
+### Stock Financials
 **GET /stocks/{symbol}/financials**
 Example response schema
 ```
