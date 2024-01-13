@@ -12,15 +12,17 @@ description: "A web service that provides market aggregation data"
 
 Investor Discovery Service is a web api that provides market data to help any investor who wants to take data driven decisions. It provides data that help you compare the performance of a stock compared to the rest of the stocks, the financials of a stock and the state of the economy and the market in general. It also provides estimations of stocks prices in different timelines using machine learning.
 
-## Provide market data on three levels
+## Provide market data on three levels(###world-indices)
 1. The Big Picture
-    1. Major indices performance data
+    1. [Major indices performance data]
     2. Economic Indicators data
 2. Sectors
     1. Performance of each sector
     2. Top performing stocks from each sector
 3. Stocks
     1. Metrics that compare the performance of a stock with the rest of the stocks
+    2. Financials of a stock (income statements, balance sheets, cash flows)
+    3. Price estimations using machine learning
 
 ## The Big Picture
 - Major indices performance
@@ -84,6 +86,8 @@ Investor Discovery Service is a web api that provides market data to help any in
 - Find top performing stocks in each sector.
 - Easy to understand metrics to compare a stock’s performance with the rest of the stocks.
 - Different ways to filter stocks either by collections or sectors.
+- Leverage machine learning for price estimations
+- Analyze the financials of a stock for a depth fundamental analysis
 
 
 ## Endpoints Documentation
@@ -497,6 +501,7 @@ Example response
 }
 ```
 
+### Stock Financials
 **GET /price_predictions/fundamentals_models/three_months_prediction?symbol=MSFT**
 Example response
 ```
@@ -562,5 +567,117 @@ Example response
       "Current net receivables change quarter over quarter"
     ]
   }
+}
+```
+
+**GET /stocks/{symbol}/financials**
+Example response schema
+```
+{
+  "balance_sheets": [
+    {
+      "fiscal_date_ending": "string",
+      "reported_currency": "string",
+      "total_assets": 0,
+      "total_current_assets": 0,
+      "cash_and_cash_equivalents_at_carrying_value": 0,
+      "cash_and_short_term_investments": 0,
+      "inventory": 0,
+      "current_net_receivables": 0,
+      "total_non_current_assets": 0,
+      "property_plant_equipment": 0,
+      "accumulated_depreciation_amortization_ppe": 0,
+      "intangible_assets": 0,
+      "intangible_assets_excluding_goodwill": 0,
+      "goodwill": 0,
+      "investments": 0,
+      "long_term_investments": 0,
+      "short_term_investments": 0,
+      "other_current_assets": 0,
+      "other_non_current_assets": 0,
+      "total_liabilities": 0,
+      "total_current_liabilities": 0,
+      "current_accounts_payable": 0,
+      "deferred_revenue": 0,
+      "current_debt": 0,
+      "short_term_debt": 0,
+      "total_non_current_liabilities": 0,
+      "capital_lease_obligations": 0,
+      "long_term_debt": 0,
+      "current_long_term_debt": 0,
+      "long_term_debt_noncurrent": 0,
+      "short_long_term_debt_total": 0,
+      "other_current_liabilities": 0,
+      "other_non_current_liabilities": 0,
+      "total_shareholder_equity": 0,
+      "treasury_stock": 0,
+      "retained_earnings": 0,
+      "common_stock": 0,
+      "common_stock_shares_outstanding": 0
+    }
+  ],
+  "income_statements": [
+    {
+      "fiscal_date_ending": "string",
+      "reported_currency": "string",
+      "gross_profit": 0,
+      "total_revenue": 0,
+      "cost_of_revenue": 0,
+      "cost_of_goods_and_services_sold": 0,
+      "operating_income": 0,
+      "selling_general_and_administrative": 0,
+      "research_and_development": 0,
+      "operating_expenses": 0,
+      "investment_income_net": 0,
+      "net_interest_income": 0,
+      "interest_income": 0,
+      "interest_expense": 0,
+      "non_interest_income": 0,
+      "other_non_operating_income": 0,
+      "depreciation": 0,
+      "depreciation_and_amortization": 0,
+      "income_before_tax": 0,
+      "income_tax_expense": 0,
+      "interest_and_debt_expense": 0,
+      "net_income_from_continuing_operations": 0,
+      "comprehensive_income_net_of_tax": 0,
+      "ebit": 0,
+      "ebitda": 0,
+      "net_income": 0
+    }
+  ],
+  "cash_flows": [
+    {
+      "fiscal_date_ending": "string",
+      "reported_currency": "string",
+      "payments_for_operating_activities": 0,
+      "operating_cashflow": 0,
+      "proceeds_from_operating_activities": 0,
+      "change_in_operating_liabilities": 0,
+      "change_in_operating_assets": 0,
+      "depreciation_depletion_and_amortization": 0,
+      "capital_expenditures": 0,
+      "change_in_receivables": 0,
+      "change_in_inventory": 0,
+      "profit_loss": 0,
+      "cashflow_from_investment": 0,
+      "cashflow_from_financing": 0,
+      "proceeds_from_repayments_of_short_term_debt": 0,
+      "payments_for_repurchase_of_common_stock": 0,
+      "payments_for_repurchase_of_equity": 0,
+      "payments_for_repurchase_of_preferred_stock": 0,
+      "dividend_payout": 0,
+      "dividend_payout_common_stock": 0,
+      "dividend_payout_preferred_stock": 0,
+      "proceeds_from_issuance_of_common_stock": 0,
+      "proceeds_from_issuance_of_long_term_debt_and_capital_securities_net": 0,
+      "proceeds_from_issuance_of_preferred_stock": 0,
+      "proceeds_from_repurchase_of_equity": 0,
+      "proceeds_from_sale_of_treasury_stock": 0,
+      "change_in_cash_and_cash_equivalents": 0,
+      "change_in_exchange_rate": 0,
+      "net_income": 0
+    }
+  ]
 }
 ```
