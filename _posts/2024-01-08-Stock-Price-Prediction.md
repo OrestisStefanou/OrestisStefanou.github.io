@@ -28,7 +28,7 @@ Our dataset should have the format below
 |------|-----------|-----------|-----------|--------|
 |      |           |           |           |        |
 
-In our case the target is binary value 0/1 with 0 meaning that the stock price will be lower six months from now and 1 meaning higher. The features that we will use are the ones below.
+In our case the target is binary value 0/1 with 0 meaning that the stock price will be lower six months from now and 1 meaning higher. In the dataset we have multiple rows with the same symbol each with different dates. The date column is used to split the dataset to train and test set and then it's dropped. The features that we will use are the ones below.
 - Date (This will only be used to split our dataset in training and test set)
 - Stock Sector
 - Interest Rate
@@ -135,6 +135,7 @@ bins = [-float('inf'), 0, float('inf')]
 labels = ['down', 'up']
 label_mapping = {0: 'down', 1: 'up'}
 
+# Create the target column
 dataset['next_six_months_pct_change_range'] = pd.cut(
     dataset['price_pct_change_next_six_months'],
     bins=bins,
