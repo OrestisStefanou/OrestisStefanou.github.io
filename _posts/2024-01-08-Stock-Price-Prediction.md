@@ -89,7 +89,7 @@ In cases where any of the fields from the financial statements was zero we repla
 
 The data above are stored in an sqlite table with name `price_prediction_dataset`. By running the code below we split our dataset to train and test set.
 
-```
+```python
 import datetime as dt
 import sqlite3
 
@@ -169,7 +169,7 @@ We will try algorithms from different families to find which one performs the be
 - MLP
 
 
-```
+```python
 from sklearn.metrics import accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -307,7 +307,7 @@ From the results above we can see that Random Forest outperforms the rest of the
 ## Store the model
 We store the model to use it later in our microservice
 
-```
+```python
 import joblib
 
 joblib.dump(rf_six_months_classifier, 'rf_six_months_prediction_model.joblib')
@@ -319,7 +319,7 @@ Now that we have our random forest stored we will develop a web microservice usi
 ## Predictor Class
 The first step is to create a wrapper on top of our machine learning model.
 
-```
+```python
 import datetime as dt
 from typing import Dict, List, Set, Any, Optional
 import joblib
@@ -515,7 +515,7 @@ There is a lot happening above so let's break it down
 
 
 ## FastAPI
-```
+```python
 from http import HTTPStatus
 
 from fastapi import FastAPI

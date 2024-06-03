@@ -248,4 +248,4 @@ The deployment pipeline will take as parameters the symbol of the cryptocurrency
 3. Find best performing model and if it passes the performance thresholds store it in model registry.
 
 We will use MLFlow for experiment tracking and model deployment. A very high level of the deployment pipeline flow is shown in the flowchart below
-<center><img src='.assets/img/posts/20240603/DeploymentPipelineFlowchart.drawio.png'></center>
+<center><img src='./assets/img/posts/20240603/DeploymentPipelineFlowchart.drawio.png'></center>
