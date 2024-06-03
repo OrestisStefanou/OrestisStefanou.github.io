@@ -49,7 +49,7 @@ The machine learning models will be trained with various technical indicators th
 
 Below is the code that will be used to fetch the data from Alpha Vantage and to perform feature engineering to create new features from the features above.
 
-```
+```python
 import pandas as pd
 import httpx
 
@@ -242,3 +242,10 @@ class DataGenerator:
 ```
 
 ### Deployment Pipeline
+The deployment pipeline will take as parameters the symbol of the cryptocurrency and the trend type(uptrend/downtrend). The pipeline is broken down into three tasks
+1. Split the dataset into train and test set.
+2. Train various machine learning models.
+3. Find best performing model and if it passes the performance thresholds store it in model registry.
+
+We will use MLFlow for experiment tracking and model deployment. A very high level of the deployment pipeline flow is shown in the flowchart below
+<center><img src='.assets/img/posts/20240603/DeploymentPipelineFlowchart.drawio.png'></center>
