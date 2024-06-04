@@ -21,6 +21,10 @@ description: "How to use MLFlow to manage end to end machine learning workflows 
     - [Train models](#train-models)
     - [Register best performing model](#register-best-performing-model)
     - [Feature importance](#feature-importance)
+- [Batch Predictions](#batch-predictions)
+    - [Deployed model class](#deployed-model-class)
+    - [Model registry class](#model-registry-class)
+    - [Batch predict class](#batch-predict-class)
 
 ## Project Goal
 The goal of the project is to be able to predict the price movement of the 20 most established cryptocurrencies in the next 10 days and more specifically if the 10 day moving average will be at least 5% higher(in this case we buy) or lower(in this case we sell) 10 days from the time of the prediction.
@@ -668,3 +672,179 @@ class ModelExplainer:
 
         return feature_importance_dict
 ```
+
+And lastly the run method
+```python
+    def run(self):
+        self.create_train_test_sets()
+        classifiers = self.train_models()
+        self.register_best_performing_model(classifiers)
+```
+
+### Batch Predictions
+A high level flowchart of batch predictions.
+<center><img src='./assets/img/posts/20240603/CryptoBatchPredictions.drawio.png'></center>
+
+We start by defining the ModelRegistry and DeployedModel classes which are an abstraction on top of MLFlow model registry and registered model.
+
+##### Deployed Model Class
+```python
+import mlflow
+from mlflow.entities.model_registry import RegisteredModel
+import pandas as pd
+
+from database.db import Database
+from deployment.deployment_pipeline import TrendType
+from deep_learning.neural_net import NeuralNet
+from model_registry.model_tags import ModelTags
+import settings
+
+class DeployedModel:
+    def __init__(self, model: RegisteredModel) -> None:
+        self.model_name = model.name
+        self.model_version = model.latest_versions[0].version
+        self.tags: ModelTags = ModelTags(**model.latest_versions[0].tags)
+        self.classified_trend = self.tags.classified_trend
+        self.symbol = self.tags.symbol
+        self.classifier_name = self.tags.classifier
+
+        model_uri = f'models:/{self.model_name}/{self.model_version}'
+        if self.classifier_name == 'NeuralNet':
+            self.model = NeuralNet(
+                model=mlflow.tensorflow.load_model(model_uri=model_uri)
+            )
+        else:
+            self.model = mlflow.sklearn.load_model(model_uri=model_uri)
+    
+    def predict(self, model_input: pd.DataFrame, store_in_db: bool = True) -> float:
+        """
+        Returns the prediction probabilities for the positive class
+
+        Params:
+        - model_input: The input that the deployed model expects 
+        """
+        if self.classifier_name == 'RidgeClassifier':
+            prediction =  self.model.predict(model_input)[0]
+        else:
+            prediction =  self.model.predict_proba(model_input)[0][1]        
+
+        if store_in_db:
+            self._store_predictions(prediction_prob=float(prediction), model_input=model_input.to_dict('records'))
+        
+        return prediction
+
+    def _store_predictions(self, prediction_prob: float, model_input: dict) -> None:
+        target_pct = self.tags.target_pct
+        if target_pct is None:
+            if self.classified_trend == TrendType.UPTREND.value:
+                target_pct = settings.target_uptrend_pct
+            else:
+                target_pct = settings.target_downtrend_pct
+
+        prediction_window_days = self.tags.prediction_window_days
+        if prediction_window_days is None:
+            prediction_window_days = settings.prediction_window_days
+
+        Database().store_predictions(
+            symbol=self.symbol,
+            model_name=self.model_name,
+            model_version=self.model_version,
+            prediction_prob=prediction_prob,
+            prediction_input=model_input,
+            target_pct=target_pct,
+            prediction_window_days=prediction_window_days
+        )
+```
+
+##### Model Registry Class
+```python
+import mlflow
+
+import settings
+from model_registry.deployed_model import DeployedModel
+from deployment.deployment_pipeline import TrendType
+
+
+class ModelRegistry:
+    def __init__(self) -> None:
+        self.mlflow_client = mlflow.MlflowClient(tracking_uri=settings.tracking_uri)
+        mlflow.set_tracking_uri(settings.tracking_uri)
+
+    def get_deployed_models(
+        self,
+        trend_type: TrendType = None,
+        symbols: list[str] = None
+    ) -> list[DeployedModel]:
+        deployed_models = []
+
+        for model in self.mlflow_client.search_registered_models():
+            deployed_model = DeployedModel(model)
+
+            if symbols and deployed_model.symbol not in symbols:
+                continue
+
+            if trend_type and deployed_model.classified_trend != trend_type.value:
+                continue
+            
+            deployed_models.append(deployed_model)
+        
+        return deployed_models
+```
+
+##### Batch Predict Class
+```python
+from dataclasses import dataclass
+import time
+
+import mlflow
+
+from data.data_generator import DataGenerator
+from deployment.deployment_pipeline import TrendType
+from model_registry.model_tags import ModelTags
+from model_registry.model_registry import ModelRegistry
+import settings
+
+
+@dataclass
+class Prediction:
+    symbol: str
+    prediction: str
+    tags: ModelTags
+
+
+class BatchPredictions:
+    def __init__(
+        self,
+        trend_type: TrendType,
+        symbols: list[str] = None,
+    ) -> None:
+        self.trend_type = trend_type
+        self.mlflow_client = mlflow.MlflowClient(tracking_uri=settings.tracking_uri)
+        self.predictions: list[Prediction] = []
+        self.symbols = symbols
+        mlflow.set_tracking_uri(settings.tracking_uri)
+
+    def run(self, store_in_db: bool = True) -> list[Prediction]:
+        count = 0
+        # Get all registered models
+        model_registry = ModelRegistry()
+        for deployed_model in model_registry.get_deployed_models(self.trend_type, self.symbols):
+            prediction_input = DataGenerator(deployed_model.symbol).get_prediction_input()
+            count += 1
+
+            self.predictions.append(
+                Prediction(
+                    symbol=deployed_model.symbol,
+                    prediction=deployed_model.predict(prediction_input, store_in_db),
+                    tags=deployed_model.tags,
+                )
+            )
+
+            if count == 5:
+                time.sleep(65)  # Provider limitation
+                count = 0
+
+        return self.predictions
+```
+
+The class takes as optional parameters the trend_type and a list of symbols in case we want to narrow down the predictions. In case we don't pass anything we will get predictions from all the models in the model registry.
