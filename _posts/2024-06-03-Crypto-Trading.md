@@ -28,7 +28,9 @@ description: "How to use MLFlow to manage end to end machine learning workflows 
 - [Serve Predictions](#predictions-serving)
     - [Api schema](#schema)
     - [Endpoints](#endpoints)
-
+- [Putting it all together](#putting-it-all-together)
+    - [Experiment Tracking](#experiment-tracking)
+    - [Model Registry](#model-registry)
 ## Project Goal
 The goal of the project is to be able to predict the price movement of the 20 most established cryptocurrencies in the next 10 days and more specifically if the 10 day moving average will be at least 5% higher(in this case we buy) or lower(in this case we sell) 10 days from the time of the prediction.
 
@@ -942,3 +944,61 @@ async def get_prediction(symbol: str, trend_type: TrendType) -> schema.Predictio
         trend_type=batch_predictions[0].tags.classified_trend
     )
 ```
+
+### Putting it all together
+First we have to deploy some models. To do that we create a deploy models script that will take as command line argument the trend type and it for each cryptocurrency it will run the deployment pipeline.
+
+```python
+import logging
+import time
+import warnings
+import sys
+
+import settings
+from deployment.deployment_pipeline import DeploymentPipeline, TrendType
+
+logging.basicConfig(level=logging.INFO)
+
+# Filter out the specific warning
+warnings.filterwarnings("ignore", category=UserWarning)
+
+
+if __name__ == '__main__':
+    count = 0
+    trend_type = sys.argv[1]
+    for crypto_symbol in settings.symbols:
+        logging.info(f"Running deployment pipeline for {crypto_symbol}")
+        try:
+            pipeline = DeploymentPipeline(symbol=crypto_symbol, trend_type=TrendType(trend_type))
+            pipeline.run()
+            count += 1
+        except Exception as e:
+            logging.error(f"Error running deployment pipeline for {crypto_symbol}: {e}")
+
+        if count == 5:
+            time.sleep(65)  # Provider requests limitation is 30 requests per minute
+            count = 0
+```
+
+First we have to start the MLFlow server
+```bash
+mlflow server --host 127.0.0.1 --port 8080
+```
+
+Then we run the deploy models script with uptrend as command line argument
+```bash
+python -m deployment.deploy_models uptrend
+```
+
+##### Experiment tracking
+It's time to see power of experiment tracking with MLFlow. By visiting http://127.0.0.1:8080 on our browser can see our experiments
+<center><img src='./assets/img/posts/20240603/MLFlow_experiments.png'></center>
+
+We can see that we have one experiment per symbol and by choosing one of them we can see the runs of the experiment. In our case we have one run per algorithm we tried and we can see that we have charts that show the performance metrics that we tracked for each algorithm.
+
+##### Model Registry
+By going on the models section we can see the models that are stored in Model Registry
+<center><img src='./assets/img/posts/20240603/MLFlow_Models.png'></center>
+
+By choosing one of them we can we get all the information we stored about the model
+<center><img src='./assets/img/posts/20240603/MLFlow_RegisteredModel.png'></center>
