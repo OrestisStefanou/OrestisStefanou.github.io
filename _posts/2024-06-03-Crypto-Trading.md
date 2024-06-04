@@ -32,6 +32,8 @@ description: "How to use MLFlow to manage end to end machine learning workflows 
     - [Experiment Tracking](#experiment-tracking)
     - [Model Registry](#model-registry)
     - [Batch Predictions](#running-batch-predictions)
+    - [Serving the predictions](#getting-predictions-from-the-web-service)
+
 ## Project Goal
 The goal of the project is to be able to predict the price movement of the 20 most established cryptocurrencies in the next 10 days and more specifically if the 10 day moving average will be at least 5% higher(in this case we buy) or lower(in this case we sell) 10 days from the time of the prediction.
 
@@ -1036,4 +1038,144 @@ Prediction(symbol='BCH', prediction=0.5242774257331716, tags=ModelTags(positive_
 --------------------------
 Prediction(symbol='GRT', prediction=0, tags=ModelTags(positive_accuracy='0.8095238095238095', negative_accuracy='0.7777777777777778', overall_score='0.7493600668337511', accuracy='0.7894736842105263', precision='0.68', symbol='GRT', classifier='RidgeClassifier', classified_trend='uptrend', target_pct='0.05', prediction_window_days='10', feature_names="['7_day_ADX', 'AroonDown', 'AroonUp', 'MACD', 'MACD_Signal', 'MACD_Hist', '7_day_RSI', 'SlowK', 'SlowD', '7_day_MFI', '7_day_DX', '7_day_TRIX', 'PPO', 'OBV_pct_change', 'AD_pct_change', 'BBANDS_distance_pct', '2_day_SMA_10_day_SMA_pct_diff', '2_day_SMA_20_day_SMA_pct_diff', '10_day_SMA_20_day_SMA_pct_diff']", feature_importance="{'7_day_ADX': -0.004653367573063757, 'AroonDown': 0.00543810871267663, 'AroonUp': 0.01081495407838227, 'MACD': -0.00043034328831368453, 'MACD_Signal': 0.0007199178505146046, 'MACD_Hist': 6.171883375290897e-05, '7_day_RSI': 0.021678857731158806, 'SlowK': 0.025011955969490348, 'SlowD': -0.008690773448199672, '7_day_MFI': -0.006178877454886704, '7_day_DX': 0.0023309299936438866, '7_day_TRIX': -0.015204482187342777, 'PPO': 0.04873721704289985, 'OBV_pct_change': 0.00015699279263542158, 'AD_pct_change': -8.033011573586306e-05, 'BBANDS_distance_pct': -0.00245956447445686, '2_day_SMA_10_day_SMA_pct_diff': 0.003682598406320119, '2_day_SMA_20_day_SMA_pct_diff': 0.0029241021973484007, '10_day_SMA_20_day_SMA_pct_diff': 0.014736876161246266}"))
 --------------------------
+```
+
+##### Getting predictions from the web service
+First we have to spin up the fast api web service
+```bash
+uvicorn api.main:app
+INFO:     Started server process [3407]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+First we make a request to get the available models
+```bash
+curl -X 'GET' \
+  'http://127.0.0.1:8000/models' \
+  -H 'accept: application/json'
+```
+And the reponse we get
+```json
+[
+  {
+    "symbol": "AAVE",
+    "trend_type": "uptrend",
+    "feature_importance": {
+      "7_day_ADX": -0.00797688883261002,
+      "AroonDown": -0.0022145703244972445,
+      "AroonUp": -0.019396860838998106,
+      "MACD": 0.0020402320649134742,
+      "MACD_Signal": 0.0013625120958178946,
+      "MACD_Hist": -0.00046911929490799515,
+      "7_day_RSI": -0.02801970294924038,
+      "SlowK": -0.005147482905781799,
+      "SlowD": -0.0008999146193456065,
+      "7_day_MFI": -0.0002451013774450789,
+      "7_day_DX": -0.0038788266259655287,
+      "7_day_TRIX": -0.054302946886459556,
+      "PPO": 0.0040880260641255875,
+      "OBV_pct_change": 0.002526268853129514,
+      "AD_pct_change": -0.0025933136757249984,
+      "BBANDS_distance_pct": 0.000040658247198773904,
+      "2_day_SMA_10_day_SMA_pct_diff": -0.0023438896462991995,
+      "2_day_SMA_20_day_SMA_pct_diff": -0.00707757311791206,
+      "10_day_SMA_20_day_SMA_pct_diff": -0.00014667864379082877
+    },
+    "performance_metrics": {
+      "positive_accuracy": 0.5833333333333334,
+      "negative_accuracy": 0.9347826086956522,
+      "overall_score": 0.7281634182908546,
+      "accuracy": 0.8620689655172413,
+      "precision": 0.7
+    },
+    "target_pct": 0.05,
+    "prediction_window_days": 10
+  },
+  {
+    "symbol": "AVAX",
+    "trend_type": "uptrend",
+    "feature_importance": {
+      "7_day_ADX": 0.007445748451087743,
+      "AroonDown": -0.03420282474310941,
+      "AroonUp": -0.006806365934893178,
+      "MACD": 0.009851930090292742,
+      "MACD_Signal": 0.01872037634072151,
+      "MACD_Hist": -0.00038134231684378337,
+      "7_day_RSI": -0.00447165026146559,
+      "SlowK": 0.0057498121581468515,
+      "SlowD": -0.012869322604550324,
+      "7_day_MFI": 0.01109616869923093,
+      "7_day_DX": 0.008746157567726159,
+      "7_day_TRIX": -0.09396269471943668,
+      "PPO": -0.022627486901161814,
+      "OBV_pct_change": -0.006502963995860393,
+      "AD_pct_change": -0.007990124555058938,
+      "BBANDS_distance_pct": 0.005792011465134371,
+      "2_day_SMA_10_day_SMA_pct_diff": -0.037850639901746794,
+      "2_day_SMA_20_day_SMA_pct_diff": 0.0754213434764908,
+      "10_day_SMA_20_day_SMA_pct_diff": 0.04341329625672436
+    },
+    "performance_metrics": {
+      "positive_accuracy": 0.5555555555555556,
+      "negative_accuracy": 0.8936170212765957,
+      "overall_score": 0.6293186423505572,
+      "accuracy": 0.8392857142857143,
+      "precision": 0.5
+    },
+    "target_pct": 0.05,
+    "prediction_window_days": 10
+  },
+  {
+    "symbol": "SOL",
+    "trend_type": "uptrend",
+    "feature_importance": {
+      "7_day_ADX": 0.015000153306740257,
+      "AroonDown": 0.02451770026337218,
+      "AroonUp": 0.03236303460495203,
+      "MACD": 0.002078305953432907,
+      "MACD_Signal": 0.0029395530612216997,
+      "MACD_Hist": -0.000425158534885004,
+      "7_day_RSI": -0.0024308885089579656,
+      "SlowK": 0.0179528613798285,
+      "SlowD": 0.01347377938915217,
+      "7_day_MFI": 0.021630318557917718,
+      "7_day_DX": 0.010587214295264465,
+      "7_day_TRIX": 0.0652940677416978,
+      "PPO": 0.003218341366393632,
+      "OBV_pct_change": 0.004427564807075552,
+      "AD_pct_change": 0.004997725522612719,
+      "BBANDS_distance_pct": 0.006859544173414918,
+      "2_day_SMA_10_day_SMA_pct_diff": 0.0007349004310821411,
+      "2_day_SMA_20_day_SMA_pct_diff": 0.00025054599758185856,
+      "10_day_SMA_20_day_SMA_pct_diff": 0.0024395271011933245
+    },
+    "performance_metrics": {
+      "positive_accuracy": 0.8333333333333334,
+      "negative_accuracy": 0.6756756756756757,
+      "overall_score": 0.6800846300846302,
+      "accuracy": 0.7272727272727273,
+      "precision": 0.5555555555555556
+    },
+    "target_pct": 0.05,
+    "prediction_window_days": 10
+  }
+]
+```
+
+And now to get a prediction
+```bash
+curl -X 'GET' \
+  'http://127.0.0.1:8000/prediction?symbol=SOL&trend_type=uptrend' \
+  -H 'accept: application/json'
+```
+
+And the response
+```json
+{
+  "prediction_probabilities": 0.4,
+  "symbol": "SOL",
+  "trend_type": "uptrend"
+}
 ```
