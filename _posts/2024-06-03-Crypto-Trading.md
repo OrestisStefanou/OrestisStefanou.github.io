@@ -164,7 +164,7 @@ class DataGenerator:
         return pd.DataFrame(time_series)
 
     def _get_crypto_daily_time_series(self, market: str = 'USD') -> pd.DataFrame:
-        json_response = httpx.get(f'https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol={self.symbol}&market={market}&apikey=KNPL6J9N740SLRRG').json()
+        json_response = httpx.get(f'https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol={self.symbol}&market={market}&apikey={settings.apikey}').json()
         time_series = []
 
         for date, data in json_response["Time Series (Digital Currency Daily)"].items():
