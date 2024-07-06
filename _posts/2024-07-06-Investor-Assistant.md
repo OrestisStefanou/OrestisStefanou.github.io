@@ -18,6 +18,9 @@ description: "How to use langchain to create a stock investor assistant chatbot"
     - [Dynamic few-shot examples](#dynamic-few-shot-examples)
     - [System prefix](#system-prefix)
     - [Full prompt](#full-prompt)
+- [Investor Agent class](#investor-agent-class)
+    - [Conversation History](#conversation-history)
+
 
 ## Project Goal
 The goal of the project is to build a question/answering system over an SQL database that contains various financial data. We will also expose this chatbot through a web api so that multiple users can use it.
@@ -552,4 +555,81 @@ full_prompt = ChatPromptTemplate.from_messages(
         MessagesPlaceholder(variable_name="messages"),
     ]
 )
+```
+
+## Investor Agent Class
+Now that we have finished with the prompt we can create the sql agent using the `create_sql_agent` function that comes with langchain. We will create an abstraction layer on top of the sql agent that will be used later in the web api
+
+```python
+from langchain_community.utilities import SQLDatabase
+from langchain_openai import ChatOpenAI
+from langchain_community.agent_toolkits import create_sql_agent
+from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
+from langchain_community.chat_message_histories import SQLChatMessageHistory
+from langchain_core.messages.base import BaseMessage
+
+from app import settings
+from analytics.chatbot.prompt import (
+    full_prompt,
+    context
+)
+
+class InvestorAgent:
+    def __init__(
+        self,
+        temperature: float = 0.4,
+        model: str = "gpt-3.5-turbo-0125"
+    ) -> None:
+        self._llm = ChatOpenAI(
+            model=model,
+            temperature=temperature, 
+            openai_api_key=settings.openai_key
+        )
+        self._stock_db = SQLDatabase.from_uri(f"sqlite:///{settings.db_path}")
+        self._sql_agent = create_sql_agent(
+            llm=self._llm,
+            toolkit=SQLDatabaseToolkit(db=self._stock_db, llm=self._llm),   # A set of tools to interact with the database
+            prompt=full_prompt, # prompt template that we defined above
+            verbose=True,   # Show what sql queries that agent is running to get the results
+            agent_executor_kwargs={"handle_parsing_errors":True},   # Handle any parsing errors that may happen
+            agent_type="tool-calling",
+            max_iterations=5    # The agent will execute at max 5 queries to get the answer
+        )
+        self._conversation_db = SQLDatabase.from_uri(f"sqlite:///{settings.chatbot_db_path}") 
+```
+
+A few things that are happening here:
+1. Create the llm that will be used for the sql agent, in our case is the `gpt-3.5-turbo-0125` of OpenAI
+2. Load the `SQLDatabase` that our agent will use
+3. Create the sql agent
+4. Load the `SQLDatabase` that we will use to store the conversation history (More on this below)
+
+### Conversation history
+In order to maintain message history in case a user wants to continue the conversation at some point in the future we have to store it somewhere. Langchain comes with a helper class that serves this exact purpose `SQLChatMessageHistory`. Below we create the `chat` that takes as parameters the question that the user asked and the session_id which is an identifier for the session (conversation) thread that these input messages correspond to. This allows you to maintain several conversations/threads with the same chain at the same time. The method will return the response that the agent gives.
+
+```python
+def chat(self, question: str, session_id: str) -> list[BaseMessage]:
+    chat_message_history = SQLChatMessageHistory(
+        session_id=session_id, 
+        connection=self._conversation_db._engine
+    )
+    if len(chat_message_history.messages) > 0:
+        first_question = chat_message_history.messages[0]
+    else:
+        first_question = question
+
+    chat_message_history.add_user_message(question)
+    response = self._sql_agent.invoke(
+        {
+            "input": str(first_question),
+            "top_k": 5,
+            "dialect": "SQLite",
+            "context": context,
+            "agent_scratchpad": [],
+            "messages": chat_message_history.messages,
+        }
+    )
+    output = response["output"]
+    chat_message_history.add_ai_message(output)
+    return chat_message_history.messages
 ```
