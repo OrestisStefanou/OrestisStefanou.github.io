@@ -20,6 +20,8 @@ description: "How to use langchain to create a stock investor assistant chatbot"
     - [Full prompt](#full-prompt)
 - [Investor Agent class](#investor-agent-class)
     - [Conversation History](#conversation-history)
+- [Serving the agent through a web api endpoint](#serving-the-agent)
+- [Calling the agent](#calling-the-agent)
 
 
 ## Project Goal
@@ -605,7 +607,7 @@ A few things that are happening here:
 4. Load the `SQLDatabase` that we will use to store the conversation history (More on this below)
 
 ### Conversation history
-In order to maintain message history in case a user wants to continue the conversation at some point in the future we have to store it somewhere. Langchain comes with a helper class that serves this exact purpose `SQLChatMessageHistory`. Below we create the `chat` that takes as parameters the question that the user asked and the session_id which is an identifier for the session (conversation) thread that these input messages correspond to. This allows you to maintain several conversations/threads with the same chain at the same time. The method will return the response that the agent gives.
+In order to maintain message history in case a user wants to continue the conversation at some point in the future we have to store it somewhere. Langchain comes with a helper class that serves this exact purpose `SQLChatMessageHistory`. Below we create the `chat` method that takes as parameters the question that the user asked and the session_id which is an identifier for the session (conversation) thread that these input messages correspond to. This allows you to maintain several conversations/threads with the same chain at the same time. The method will return the response that the agent gives.
 
 ```python
 def chat(self, question: str, session_id: str) -> list[BaseMessage]:
@@ -633,3 +635,211 @@ def chat(self, question: str, session_id: str) -> list[BaseMessage]:
     chat_message_history.add_ai_message(output)
     return chat_message_history.messages
 ```
+
+## Serving the agent
+We will use FastAPI to develop a simple web api to let external users use the agent.
+
+First we define the schema models of the api.
+```python
+# schema.py
+from enum import Enum
+
+import pydantic
+
+class ChatbotQuestion(pydantic.BaseModel):
+    question: str
+    session_id: str
+
+
+class MessageSender(str, Enum):
+    Agent = 'Agent'
+    Human = 'Human'
+
+
+class ConversationMessage(pydantic.BaseModel):
+    message: str
+    sender: MessageSender
+```
+
+Then we create a helper function that converts the agent responses to the 
+schema model that we defined above.
+```python
+# serializers.py
+from app.api import schema
+
+from langchain_core.messages.base import BaseMessage
+from langchain_core.messages.human import HumanMessage
+from langchain_core.messages.ai import AIMessage
+
+
+def serialize_chatbot_conversation_message(message: BaseMessage) -> schema.ConversationMessage:
+    if isinstance(message, HumanMessage):
+        return schema.ConversationMessage(
+            message=message.content,
+            sender=schema.MessageSender.Human
+        )
+    elif isinstance(message, AIMessage):
+        return schema.ConversationMessage(
+            message=message.content,
+            sender=schema.MessageSender.Agent
+        )
+    else:
+        raise ValueError(f"Invalid message type: {type(message)}")
+```
+
+And last the endpoint code.
+```python
+from fastapi import (
+    APIRouter,
+    HTTPException,
+    Depends
+)
+
+from chatbot.agent import InvestorAgent
+from app.api import serializers
+from app.api import schema
+
+router = APIRouter()
+
+@router.post(
+    "/chatbot/conversation",
+    tags=["Chatbot"],
+    status_code=200,
+    response_model=List[schema.ConversationMessage]
+)
+async def create_conversation(question: schema.ChatbotQuestion):
+    agent = InvestorAgent()
+    try:
+        conversation = agent.chat(
+            question=question.question,
+            session_id=question.session_id
+        )
+    except Exception:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail="Something went wrong."
+        )
+
+    return [
+        serializers.serialize_chatbot_conversation_message(message)
+        for message in conversation
+    ]
+```
+
+## Calling the agent
+Now let's make some calls the endpoint and see what responses the agent gives back. We will ask which is the latest revenue of AAPL stock and see what we get back.
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/chatbot/conversation' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "question": "Which is the latest revenue of AAPL?",
+  "session_id": "0552c317-f84a-4b3f-8757-efa85346ba22"
+}'
+```
+
+In the logs we can see what query our agent run along with the reponse
+
+```bash
+> Entering new SQL Agent Executor chain...
+
+Invoking: `sql_db_query` with `{'query': "SELECT total_revenue, fiscal_date_ending FROM income_statement WHERE symbol = 'AAPL' ORDER BY fiscal_date_ending DESC LIMIT 1;"}`
+
+
+[(90753000000.0, '2024-03-31')]The latest revenue of AAPL is $90,753,000,000 as of March 31, 2024.
+```
+
+The endpoint response looks like this
+```json
+[
+  {
+    "message": "Which is the latest revenue of AAPL?",
+    "sender": "Human"
+  },
+  {
+    "message": "The latest revenue of AAPL is $90,753,000,000 as of March 31, 2024.",
+    "sender": "Agent"
+  }
+]
+```
+
+We can see that the agent run the correct query and responded correctly! Now let's ask a follow up question and check if the conversation part works. The question will be 'What about META?'.
+
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/chatbot/conversation' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "question": "What about META?",
+  "session_id": "0552c317-f84a-4b3f-8757-efa85346ba22"
+}'
+```
+
+Logs
+```bash
+> Entering new SQL Agent Executor chain...
+
+Invoking: `sql_db_query` with `{'query': "SELECT symbol, total_revenue, fiscal_date_ending FROM income_statement WHERE symbol = 'META' ORDER BY fiscal_date_ending DESC LIMIT 1;"}`
+
+
+[('META', 36455000000.0, '2024-03-31')]The latest revenue of META is $36,455,000,000 as of March 31, 2024.
+```
+
+Endpoint response
+```json
+[
+  {
+    "message": "Which is the latest revenue of AAPL?",
+    "sender": "Human"
+  },
+  {
+    "message": "The latest revenue of AAPL is $90,753,000,000 as of March 31, 2024.",
+    "sender": "Agent"
+  },
+  {
+    "message": "What about META?",
+    "sender": "Human"
+  },
+  {
+    "message": "The latest revenue of META is $36,455,000,000 as of March 31, 2024.",
+    "sender": "Agent"
+  }
+]
+```
+
+We can that the agent understood the question and answered correctly. Now let's ask a question that is not related with stocks or finance in general and see that the agent will respond. The question will be 'Who is the best football player in the world?'
+
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/chatbot/conversation' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "question": "Who is the best football player in the world?",
+  "session_id": "63de1bee-90e4-411b-ad27-efb18a6528a7"
+}'
+```
+
+Logs
+```bash
+> Entering new SQL Agent Executor chain...
+I don't know.
+```
+
+Endpoint response
+```json
+[
+  {
+    "message": "Who is the best football player in the world?",
+    "sender": "Human"
+  },
+  {
+    "message": "I don't know.",
+    "sender": "Agent"
+  }
+]
+```
+
+The agent correctly answers with I don't know since this is what we instructed it to do in the prompt!
