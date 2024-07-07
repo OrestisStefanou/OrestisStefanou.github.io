@@ -607,7 +607,7 @@ A few things that are happening here:
 4. Load the `SQLDatabase` that we will use to store the conversation history (More on this below)
 
 ### Conversation history
-In order to maintain message history in case a user wants to continue the conversation at some point in the future we have to store it somewhere. Langchain comes with a helper class that serves this exact purpose `SQLChatMessageHistory`. Below we create the `chat` method that takes as parameters the question that the user asked and the session_id which is an identifier for the session (conversation) thread that these input messages correspond to. This allows you to maintain several conversations/threads with the same chain at the same time. The method will return the response that the agent gives.
+In order to maintain message history in case a user wants to continue the conversation at some point in the future we have to store it somewhere. Langchain comes with a helper class that serves this exact purpose `SQLChatMessageHistory`. Below we create the `chat` method that takes as parameters the question that the user asked and the `session_id` which is an identifier for the session (conversation) thread that these input messages correspond to. This allows you to maintain several conversations/threads with the same chain at the same time. The method will return the conversation history of the given `session_id`.
 
 ```python
 def chat(self, question: str, session_id: str) -> list[BaseMessage]:
@@ -727,7 +727,7 @@ async def create_conversation(question: schema.ChatbotQuestion):
 ```
 
 ## Calling the agent
-Now let's make some calls the endpoint and see what responses the agent gives back. We will ask which is the latest revenue of AAPL stock and see what we get back.
+Now let's make some calls to the endpoint and see what responses the agent gives back. We will ask which is the latest revenue of AAPL.
 ```bash
 curl -X 'POST' \
   'http://127.0.0.1:8000/chatbot/conversation' \
