@@ -552,7 +552,6 @@ few_shot_prompt = FewShotPromptTemplate(
 full_prompt = ChatPromptTemplate.from_messages(
     [
         SystemMessagePromptTemplate(prompt=few_shot_prompt),
-        ("human", "{input}"),
         MessagesPlaceholder("agent_scratchpad"),
         MessagesPlaceholder(variable_name="messages"),
     ]
@@ -610,30 +609,26 @@ A few things that are happening here:
 In order to maintain message history in case a user wants to continue the conversation at some point in the future we have to store it somewhere. Langchain comes with a helper class that serves this exact purpose `SQLChatMessageHistory`. Below we create the `chat` method that takes as parameters the question that the user asked and the `session_id` which is an identifier for the session (conversation) thread that these input messages correspond to. This allows you to maintain several conversations/threads with the same chain at the same time. The method will return the conversation history of the given `session_id`.
 
 ```python
-def chat(self, question: str, session_id: str) -> list[BaseMessage]:
-    chat_message_history = SQLChatMessageHistory(
-        session_id=session_id, 
-        connection=self._conversation_db._engine
-    )
-    if len(chat_message_history.messages) > 0:
-        first_question = chat_message_history.messages[0]
-    else:
-        first_question = question
+    def chat(self, question: str, session_id: str) -> list[BaseMessage]:
+        chat_message_history = SQLChatMessageHistory(
+            session_id=session_id, 
+            connection=self._conversation_db._engine
+        )
 
-    chat_message_history.add_user_message(question)
-    response = self._sql_agent.invoke(
-        {
-            "input": str(first_question),
-            "top_k": 5,
-            "dialect": "SQLite",
-            "context": context,
-            "agent_scratchpad": [],
-            "messages": chat_message_history.messages,
-        }
-    )
-    output = response["output"]
-    chat_message_history.add_ai_message(output)
-    return chat_message_history.messages
+        chat_message_history.add_user_message(question)
+        response = self._sql_agent.invoke(
+            {
+                "input": question,
+                "top_k": 5,
+                "dialect": "SQLite",
+                "context": context,
+                "agent_scratchpad": [],
+                "messages": chat_message_history.messages,
+            }
+        )
+        output = response["output"]
+        chat_message_history.add_ai_message(output)
+        return chat_message_history.messages
 ```
 
 ## Serving the agent
