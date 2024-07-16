@@ -27,6 +27,8 @@ description: "How to use langchain to create a stock investor assistant chatbot"
 ## Project Goal
 The goal of the project is to build a question/answering system over an SQL database that contains various financial data. We will also expose this chatbot through a web api so that multiple users can use it.
 
+<center><img src='./assets/img/posts/20240706/sql_use_case.png'></center>
+
 ## Solution
 The solution will be broken into these steps
 - Prompt engineering
