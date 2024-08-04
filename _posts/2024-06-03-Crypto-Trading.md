@@ -10,6 +10,8 @@ author: Stefanou Orestis
 description: "How to use MLFlow to manage end to end machine learning workflows that will be used for crypto trading."
 ---
 
+### Github url: https://github.com/OrestisStefanou/CryptoTrading
+
 ## Table of Contents
 - [Project Goal](#project-goal)
 - [Solution](#solution)

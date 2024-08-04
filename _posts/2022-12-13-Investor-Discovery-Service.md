@@ -12,6 +12,8 @@ description: "A web service that provides market aggregation data"
 
 Investor Discovery Service is a web api that provides market data to help any investor who wants to take data driven decisions. It provides data that help you compare the performance of a stock compared to the rest of the stocks, the financials of a stock and the state of the economy and the market in general. It also provides estimations of stocks prices in different timelines using machine learning.
 
+### Github url: https://github.com/OrestisStefanou/InvestorAPI
+
 ## Provide market data on three levels
 1. The Big Picture
     1. [Major indices performance data](#world-indices)
