@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Stock investor assistant chatbot"
+title: "How to use langchain SQL agent"
 date: 2024-07-06
 img: posts/20240706/chatbot.png
 tags: [gen-ai, stocks, investing]
