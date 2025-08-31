@@ -140,19 +140,19 @@ Content-Type: application/json
 ---
 
 # Api Reference
-# Session API
+## Session API
 
-## Endpoint
+### Endpoint
 
 ### POST `/session`
 
 Creates a new session and returns the session ID.
 
-## Request Parameters
+### Request Parameters
 
 _No parameters are required in the request body or query._
 
-## Response
+### Response
 
 ### Success Response (201 Created)
 
@@ -172,12 +172,12 @@ _No parameters are required in the request body or query._
 }
 ```
 
-## Notes
+### Notes
 - This endpoint is used to create a new session on the server.
 - A successful request returns a `session_id`, which can be used in the chat endpoint.
 - If an error occurs during session creation, a relevant error message will be returned in the response body.
 
-## Example Request
+### Example Request
 ```sh
 POST /session
 ```
@@ -190,13 +190,13 @@ This request would create a new session and return the newly generated session I
 
 Retrieves the conversation history for a given session ID.
 
-## Path Parameter
+### Path Parameter
 
 | Parameter    | Type   | Required | Description                        |
 | ------------ | ------ | -------- | ---------------------------------- |
 | `session_id` | string | Yes      | Unique identifier for the session. |
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -244,15 +244,15 @@ Retrieves the conversation history for a given session ID.
 ---
 
 
-# Chat Completion API
+## Chat Completion API
 
-## Endpoint
+### Endpoint
 
 ### POST `/chat`
 
 Generates a streaming chat response based on the user's question, topic, session, and contextual tags (like stock or financial statement info).
 
-## Request Body
+### Request Body
 
 | Field             | Type      | Required | Description                                                                 |
 |------------------|-----------|----------|-----------------------------------------------------------------------------|
@@ -286,7 +286,7 @@ Generates a streaming chat response based on the user's question, topic, session
 }
 ```
 
-## Response
+### Response
 
 ### Success Response (200 OK – Streamed)
 
@@ -328,7 +328,7 @@ Occurs when the request payload is invalid or missing required fields.
 }
 ```
 
-## Notes
+### Notes
 - Fields `question`, `topic`, and `session_id` are required.
 - The topic field available values can be retrieved using the `GET /topics` endpoint
 - If `session_id` is invalid or expired, a 400 error will be returned.
@@ -336,7 +336,7 @@ Occurs when the request payload is invalid or missing required fields.
 - The `topic_tags` object allows for fine-grained control over the context of the AI's response, especially when discussing financials.
 - You can use `POST /chat/extract_topic_and_tags` endpoint to get the topic and tags if you don't know them before hand.
 
-## Example Request
+### Example Request
 ```sh
 POST /chat
 Content-Type: application/json
@@ -353,14 +353,13 @@ This request would trigger a streamed AI response about the semiconductor indust
 
 ---
 
-## Endpoint
+### Endpoint
 
 ### POST `/chat/extract_topic_and_tags`
 
-Extracts the main topic and relevant financial context tags (sector, industry, stock symbols, etc.) from a user's question. This is typically used as a preprocessing step before generating a chat response. You can check [this](topic_tag_extractor.md) for more details on how this works behind 
-the scenes.
+Extracts the main topic and relevant financial context tags (sector, industry, stock symbols, etc.) from a user's question. This is typically used as a preprocessing step before generating a chat response.
 
-## Request Body
+### Request Body
 
 | Field        | Type   | Required | Description                                               |
 | ------------ | ------ | -------- | --------------------------------------------------------- |
@@ -379,7 +378,7 @@ the scenes.
 }
 ```
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -452,7 +451,7 @@ Occurs if the request is missing required fields or if the session ID is invalid
 }
 ```
 
-## Example Request
+### Example Request
 
 ```sh
 POST /chat/extract_topic_and_tags
@@ -468,15 +467,15 @@ This request would result in a response identifying the topic as "stock\_perform
 
 ---
 
-# User Context API
+## User Context API
 
-## Endpoints
+### Endpoints
 
 ### POST `/user_context`
 
 Creates a new user context, including user profile information and portfolio holdings. This can be useful to personalize the responses that the chatbot will give by passing the `user_id` in the tags of `POST /chat` endpoint.
 
-## Request Body
+### Request Body
 
 | Field            | Type              | Required | Description                                                    |
 | ---------------- | ----------------- | -------- | -------------------------------------------------------------- |
@@ -524,7 +523,7 @@ Creates a new user context, including user profile information and portfolio hol
 }
 ```
 
-## Response
+### Response
 
 ### Success Response (201 Created)
 
@@ -586,7 +585,7 @@ Returns the created user context.
 
 Updates an existing user context.
 
-## Request Body
+### Request Body
 
 Same as `POST /user_context`.
 
@@ -615,7 +614,7 @@ Same as `POST /user_context`.
 }
 ```
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -676,13 +675,13 @@ Returns the updated user context.
 
 Retrieves an existing user context by user ID.
 
-## Path Parameter
+### Path Parameter
 
 | Parameter | Type   | Required | Description                     |
 | --------- | ------ | -------- | ------------------------------- |
 | `user_id` | string | Yes      | Unique identifier for the user. |
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -732,7 +731,7 @@ Retrieves an existing user context by user ID.
 
 ---
 
-## Notes
+### Notes
 
 * `user_id` is required in all requests.
 * Each portfolio holding requires at least one of `symbol` or `name`.
@@ -742,15 +741,15 @@ Retrieves an existing user context by user ID.
 ---
 
 
-# Generate Follow-Up Questions API
+## Generate Follow-Up Questions API
 
-## Endpoint
+### Endpoint
 
 ### POST `/follow_up_questions`
 
 Generates a list of follow-up questions based on the current session context.
 
-## Request Body
+### Request Body
 
 | Field               | Type    | Required | Description                                                             |
 |--------------------|---------|----------|-------------------------------------------------------------------------|
@@ -765,7 +764,7 @@ Generates a list of follow-up questions based on the current session context.
 }
 ```
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -808,12 +807,12 @@ Returned when an unexpected server error occurs.
 }
 ```
 
-## Notes
+### Notes
 - If `number_of_questions` is not provided or set to `0`, the service will default to returning **5** questions.
 - A valid `session_id` is required and must correspond to an active chat session.
 - This endpoint is useful for guiding users toward deeper exploration or next steps in their inquiry.
 
-## Example Request
+### Example Request
 ```sh
 POST /follow_up_questions
 Content-Type: application/json
@@ -828,21 +827,21 @@ This request would return 5 follow-up questions tailored to the given session.
 
 ---
 
-# Get FAQs by Topic API
+## Get FAQs by Topic API
 
-## Endpoint
+### Endpoint
 
 ### GET `/faq`
 
 Retrieves a list of frequently asked questions (FAQs) for a specific topic.
 
-## Request Parameters
+### Request Parameters
 
 | Parameter | Type   | Required | Description |
 |-----------|--------|----------|-------------|
 | `faq_topic`   | string | Yes      | The FAQ topic identifier. Must be one of the supported topics: `education`, `sectors`, `stock_overview`, `balance_sheet`, `income_statement`, `cash_flow`, `etfs`. |
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -886,7 +885,7 @@ Returned when an internal error occurs while fetching the FAQs.
 }
 ```
 
-## Notes
+### Notes
 - The `topic` parameter is case-sensitive and must exactly match one of the following values:
   - `education`
   - `sectors`
@@ -898,7 +897,7 @@ Returned when an internal error occurs while fetching the FAQs.
 - The response returns up to `faqLimit` randomly selected FAQs from the topic category.
 - If the topic is not found, a `FaqTopicNotFoundError` is returned.
 
-## Example Request
+### Example Request
 ```sh
 GET /faq?faq_topic=education
 ```
@@ -907,15 +906,15 @@ This request would return a limited set of education-related FAQs.
 
 --- 
 
-# Get Tickers API
+## Get Tickers API
 
-## Endpoint
+### Endpoint
 
 ### GET `/tickers`
 
 Retrieves a list of stock tickers with optional filtering, pagination, and search.
 
-## Request Parameters
+### Request Parameters
 
 | Parameter      | Type   | Required | Description |
 |----------------|--------|----------|-------------|
@@ -923,7 +922,7 @@ Retrieves a list of stock tickers with optional filtering, pagination, and searc
 | `page`         | int    | No       | The page number for paginated results. Must be a valid integer. |
 | `search_string`| string | No       | A search query to filter tickers by symbol or company name. |
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -971,7 +970,7 @@ Returned when an internal server error occurs while retrieving tickers.
 }
 ```
 
-## Notes
+### Notes
 - If `limit` is not provided, the service may return all tickers or a default number based on internal logic.
 - `search_string` can match either the `symbol` or `company_name` fields of a ticker.
 - The results support pagination through the `limit` and `page` parameters.
@@ -979,7 +978,7 @@ Returned when an internal server error occurs while retrieving tickers.
   - `symbol`: The ticker symbol of the company.
   - `company_name`: The full name of the company.
 
-## Example Request
+### Example Request
 ```sh
 GET /tickers?limit=10&page=2&search_string=apple
 ```
@@ -988,21 +987,21 @@ This request would return the second page of up to 10 tickers that match the sea
 
 ---
 
-# Get Sector Stocks API
+## Get Sector Stocks API
 
-## Endpoint
+### Endpoint
 
 ### GET `/sectors/stocks/:sector`
 
 Retrieves a list of stocks belonging to a specific sector.
 
-## Request Parameters
+### Request Parameters
 
 | Parameter | Type   | Required | Description |
 |-----------|--------|----------|-------------|
 | `sector`  | string | Yes      | The sector identifier used to filter stocks. This should be the `url_name` field from the `/sectors` endpoint response. |
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -1033,7 +1032,7 @@ Retrieves a list of stocks belonging to a specific sector.
 }
 ```
 
-## Notes
+### Notes
 - The `sector` parameter should be a valid `url_name` from the `/sectors` endpoint response (e.g., `technology`, `finance`).
 - The response returns an array of stock objects, each containing:
   - `Symbol`: The stock ticker symbol.
@@ -1050,15 +1049,13 @@ This request would return a list of technology sector stocks.
 
 ---
 
-# Get Sectors API
-
 ## Endpoint
 
 ### GET `/sectors`
 
 Retrieves a list of all available sectors and their details.
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -1099,7 +1096,7 @@ Retrieves a list of all available sectors and their details.
 }
 ```
 
-## Notes
+### Notes
 - The response returns an array of sector objects, each containing:
   - `name`: The name of the sector.
   - `url_name`: A URL-friendly version of the sector name.
@@ -1110,7 +1107,7 @@ Retrieves a list of all available sectors and their details.
   - `profit_margin_pct`: The average profit margin percentage.
   - `one_year_change_pct`: The percentage change in sector value over the past year.
 
-## Example Request
+### Example Request
 ```sh
 GET /sectors
 ```
@@ -1119,21 +1116,21 @@ This request would return a list of all available sectors and their details.
 
 ---
 
-# Get ETFs API
+## Get ETFs API
 
-## Endpoint
+### Endpoint
 
 ### GET `/etfs`
 
 Retrieves a list of exchange-traded funds (ETFs), optionally filtered by a search string.
 
-## Request Parameters
+### Request Parameters
 
 | Parameter      | Type   | Required | Description |
 |----------------|--------|----------|-------------|
 | `search_string`| string | No       | A search query to filter ETFs by symbol or name. |
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -1167,7 +1164,7 @@ Returned when an internal server error occurs while retrieving ETFs.
 }
 ```
 
-## Notes
+### Notes
 - The `search_string` parameter allows filtering by ETF `symbol` or `name`. It is case-insensitive and supports partial matches.
 - The response returns a list of ETFs, each including:
   - `symbol`: The ticker symbol of the ETF.
@@ -1175,7 +1172,7 @@ Returned when an internal server error occurs while retrieving ETFs.
   - `asset_class`: The asset class category (e.g., Equity, Bond, Commodity).
   - `aum`: Assets under management, represented as a float.
 
-## Example Request
+### Example Request
 ```sh
 GET /etfs?search_string=nasdaq
 ```
@@ -1184,19 +1181,19 @@ This request would return ETFs whose symbol or name includes "nasdaq".
 
 ---
 
-# Get FAQ Topics API
+## Get FAQ Topics API
 
-## Endpoint
+### Endpoint
 
 ### GET `/topics`
 
 Retrieves a list of all available FAQ topics supported by the system.
 
-## Request Parameters
+### Request Parameters
 
 This endpoint does **not** require any request parameters.
 
-## Response
+### Response
 
 ### Success Response (200 OK)
 
@@ -1224,12 +1221,12 @@ Returned if an unexpected server error occurs.
 }
 ```
 
-## Notes
+### Notes
 - This endpoint returns a flat list of string values representing the available FAQ topics.
 - The topics returned here can be used as valid `topic` values for the `/faq` endpoint.
 - These values are case-sensitive and should be passed exactly as returned when used in requests.
 
-## Example Request
+### Example Request
 ```sh
 GET /topics
 ```
@@ -1241,4 +1238,3 @@ This request would return a list of all valid FAQ topic identifiers.
 
 ## 📞 Contact
 Reach out via email: [stefanouorestis@gmail.com](mailto:stefanouorestis@gmail.com)
-
