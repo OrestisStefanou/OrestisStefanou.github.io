@@ -1,0 +1,703 @@
+---
+layout: page
+title: InvestPal
+permalink: /investpal/
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="InvestPal - AI-Powered Investment Advisory Platform delivering personalized financial insights through multiple channels">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-cyan: #00d4ff;
+            --accent-purple: #a855f7;
+            --dark-bg: #0a0e27;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --spacing-unit: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .investpal-container {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/assets/img/investpal/hero.png') center/cover no-repeat;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, var(--dark-bg) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Value Proposition */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .value-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Product Ecosystem */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 25px 50px rgba(168, 85, 247, 0.3);
+        }
+
+        .product-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-gradient);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .product-icon img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .product-icon.css-icon {
+            font-size: 4rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .product-card .product-label {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .product-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features {
+            list-style: none;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        /* Features Showcase */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
+        }
+
+        .feature-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent-cyan);
+        }
+
+        .feature-item ul {
+            list-style: none;
+            color: var(--text-secondary);
+        }
+
+        .feature-item li {
+            padding: 0.4rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .feature-item li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+        }
+
+        /* Learn More Section */
+        .learn-more {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            text-align: center;
+            margin-top: 3rem;
+            border: 1px solid var(--card-border);
+        }
+
+        .learn-more h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .learn-more p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .repo-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .repo-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .repo-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .repo-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent-cyan);
+        }
+
+        .repo-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 70vh;
+                padding: 3rem 1.5rem;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .product-grid,
+            .value-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="investpal-container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>InvestPal</h1>
+            <p class="hero-tagline">AI-Powered Investment Advisory Platform</p>
+            <p class="hero-description">
+                Democratizing access to sophisticated investment analysis through cutting-edge AI,
+                real-time market intelligence, and personalized financial insights across multiple channels.
+            </p>
+            <div class="cta-buttons">
+                <a href="https://github.com/OrestisStefanou/InvestPal" class="btn btn-primary" target="_blank">View on
+                    GitHub</a>
+                <a href="https://t.me/ai_investor_advisor_bot" class="btn btn-secondary" target="_blank">Try Telegram
+                    Bot</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section class="section">
+        <h2 class="section-title">Why InvestPal?</h2>
+        <p class="section-subtitle">Professional-grade investment analysis, accessible to everyone</p>
+
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-icon">📊</div>
+                <h3>Real-time Market Intelligence</h3>
+                <p>Access comprehensive data on stocks, ETFs, cryptocurrencies, economic indicators, and institutional
+                    investor portfolios from trusted sources.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🤖</div>
+                <h3>Personalized AI Advisory</h3>
+                <p>Context-aware recommendations tailored to your risk tolerance, investment goals, and preferences
+                    using state-of-the-art language models.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🌐</div>
+                <h3>Multi-Channel Access</h3>
+                <p>Engage with your investment advisor through RESTful APIs, Telegram messaging, or integrate directly
+                    via the MCP protocol.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🏦</div>
+                <h3>Institutional-Grade Data</h3>
+                <p>Leverage trusted data providers like Alpha Vantage and CoinGecko for reliable, professional-quality
+                    market information.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Ecosystem -->
+    <section class="section">
+        <h2 class="section-title">Three-Layer Ecosystem</h2>
+        <p class="section-subtitle">A comprehensive platform built with modern microservices architecture</p>
+
+        <div class="product-grid">
+            <!-- MCP Server -->
+            <div class="product-card">
+                <div class="product-icon css-icon">
+                    🗄️
+                </div>
+                <h3>MCP Server</h3>
+                <span class="product-label">Data Layer</span>
+                <p>Go-based Model Context Protocol server exposing 20+ financial data tools with intelligent caching and
+                    rate limiting.</p>
+                <ul class="product-features">
+                    <li>Alpha Vantage & CoinGecko integration</li>
+                    <li>BadgerDB or MongoDB storage</li>
+                    <li>Configurable TTL-based caching</li>
+                    <li>Economic indicators & commodities</li>
+                </ul>
+            </div>
+
+            <!-- Core API -->
+            <div class="product-card">
+                <div class="product-icon">
+                    <img src="/assets/img/investpal/api_icon.png" alt="API Service">
+                </div>
+                <h3>Investor Advisor API</h3>
+                <span class="product-label">Intelligence Layer</span>
+                <p>FastAPI service orchestrating AI-powered conversations with LangChain and multi-LLM support.</p>
+                <ul class="product-features">
+                    <li>OpenAI GPT-4, Google Gemini, Anthropic Claude</li>
+                    <li>Session & context management</li>
+                    <li>RESTful API with Swagger docs</li>
+                    <li>Persistent conversation history</li>
+                </ul>
+            </div>
+
+            <!-- Telegram Bot -->
+            <div class="product-card">
+                <div class="product-icon">
+                    <img src="/assets/img/investpal/telegram_icon.png" alt="Telegram Bot">
+                </div>
+                <h3>Telegram Bot</h3>
+                <span class="product-label">User Interface</span>
+                <p>Conversational interface making AI-powered investment advice accessible via messaging.</p>
+                <ul class="product-features">
+                    <li>Webhook-based integration</li>
+                    <li>Automatic response formatting</li>
+                    <li>Session continuity</li>
+                    <li>Message splitting for long responses</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Showcase -->
+    <section class="section">
+        <h2 class="section-title">Comprehensive Features</h2>
+        <p class="section-subtitle">Everything you need for informed investment decisions</p>
+
+        <div class="features-grid">
+            <div class="feature-item">
+                <h4>📈 Market Coverage</h4>
+                <ul>
+                    <li>Real-time stock data</li>
+                    <li>ETF holdings & performance</li>
+                    <li>Cryptocurrency tracking</li>
+                    <li>Company financials</li>
+                    <li>Sector analysis</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h4>📉 Economic Indicators</h4>
+                <ul>
+                    <li>GDP historical data</li>
+                    <li>Inflation rates</li>
+                    <li>Unemployment statistics</li>
+                    <li>Treasury yields</li>
+                    <li>Interest rates</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h4>🛢️ Commodities</h4>
+                <ul>
+                    <li>Oil prices</li>
+                    <li>Natural gas</li>
+                    <li>Precious metals</li>
+                    <li>Time-series data</li>
+                    <li>Historical trends</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h4>🎯 Super Investors</h4>
+                <ul>
+                    <li>Institutional portfolios</li>
+                    <li>Holdings tracking</li>
+                    <li>Investment strategies</li>
+                    <li>Portfolio changes</li>
+                    <li>Performance metrics</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h4>🧠 AI Capabilities</h4>
+                <ul>
+                    <li>Context-aware conversations</li>
+                    <li>Personalized insights</li>
+                    <li>Risk assessment</li>
+                    <li>Goal-based recommendations</li>
+                    <li>Multi-LLM support</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h4>🔧 Integration</h4>
+                <ul>
+                    <li>RESTful API</li>
+                    <li>MCP protocol</li>
+                    <li>Telegram interface</li>
+                    <li>Extensible architecture</li>
+                    <li>Developer-friendly</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learn More -->
+    <section class="section">
+        <div class="learn-more">
+            <h3>Ready to Get Started?</h3>
+            <p>
+                Explore the technical architecture, data flow, and implementation details in our comprehensive blog
+                post.
+                Then dive into the code on GitHub to start building with InvestPal.
+            </p>
+
+            <div class="cta-buttons">
+                <a href="/InvestPal-AI-Powered-Investment-Advisory-Platform" class="btn btn-primary">Read Technical Blog
+                    Post</a>
+            </div>
+
+            <div class="repo-links">
+                <a href="https://github.com/OrestisStefanou/MarketDataMcpServer" class="repo-card" target="_blank">
+                    <h4>📦 MarketDataMcpServer</h4>
+                    <p>Go-based MCP server with 20+ financial data tools</p>
+                </a>
+
+                <a href="https://github.com/OrestisStefanou/InvestPal" class="repo-card" target="_blank">
+                    <h4>🤖 InvestPal Core</h4>
+                    <p>FastAPI service with AI orchestration and LangChain</p>
+                </a>
+
+                <a href="https://github.com/OrestisStefanou/InvestPalTelegramBot" class="repo-card" target="_blank">
+                    <h4>💬 Telegram Bot</h4>
+                    <p>Conversational interface for on-the-go investment queries</p>
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
