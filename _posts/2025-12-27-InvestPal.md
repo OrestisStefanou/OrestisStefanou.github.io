@@ -10,10 +10,6 @@ author: Stefanou Orestis
 description: "InvestPal is a comprehensive AI-powered investment advisory ecosystem that delivers personalized financial insights and market intelligence through multiple channels."
 ---
 
-# InvestPal: AI-Powered Investment Advisory Platform
-
-## Executive Summary
-
 InvestPal is a comprehensive AI-powered investment advisory ecosystem that delivers personalized financial insights and market intelligence through multiple channels. The platform combines cutting-edge artificial intelligence with real-time market data to provide users with professional-grade investment advice accessible through both web services and messaging platforms.
 
 The InvestPal ecosystem provides three different layers of products:
@@ -23,6 +19,11 @@ The InvestPal ecosystem provides three different layers of products:
 3. **Telegram Bot** - A conversational interface (@ai_investor_advisor_bot) for on-the-go investment queries
 
 ---
+
+## System Architecture
+
+<center><img src='./assets/img/posts/20251227/InvestPal.png'></center>
+
 
 ## Product Overview
 
@@ -102,7 +103,7 @@ InvestPal follows a microservices architecture with clear separation of concerns
 **Technology Stack:**
 - Language: Go 1.21+
 - Protocol: Model Context Protocol (MCP)
-- Data Providers: Alpha Vantage, CoinGecko
+- Data Providers: Alpha Vantage, CoinGecko, Stock Analysis
 - Storage: BadgerDB or MongoDB
 - Caching: Configurable TTL-based caching
 
