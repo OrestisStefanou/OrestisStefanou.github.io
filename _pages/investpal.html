@@ -45,6 +45,55 @@ permalink: /investpal/
             overflow-x: hidden;
         }
 
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            color: var(--accent-cyan);
+        }
+
         /* Hero Section */
         .hero {
             position: relative;
@@ -53,7 +102,7 @@ permalink: /investpal/
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 8rem 2rem 4rem;
             overflow: hidden;
         }
 
@@ -64,8 +113,9 @@ permalink: /investpal/
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('/assets/img/investpal/hero.png') center/cover no-repeat;
-            opacity: 0.3;
+            background: radial-gradient(ellipse at top, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
             z-index: 0;
         }
 
@@ -76,8 +126,24 @@ permalink: /investpal/
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(ellipse at center, transparent 0%, var(--dark-bg) 100%);
+            background:
+                linear-gradient(45deg, transparent 30%, rgba(102, 126, 234, 0.05) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(168, 85, 247, 0.05) 50%, transparent 70%);
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
             z-index: 1;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .hero-content {
@@ -452,9 +518,22 @@ permalink: /investpal/
 
         /* Responsive */
         @media (max-width: 768px) {
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+
+            .navbar-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
             .hero {
                 min-height: 70vh;
-                padding: 3rem 1.5rem;
+                padding: 6rem 1.5rem 3rem;
             }
 
             .section {
@@ -480,6 +559,19 @@ permalink: /investpal/
 </head>
 
 <body class="investpal-container">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="#" class="navbar-brand">InvestPal</a>
+            <ul class="navbar-links">
+                <li><a href="#value-proposition">Why InvestPal</a></li>
+                <li><a href="#ecosystem">Ecosystem</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="https://github.com/OrestisStefanou/InvestPal" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
@@ -499,7 +591,7 @@ permalink: /investpal/
     </section>
 
     <!-- Value Proposition -->
-    <section class="section">
+    <section id="value-proposition" class="section">
         <h2 class="section-title">Why InvestPal?</h2>
         <p class="section-subtitle">Professional-grade investment analysis, accessible to everyone</p>
 
@@ -531,11 +623,33 @@ permalink: /investpal/
                 <p>Leverage trusted data providers like Alpha Vantage and CoinGecko for reliable, professional-quality
                     market information.</p>
             </div>
+
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <h3>No Human Bias</h3>
+                <p>Pure AI-driven analysis free from emotional decision-making, cognitive biases, and subjective
+                    opinions
+                    that often cloud human judgment.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🔍</div>
+                <h3>No Hidden Motivations</h3>
+                <p>Unlike finfluencers with undisclosed sponsorships or conflicts of interest, InvestPal provides
+                    transparent, unbiased advice with no hidden agendas.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">📈</div>
+                <h3>Pure Data-Driven Insights</h3>
+                <p>Personalized recommendations based entirely on quantitative analysis, market data, and your specific
+                    financial goals—not hype or speculation.</p>
+            </div>
         </div>
     </section>
 
     <!-- Product Ecosystem -->
-    <section class="section">
+    <section id="ecosystem" class="section">
         <h2 class="section-title">Three-Layer Ecosystem</h2>
         <p class="section-subtitle">A comprehensive platform built with modern microservices architecture</p>
 
@@ -592,7 +706,7 @@ permalink: /investpal/
     </section>
 
     <!-- Features Showcase -->
-    <section class="section">
+    <section id="features" class="section">
         <h2 class="section-title">Comprehensive Features</h2>
         <p class="section-subtitle">Everything you need for informed investment decisions</p>
 
