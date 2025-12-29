@@ -37,6 +37,10 @@ permalink: /investpal/
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         .investpal-container {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--dark-bg);
@@ -92,6 +96,21 @@ permalink: /investpal/
 
         .navbar-links a:hover {
             color: var(--accent-cyan);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
         }
 
         /* Hero Section */
@@ -528,9 +547,49 @@ permalink: /investpal/
                 font-size: 1.2rem;
             }
 
+            .hamburger {
+                display: flex;
+                padding: 0.5rem;
+                margin: -0.5rem;
+                /* Increase touch target size */
+            }
+
             .navbar-links {
-                gap: 1rem;
-                font-size: 0.9rem;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 14, 39, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--card-border);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .navbar-links.active {
+                max-height: 300px;
+            }
+
+            .navbar-links li {
+                width: 100%;
+                text-align: center;
+                padding: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .navbar-links li:last-child {
+                border-bottom: none;
+            }
+
+            .navbar-links a {
+                display: block;
+                font-size: 1rem;
+                padding: 1rem 1.5rem;
+                /* Larger touch target */
             }
 
             .hero {
@@ -538,23 +597,115 @@ permalink: /investpal/
                 padding: 6rem 1.5rem 3rem;
             }
 
+            .hero h1 {
+                font-size: clamp(2rem, 8vw, 3rem);
+                line-height: 1.2;
+            }
+
+            .hero-tagline {
+                font-size: clamp(1rem, 4vw, 1.3rem);
+            }
+
+            .hero-description {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
             .section {
-                padding: 4rem 1.5rem;
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: clamp(1.75rem, 6vw, 2.5rem);
+                line-height: 1.2;
+                margin-bottom: 0.75rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .value-card,
+            .product-card {
+                padding: 1.75rem;
+            }
+
+            .value-card h3,
+            .product-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .value-card p,
+            .product-card p {
+                font-size: 0.95rem;
+            }
+
+            .product-icon {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 1.5rem;
+            }
+
+            .product-icon img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .product-icon.css-icon {
+                font-size: 3rem;
             }
 
             .product-grid,
             .value-grid,
             .features-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-item {
+                padding: 1.5rem;
+            }
+
+            .feature-item h4 {
+                font-size: 1.2rem;
             }
 
             .cta-buttons {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 1rem;
             }
 
             .btn {
                 width: 100%;
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+                /* Better touch target */
+            }
+
+            .learn-more {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .learn-more h3 {
+                font-size: 1.5rem;
+            }
+
+            .learn-more p {
+                font-size: 1rem;
+            }
+
+            .repo-card {
+                padding: 1.5rem;
+            }
+
+            .repo-card h4 {
+                font-size: 1.1rem;
+            }
+
+            .repo-card p {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -565,7 +716,12 @@ permalink: /investpal/
     <nav class="navbar">
         <div class="navbar-content">
             <a href="#" class="navbar-brand">InvestPal</a>
-            <ul class="navbar-links">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-links" id="navbarLinks">
                 <li><a href="#value-proposition">Why InvestPal</a></li>
                 <li><a href="#ecosystem">Ecosystem</a></li>
                 <li><a href="#features">Features</a></li>
@@ -815,6 +971,24 @@ permalink: /investpal/
             </div>
         </div>
     </section>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navbarLinks = document.getElementById('navbarLinks');
+
+        hamburger.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = navbarLinks.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navbarLinks.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 
 </html>
