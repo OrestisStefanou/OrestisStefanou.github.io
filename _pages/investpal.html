@@ -4,991 +4,1125 @@ title: InvestPal
 permalink: /investpal/
 ---
 
-<!DOCTYPE html>
-<html lang="en">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="InvestPal - AI-Powered Investment Advisory Platform delivering personalized financial insights through multiple channels">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+<style>
+    :root {
+        --accent-blue: #4f8cff;
+        --accent-teal: #00d4aa;
+        --primary-gradient: linear-gradient(135deg, #4f8cff 0%, #00d4aa 100%);
+        --dark-bg: #0b0f1a;
+        --dark-bg-alt: #0f1425;
+        --card-bg: rgba(255, 255, 255, 0.04);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --text-primary: #f0f2f5;
+        --text-secondary: #8b95a5;
+    }
 
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --accent-cyan: #00d4ff;
-            --accent-purple: #a855f7;
-            --dark-bg: #0a0e27;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-primary: #ffffff;
-            --text-secondary: #a0aec0;
-            --spacing-unit: 1rem;
+    /* Override site-wide body styles for this page */
+    body {
+        background-color: #0b0f1a !important;
+        overflow-x: hidden;
+    }
+
+    /* Hide the site's "Top" scroll button */
+    .top {
+        display: none !important;
+    }
+
+    /* Reset within our container */
+    .ip * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .ip {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--dark-bg);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    .ip a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Navbar */
+    .ip-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(11, 15, 26, 0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--card-border);
+        padding: 0 2rem;
+        z-index: 1000;
+        height: 64px;
+        display: flex;
+        align-items: center;
+    }
+
+    .ip-nav-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .ip-brand {
+        font-size: 1.4rem;
+        font-weight: 700;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .ip-nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+    }
+
+    .ip-nav-links a {
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+    }
+
+    .ip-nav-links a:hover {
+        color: var(--accent-teal);
+    }
+
+    .ip-hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+        padding: 0.5rem;
+        margin: -0.5rem;
+    }
+
+    .ip-hamburger span {
+        width: 22px;
+        height: 2px;
+        background: var(--text-primary);
+        border-radius: 2px;
+        transition: all 0.3s;
+    }
+
+    /* Hero */
+    .ip-hero {
+        position: relative;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 8rem 2rem 5rem;
+        overflow: hidden;
+    }
+
+    .ip-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(ellipse at 30% 20%, rgba(79, 140, 255, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse at 70% 80%, rgba(0, 212, 170, 0.08) 0%, transparent 50%);
+        z-index: 0;
+    }
+
+    /* Subtle grid pattern */
+    .ip-hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(79, 140, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(79, 140, 255, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        z-index: 1;
+    }
+
+    .ip-hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+    }
+
+    .ip-hero h1 {
+        font-size: clamp(2.5rem, 6vw, 4.2rem);
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.15;
+    }
+
+    .ip-hero-sub {
+        font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        color: var(--text-secondary);
+        font-weight: 300;
+        margin-bottom: 3rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.7;
+    }
+
+    .ip-cta-row {
+        display: flex;
+        gap: 1.25rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .ip-btn {
+        padding: 0.9rem 2.2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: inherit;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .ip-btn-primary {
+        background: var(--primary-gradient);
+        color: white;
+        box-shadow: 0 8px 24px rgba(79, 140, 255, 0.35);
+    }
+
+    .ip-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(79, 140, 255, 0.5);
+    }
+
+    .ip-btn-outline {
+        background: transparent;
+        color: var(--text-primary);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .ip-btn-outline:hover {
+        border-color: var(--accent-teal);
+        background: rgba(0, 212, 170, 0.06);
+        transform: translateY(-2px);
+    }
+
+    /* Sections */
+    .ip-section {
+        padding: 6rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .ip-section-title {
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+    }
+
+    .ip-section-sub {
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        margin-bottom: 4rem;
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Problem/Solution Bridge */
+    .ip-bridge {
+        text-align: center;
+        padding: 5rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .ip-bridge p {
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        color: var(--text-secondary);
+        line-height: 1.8;
+    }
+
+    .ip-bridge .ip-highlight {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 600;
+    }
+
+    /* Capability Cards */
+    .ip-cap-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .ip-cap-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        padding: 2.5rem;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.35s;
+    }
+
+    .ip-cap-card:hover {
+        border-color: rgba(79, 140, 255, 0.3);
+        box-shadow: 0 0 40px rgba(79, 140, 255, 0.08);
+        transform: translateY(-4px);
+    }
+
+    .ip-cap-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(79, 140, 255, 0.15), rgba(0, 212, 170, 0.15));
+    }
+
+    .ip-cap-icon svg {
+        width: 24px;
+        height: 24px;
+        stroke: var(--accent-teal);
+        fill: none;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .ip-cap-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: var(--text-primary);
+    }
+
+    .ip-cap-card p {
+        color: var(--text-secondary);
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    /* How It Works */
+    .ip-steps {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+        position: relative;
+        margin-top: 3rem;
+    }
+
+    .ip-steps::before {
+        content: '';
+        position: absolute;
+        top: 28px;
+        left: calc(16.66% + 28px);
+        right: calc(16.66% + 28px);
+        height: 2px;
+        background: var(--primary-gradient);
+        opacity: 0.3;
+    }
+
+    .ip-step {
+        flex: 1;
+        text-align: center;
+        position: relative;
+    }
+
+    .ip-step-num {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--primary-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: white;
+        position: relative;
+        z-index: 2;
+    }
+
+    .ip-step h3 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: var(--text-primary);
+    }
+
+    .ip-step p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    /* Trust Signals */
+    .ip-trust {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        padding: 4rem 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .ip-trust-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+    }
+
+    .ip-trust-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    .ip-trust-icon svg {
+        width: 20px;
+        height: 20px;
+        stroke: var(--accent-teal);
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .ip-trust-divider {
+        width: 1px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Platforms */
+    .ip-platforms {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .ip-platform-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        padding: 2.5rem;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.35s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ip-platform-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--primary-gradient);
+        transform: scaleX(0);
+        transition: transform 0.35s;
+        transform-origin: left;
+    }
+
+    .ip-platform-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .ip-platform-card:hover {
+        border-color: rgba(79, 140, 255, 0.3);
+        transform: translateY(-4px);
+    }
+
+    .ip-platform-icon {
+        width: 44px;
+        height: 44px;
+        margin-bottom: 1.25rem;
+    }
+
+    .ip-platform-icon svg {
+        width: 44px;
+        height: 44px;
+    }
+
+    .ip-platform-card h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: var(--text-primary);
+    }
+
+    .ip-platform-card p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 1.25rem;
+    }
+
+    .ip-platform-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--accent-teal);
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: gap 0.3s;
+    }
+
+    .ip-platform-cta:hover {
+        gap: 0.7rem;
+    }
+
+    .ip-platform-note {
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-top: 2rem;
+    }
+
+    /* Feature Deep-Dive */
+    .ip-features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+
+    .ip-feature-group h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid;
+        border-image: var(--primary-gradient) 1;
+        display: inline-block;
+    }
+
+    .ip-feature-group ul {
+        list-style: none;
+    }
+
+    .ip-feature-group li {
+        color: var(--text-secondary);
+        padding: 0.35rem 0;
+        padding-left: 1.25rem;
+        position: relative;
+        font-size: 0.95rem;
+    }
+
+    .ip-feature-group li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent-teal);
+        transform: translateY(-50%);
+    }
+
+    /* Final CTA */
+    .ip-final {
+        background: linear-gradient(135deg, rgba(79, 140, 255, 0.08) 0%, rgba(0, 212, 170, 0.08) 100%);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 4rem 3rem;
+        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto 4rem;
+    }
+
+    .ip-final h2 {
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: var(--text-primary);
+    }
+
+    .ip-final > p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .ip-repos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 3rem;
+    }
+
+    .ip-repo {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        transition: all 0.3s;
+        text-align: left;
+        min-width: 200px;
+        flex: 0 1 auto;
+    }
+
+    .ip-repo:hover {
+        border-color: var(--accent-teal);
+        transform: translateY(-2px);
+    }
+
+    .ip-repo h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent-teal);
+        margin-bottom: 0.3rem;
+    }
+
+    .ip-repo p {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+    }
+
+    .ip-attribution {
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        padding: 2rem;
+    }
+
+    .ip-attribution a {
+        color: var(--accent-teal);
+        transition: opacity 0.3s;
+    }
+
+    .ip-attribution a:hover {
+        opacity: 0.8;
+    }
+
+    /* Scroll animations */
+    .ip-fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .ip-fade-in.ip-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .ip-cap-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .investpal-container {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navigation Bar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--card-border);
-            padding: 1rem 2rem;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-        }
-
-        .navbar-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .navbar-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-links a:hover {
-            color: var(--accent-cyan);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 4px;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-primary);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 2rem 4rem;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at top, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom right, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom left, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
-            z-index: 0;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                linear-gradient(45deg, transparent 30%, rgba(102, 126, 234, 0.05) 50%, transparent 70%),
-                linear-gradient(-45deg, transparent 30%, rgba(168, 85, 247, 0.05) 50%, transparent 70%);
-            background-size: 200% 200%;
-            animation: gradientShift 15s ease infinite;
-            z-index: 1;
-        }
-
-        @keyframes gradientShift {
-
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-tagline {
-            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .hero-description {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            margin-bottom: 4rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Value Proposition */
-        .value-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .value-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .value-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-        }
-
-        .value-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .value-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .value-card p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        /* Product Ecosystem */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        .ip-features {
+            grid-template-columns: repeat(2, 1fr);
             gap: 2.5rem;
-            margin-top: 3rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .ip-nav {
+            padding: 0 1.25rem;
         }
 
-        .product-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 3rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+        .ip-hamburger {
+            display: flex;
         }
 
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
+        .ip-nav-links {
+            position: fixed;
+            top: 64px;
             left: 0;
             right: 0;
-            height: 4px;
-            background: var(--primary-gradient);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            background: rgba(11, 15, 26, 0.98);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            flex-direction: column;
+            gap: 0;
+            padding: 0;
+            border-bottom: 1px solid var(--card-border);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
         }
 
-        .product-card:hover::before {
-            transform: scaleX(1);
+        .ip-nav-links.active {
+            max-height: 280px;
         }
 
-        .product-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--accent-purple);
-            box-shadow: 0 25px 50px rgba(168, 85, 247, 0.3);
+        .ip-nav-links li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        .product-icon {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 2rem;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary-gradient);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        .ip-nav-links li:last-child {
+            border-bottom: none;
         }
 
-        .product-icon img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-        }
-
-        .product-icon.css-icon {
-            font-size: 4rem;
-        }
-
-        .product-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .product-card .product-label {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: rgba(0, 212, 255, 0.2);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--accent-cyan);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        .product-card p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .product-features {
-            list-style: none;
-            text-align: left;
-            margin-top: 1.5rem;
-        }
-
-        .product-features li {
-            padding: 0.5rem 0;
-            color: var(--text-secondary);
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .product-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--accent-cyan);
-            font-weight: bold;
-        }
-
-        /* Features Showcase */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-item {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .feature-item:hover {
-            border-color: var(--accent-cyan);
-            transform: translateY(-5px);
-        }
-
-        .feature-item h4 {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            color: var(--accent-cyan);
-        }
-
-        .feature-item ul {
-            list-style: none;
-            color: var(--text-secondary);
-        }
-
-        .feature-item li {
-            padding: 0.4rem 0;
-            position: relative;
-            padding-left: 1.2rem;
-        }
-
-        .feature-item li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--accent-purple);
-        }
-
-        /* Learn More Section */
-        .learn-more {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
-            border-radius: 24px;
-            padding: 4rem 3rem;
-            text-align: center;
-            margin-top: 3rem;
-            border: 1px solid var(--card-border);
-        }
-
-        .learn-more h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .learn-more p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 2.5rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .repo-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .repo-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 2rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all 0.3s ease;
+        .ip-nav-links a {
             display: block;
+            padding: 1rem 1.5rem;
+            text-align: center;
         }
 
-        .repo-card:hover {
-            border-color: var(--accent-cyan);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        .ip-hero {
+            min-height: 75vh;
+            padding: 6rem 1.5rem 3rem;
         }
 
-        .repo-card h4 {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            color: var(--accent-cyan);
-            word-break: break-word;
-            overflow-wrap: break-word;
+        .ip-section {
+            padding: 4rem 1.5rem;
         }
 
-        .repo-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+        .ip-bridge {
+            padding: 3rem 1.5rem;
+        }
+
+        .ip-cap-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .ip-cap-card {
+            padding: 2rem;
+        }
+
+        .ip-steps {
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .ip-steps::before {
+            top: 28px;
+            bottom: 28px;
+            left: 28px;
+            right: auto;
+            width: 2px;
+            height: auto;
+        }
+
+        .ip-step {
+            text-align: left;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .ip-step-num {
             margin: 0;
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            font-size: 1.1rem;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .ip-step-text {
+            flex: 1;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 0.75rem 1rem;
-            }
-
-            .navbar-brand {
-                font-size: 1.2rem;
-            }
-
-            .hamburger {
-                display: flex;
-                padding: 0.5rem;
-                margin: -0.5rem;
-                /* Increase touch target size */
-            }
-
-            .navbar-links {
-                position: fixed;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: rgba(10, 14, 39, 0.98);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                gap: 0;
-                padding: 1rem 0;
-                border-bottom: 1px solid var(--card-border);
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease;
-            }
-
-            .navbar-links.active {
-                max-height: 300px;
-            }
-
-            .navbar-links li {
-                width: 100%;
-                text-align: center;
-                padding: 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-
-            .navbar-links li:last-child {
-                border-bottom: none;
-            }
-
-            .navbar-links a {
-                display: block;
-                font-size: 1rem;
-                padding: 1rem 1.5rem;
-                /* Larger touch target */
-            }
-
-            .hero {
-                min-height: 70vh;
-                padding: 6rem 1.5rem 3rem;
-            }
-
-            .hero h1 {
-                font-size: clamp(2rem, 8vw, 3rem);
-                line-height: 1.2;
-            }
-
-            .hero-tagline {
-                font-size: clamp(1rem, 4vw, 1.3rem);
-            }
-
-            .hero-description {
-                font-size: 1rem;
-                line-height: 1.6;
-            }
-
-            .section {
-                padding: 3rem 1.5rem;
-            }
-
-            .section-title {
-                font-size: clamp(1.75rem, 6vw, 2.5rem);
-                line-height: 1.2;
-                margin-bottom: 0.75rem;
-            }
-
-            .section-subtitle {
-                font-size: 1rem;
-                margin-bottom: 2.5rem;
-            }
-
-            .value-card,
-            .product-card {
-                padding: 1.75rem;
-            }
-
-            .value-card h3,
-            .product-card h3 {
-                font-size: 1.3rem;
-            }
-
-            .value-card p,
-            .product-card p {
-                font-size: 0.95rem;
-            }
-
-            .product-icon {
-                width: 100px;
-                height: 100px;
-                margin-bottom: 1.5rem;
-            }
-
-            .product-icon img {
-                width: 60px;
-                height: 60px;
-            }
-
-            .product-icon.css-icon {
-                font-size: 3rem;
-            }
-
-            .product-grid,
-            .value-grid,
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .feature-item {
-                padding: 1.5rem;
-            }
-
-            .feature-item h4 {
-                font-size: 1.2rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 1rem;
-            }
-
-            .btn {
-                width: 100%;
-                padding: 0.875rem 2rem;
-                font-size: 1rem;
-                /* Better touch target */
-            }
-
-            .learn-more {
-                padding: 2.5rem 1.5rem;
-            }
-
-            .learn-more h3 {
-                font-size: 1.5rem;
-            }
-
-            .learn-more p {
-                font-size: 1rem;
-            }
-
-            .repo-card {
-                padding: 1.5rem;
-            }
-
-            .repo-card h4 {
-                font-size: 1.1rem;
-            }
-
-            .repo-card p {
-                font-size: 0.9rem;
-            }
+        .ip-step p {
+            margin: 0;
+            max-width: none;
         }
-    </style>
-</head>
 
-<body class="investpal-container">
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a href="#" class="navbar-brand">InvestPal</a>
-            <div class="hamburger" id="hamburger">
+        .ip-trust {
+            flex-direction: column;
+            gap: 1.25rem;
+            padding: 3rem 1.5rem;
+        }
+
+        .ip-trust-divider {
+            width: 40px;
+            height: 1px;
+        }
+
+        .ip-platforms {
+            grid-template-columns: 1fr;
+        }
+
+        .ip-features {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .ip-cta-row {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .ip-btn {
+            justify-content: center;
+        }
+
+        .ip-final {
+            padding: 3rem 1.5rem;
+            margin: 0 1rem 3rem;
+            border-radius: 16px;
+        }
+
+        .ip-repos {
+            flex-direction: column;
+        }
+
+        .ip-repo {
+            min-width: auto;
+        }
+    }
+</style>
+
+<div class="ip">
+
+    <!-- Navigation -->
+    <nav class="ip-nav">
+        <div class="ip-nav-inner">
+            <a href="#" class="ip-brand">InvestPal</a>
+            <div class="ip-hamburger" id="ipHamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <ul class="navbar-links" id="navbarLinks">
-                <li><a href="#value-proposition">Why InvestPal</a></li>
-                <li><a href="#ecosystem">Ecosystem</a></li>
+            <ul class="ip-nav-links" id="ipNavLinks">
                 <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#platforms">Platforms</a></li>
                 <li><a href="https://github.com/OrestisStefanou/InvestPal" target="_blank">GitHub</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>InvestPal</h1>
-            <p class="hero-tagline">AI-Powered Investment Advisory Platform</p>
-            <p class="hero-description">
-                Democratizing access to sophisticated investment analysis through cutting-edge AI,
-                real-time market intelligence, and personalized financial insights across multiple channels.
+    <!-- Hero -->
+    <section class="ip-hero">
+        <div class="ip-hero-content">
+            <h1>Your AI Investment Advisor</h1>
+            <p class="ip-hero-sub">
+                Get personalized, data-backed investment guidance through natural conversation.
+                Powered by Claude, GPT, or Gemini.
             </p>
-            <div class="cta-buttons">
-                <a href="https://github.com/OrestisStefanou/InvestPal" class="btn btn-primary" target="_blank">View on
-                    GitHub</a>
-                <a href="https://t.me/ai_investor_advisor_bot" class="btn btn-secondary" target="_blank">Try Telegram
-                    Bot</a>
+            <div class="ip-cta-row">
+                <a href="https://t.me/ai_investor_advisor_bot" class="ip-btn ip-btn-primary" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 4.4L2.4 10.8c-.6.2-.6 1.1 0 1.3l4.5 1.5 1.7 5.4c.2.5.8.7 1.2.4l2.5-2 4.8 3.5c.5.4 1.2.1 1.3-.5L21.8 5.2c.2-.7-.5-1.2-1.1-.9z"/><path d="M8.6 13.6l8.8-6.5"/></svg>
+                    Try on Telegram
+                </a>
+                <a href="https://github.com/OrestisStefanou/InvestPal" class="ip-btn ip-btn-outline" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Value Proposition -->
-    <section id="value-proposition" class="section">
-        <h2 class="section-title">Why InvestPal?</h2>
-        <p class="section-subtitle">Professional-grade investment analysis, accessible to everyone</p>
+    <!-- Problem/Solution Bridge -->
+    <div class="ip-bridge ip-fade-in">
+        <p>
+            Financial advice is either expensive, biased, or generic.
+            InvestPal combines <span class="ip-highlight">real-time market data with AI that remembers
+            your goals, risk tolerance, and portfolio</span> — delivering
+            professional-grade guidance in a simple conversation.
+        </p>
+    </div>
 
-        <div class="value-grid">
-            <div class="value-card">
-                <div class="value-icon">📊</div>
-                <h3>Real-time Market Intelligence</h3>
-                <p>Access comprehensive data on stocks, ETFs, cryptocurrencies, economic indicators, and institutional
-                    investor portfolios from trusted sources.</p>
+    <!-- Key Capabilities -->
+    <section id="features" class="ip-section">
+        <h2 class="ip-section-title ip-fade-in">What InvestPal Does</h2>
+        <p class="ip-section-sub ip-fade-in">Everything you need for informed investment decisions, in one conversation.</p>
+
+        <div class="ip-cap-grid">
+            <div class="ip-cap-card ip-fade-in">
+                <div class="ip-cap-icon">
+                    <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <h3>Real-Time Market Research</h3>
+                <p>Ask about any stock, ETF, crypto, commodity, or economic indicator and get current, data-backed answers from trusted sources like Alpha Vantage and CoinGecko.</p>
             </div>
 
-            <div class="value-card">
-                <div class="value-icon">🤖</div>
-                <h3>Personalized AI Advisory</h3>
-                <p>Context-aware recommendations tailored to your risk tolerance, investment goals, and preferences
-                    using state-of-the-art language models.</p>
+            <div class="ip-cap-card ip-fade-in">
+                <div class="ip-cap-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <h3>Personalized to You</h3>
+                <p>InvestPal adapts to your risk tolerance, knowledge level, and financial goals. It builds a profile over time and remembers your preferences across conversations.</p>
             </div>
 
-            <div class="value-card">
-                <div class="value-icon">🌐</div>
-                <h3>Multi-Channel Access</h3>
-                <p>Engage with your investment advisor through RESTful APIs, Telegram messaging, or integrate directly
-                    via the MCP protocol.</p>
+            <div class="ip-cap-card ip-fade-in">
+                <div class="ip-cap-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>Smart Reminders</h3>
+                <p>Mention an earnings date or a rebalancing plan, and InvestPal tracks it. It proactively reminds you when it's time to act — no follow-up falls through the cracks.</p>
             </div>
 
-            <div class="value-card">
-                <div class="value-icon">🏦</div>
-                <h3>Institutional-Grade Data</h3>
-                <p>Leverage trusted data providers like Alpha Vantage and CoinGecko for reliable, professional-quality
-                    market information.</p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">🎯</div>
-                <h3>No Human Bias</h3>
-                <p>Pure AI-driven analysis free from emotional decision-making, cognitive biases, and subjective
-                    opinions
-                    that often cloud human judgment.</p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">🔍</div>
-                <h3>No Hidden Motivations</h3>
-                <p>Unlike finfluencers with undisclosed sponsorships or conflicts of interest, InvestPal provides
-                    transparent, unbiased advice with no hidden agendas.</p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">📈</div>
-                <h3>Pure Data-Driven Insights</h3>
-                <p>Personalized recommendations based entirely on quantitative analysis, market data, and your specific
-                    financial goals—not hype or speculation.</p>
+            <div class="ip-cap-card ip-fade-in">
+                <div class="ip-cap-icon">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                </div>
+                <h3>Portfolio-Aware</h3>
+                <p>Optionally connect your Alpaca (stocks) or Coinbase (crypto) account for advice that accounts for your actual positions, allocations, and unrealized gains.</p>
             </div>
         </div>
     </section>
 
-    <!-- Product Ecosystem -->
-    <section id="ecosystem" class="section">
-        <h2 class="section-title">Three-Layer Ecosystem</h2>
-        <p class="section-subtitle">A comprehensive platform built with modern microservices architecture</p>
+    <!-- How It Works -->
+    <section id="how-it-works" class="ip-section">
+        <h2 class="ip-section-title ip-fade-in">How It Works</h2>
+        <p class="ip-section-sub ip-fade-in">Three steps. No setup required.</p>
 
-        <div class="product-grid">
-            <!-- MCP Server -->
-            <div class="product-card">
-                <div class="product-icon css-icon">
-                    🗄️
+        <div class="ip-steps ip-fade-in">
+            <div class="ip-step">
+                <div class="ip-step-num">1</div>
+                <div class="ip-step-text">
+                    <h3>Ask Anything</h3>
+                    <p>Type a question in plain language: "Should I increase my tech exposure?" or "What are Buffett's latest moves?"</p>
                 </div>
-                <h3>MCP Server</h3>
-                <span class="product-label">Data Layer</span>
-                <p>Comprehensive financial data access covering stocks, ETFs, cryptocurrencies, economic indicators, and
-                    institutional portfolios.</p>
-                <ul class="product-features">
-                    <li>Real-time market data</li>
-                    <li>Economic indicators & commodities</li>
-                    <li>Institutional investor tracking</li>
-                    <li>Fast, reliable data delivery</li>
-                </ul>
             </div>
 
-            <!-- Core API -->
-            <div class="product-card">
-                <div class="product-icon">
-                    <img src="/assets/img/investpal/api_icon.png" alt="API Service">
+            <div class="ip-step">
+                <div class="ip-step-num">2</div>
+                <div class="ip-step-text">
+                    <h3>AI Researches</h3>
+                    <p>InvestPal pulls real-time data from markets, analyzes your profile, checks your portfolio, and cross-references institutional moves.</p>
                 </div>
-                <h3>Investor Advisor API</h3>
-                <span class="product-label">Intelligence Layer</span>
-                <p>AI-powered investment advisory service providing personalized recommendations and insights.</p>
-                <ul class="product-features">
-                    <li>Multiple AI models for best results</li>
-                    <li>Personalized investment advice</li>
-                    <li>Context-aware conversations</li>
-                    <li>Continuous learning from interactions</li>
-                </ul>
             </div>
 
-            <!-- Telegram Bot -->
-            <div class="product-card">
-                <div class="product-icon">
-                    <img src="/assets/img/investpal/telegram_icon.png" alt="Telegram Bot">
+            <div class="ip-step">
+                <div class="ip-step-num">3</div>
+                <div class="ip-step-text">
+                    <h3>Get Actionable Guidance</h3>
+                    <p>Receive personalized, data-backed advice with full context. InvestPal remembers the conversation and follows up.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Signals -->
+    <div class="ip-trust ip-fade-in">
+        <div class="ip-trust-item">
+            <div class="ip-trust-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span>No hidden sponsorships or conflicts of interest</span>
+        </div>
+        <div class="ip-trust-divider"></div>
+        <div class="ip-trust-item">
+            <div class="ip-trust-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            </div>
+            <span>Data-driven analysis, not hype</span>
+        </div>
+        <div class="ip-trust-divider"></div>
+        <div class="ip-trust-item">
+            <div class="ip-trust-icon">
+                <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+            <span>Open source and transparent</span>
+        </div>
+    </div>
+
+    <!-- Platforms -->
+    <section id="platforms" class="ip-section">
+        <h2 class="ip-section-title ip-fade-in">Use It Your Way</h2>
+        <p class="ip-section-sub ip-fade-in">InvestPal meets you where you already are.</p>
+
+        <div class="ip-platforms">
+            <div class="ip-platform-card ip-fade-in">
+                <div class="ip-platform-icon">
+                    <svg viewBox="0 0 48 48" fill="none">
+                        <circle cx="24" cy="24" r="22" fill="rgba(79, 140, 255, 0.1)" stroke="var(--accent-blue)" stroke-width="1"/>
+                        <path d="M34.3 14.4L13.2 22.3c-.8.3-.8 1.4 0 1.7l5 1.7 2 6.2c.2.6.9.8 1.4.4l2.9-2.3 5.5 4c.6.4 1.4.1 1.6-.6l4-18c.1-.8-.6-1.4-1.3-1z" fill="var(--accent-blue)"/>
+                    </svg>
                 </div>
                 <h3>Telegram Bot</h3>
-                <span class="product-label">User Interface</span>
-                <p>Chat with your AI investment advisor anytime, anywhere through Telegram messaging.</p>
-                <ul class="product-features">
-                    <li>Instant investment insights</li>
-                    <li>Natural conversation flow</li>
-                    <li>Remembers your preferences</li>
-                    <li>Available 24/7</li>
+                <p>Chat on mobile or desktop. Ask questions, get reminders, manage your investments on the go.</p>
+                <a href="https://t.me/ai_investor_advisor_bot" class="ip-platform-cta" target="_blank">
+                    Start Chatting <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+
+            <div class="ip-platform-card ip-fade-in">
+                <div class="ip-platform-icon">
+                    <svg viewBox="0 0 48 48" fill="none">
+                        <circle cx="24" cy="24" r="22" fill="rgba(0, 212, 170, 0.1)" stroke="var(--accent-teal)" stroke-width="1"/>
+                        <rect x="12" y="14" width="24" height="16" rx="3" stroke="var(--accent-teal)" stroke-width="1.5" fill="none"/>
+                        <path d="M18 24h12M18 28h8" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round"/>
+                        <circle cx="16" cy="20" r="1.5" fill="var(--accent-teal)"/>
+                    </svg>
+                </div>
+                <h3>Claude Desktop</h3>
+                <p>Add InvestPal as MCP tools in Claude Desktop for seamless AI-powered investment research within your workflow.</p>
+                <a href="https://github.com/OrestisStefanou/InvestPal" class="ip-platform-cta" target="_blank">
+                    Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <p class="ip-platform-note ip-fade-in">REST API available for building custom integrations.</p>
+    </section>
+
+    <!-- Feature Deep-Dive -->
+    <section class="ip-section">
+        <h2 class="ip-section-title ip-fade-in">Everything Under the Hood</h2>
+        <p class="ip-section-sub ip-fade-in">A comprehensive toolkit for serious investors.</p>
+
+        <div class="ip-features">
+            <div class="ip-feature-group ip-fade-in">
+                <h3>Market Intelligence</h3>
+                <ul>
+                    <li>Real-time stock and ETF data</li>
+                    <li>Cryptocurrency prices and news</li>
+                    <li>Commodities and economic indicators</li>
+                    <li>Earnings call transcripts</li>
+                    <li>Insider transactions</li>
+                    <li>Sector performance analysis</li>
+                </ul>
+            </div>
+
+            <div class="ip-feature-group ip-fade-in">
+                <h3>Institutional Tracking</h3>
+                <ul>
+                    <li>Super investor portfolios</li>
+                    <li>Holdings changes over time</li>
+                    <li>Investment themes and ideas</li>
+                    <li>Company KPI metrics</li>
+                    <li>Revenue breakdowns</li>
+                </ul>
+            </div>
+
+            <div class="ip-feature-group ip-fade-in">
+                <h3>AI Capabilities</h3>
+                <ul>
+                    <li>Cross-session memory and context</li>
+                    <li>Personalized user profiling</li>
+                    <li>Multi-LLM support (Claude, GPT, Gemini)</li>
+                    <li>Proactive reminders</li>
+                    <li>Adaptive knowledge-level responses</li>
+                </ul>
+            </div>
+
+            <div class="ip-feature-group ip-fade-in">
+                <h3>Portfolio Management</h3>
+                <ul>
+                    <li>Alpaca integration (stocks and ETFs)</li>
+                    <li>Coinbase integration (crypto)</li>
+                    <li>Position tracking and P&L</li>
+                    <li>Order execution with confirmation</li>
+                    <li>Read-only mode available</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Features Showcase -->
-    <section id="features" class="section">
-        <h2 class="section-title">Comprehensive Features</h2>
-        <p class="section-subtitle">Everything you need for informed investment decisions</p>
+    <!-- Final CTA -->
+    <div style="padding: 0 2rem;">
+        <div class="ip-final ip-fade-in">
+            <h2>Start Your Conversation</h2>
+            <p>InvestPal is open source and free to use.</p>
 
-        <div class="features-grid">
-            <div class="feature-item">
-                <h4>📈 Market Coverage</h4>
-                <ul>
-                    <li>Real-time stock data</li>
-                    <li>ETF holdings & performance</li>
-                    <li>Cryptocurrency tracking</li>
-                    <li>Company financials</li>
-                    <li>Sector analysis</li>
-                </ul>
-            </div>
-
-            <div class="feature-item">
-                <h4>📉 Economic Indicators</h4>
-                <ul>
-                    <li>GDP historical data</li>
-                    <li>Inflation rates</li>
-                    <li>Unemployment statistics</li>
-                    <li>Treasury yields</li>
-                    <li>Interest rates</li>
-                </ul>
-            </div>
-
-            <div class="feature-item">
-                <h4>🛢️ Commodities</h4>
-                <ul>
-                    <li>Oil prices</li>
-                    <li>Natural gas</li>
-                    <li>Precious metals</li>
-                    <li>Time-series data</li>
-                    <li>Historical trends</li>
-                </ul>
-            </div>
-
-            <div class="feature-item">
-                <h4>🎯 Super Investors</h4>
-                <ul>
-                    <li>Institutional portfolios</li>
-                    <li>Holdings tracking</li>
-                    <li>Investment strategies</li>
-                    <li>Portfolio changes</li>
-                    <li>Performance metrics</li>
-                </ul>
-            </div>
-
-            <div class="feature-item">
-                <h4>🧠 AI Capabilities</h4>
-                <ul>
-                    <li>Context-aware conversations</li>
-                    <li>Personalized insights</li>
-                    <li>Risk assessment</li>
-                    <li>Goal-based recommendations</li>
-                    <li>Multi-LLM support</li>
-                </ul>
-            </div>
-
-            <div class="feature-item">
-                <h4>🔧 Integration</h4>
-                <ul>
-                    <li>RESTful API</li>
-                    <li>MCP protocol</li>
-                    <li>Telegram interface</li>
-                    <li>Extensible architecture</li>
-                    <li>Developer-friendly</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Learn More -->
-    <section class="section">
-        <div class="learn-more">
-            <h3>Ready to Get Started?</h3>
-            <p>
-                Explore the technical architecture, data flow, and implementation details in our comprehensive blog
-                post.
-                Then dive into the code on GitHub to start building with InvestPal.
-            </p>
-
-            <div class="cta-buttons">
-                <a href="https://orestisstefanou.github.io/InvestPal.html" class="btn btn-primary" target="_blank">Read
-                    Technical Blog
-                    Post</a>
-            </div>
-
-            <div class="repo-links">
-                <a href="https://github.com/OrestisStefanou/MarketDataMcpServer" class="repo-card" target="_blank">
-                    <h4>📦 MarketDataMcpServer</h4>
-                    <p>Go-based MCP server with 20+ financial data tools</p>
+            <div class="ip-cta-row">
+                <a href="https://t.me/ai_investor_advisor_bot" class="ip-btn ip-btn-primary" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 4.4L2.4 10.8c-.6.2-.6 1.1 0 1.3l4.5 1.5 1.7 5.4c.2.5.8.7 1.2.4l2.5-2 4.8 3.5c.5.4 1.2.1 1.3-.5L21.8 5.2c.2-.7-.5-1.2-1.1-.9z"/><path d="M8.6 13.6l8.8-6.5"/></svg>
+                    Try on Telegram
                 </a>
-
-                <a href="https://github.com/OrestisStefanou/InvestPal" class="repo-card" target="_blank">
-                    <h4>🤖 InvestPal Core</h4>
-                    <p>FastAPI service with AI orchestration and LangChain</p>
+                <a href="/InvestPal-2.0.html" class="ip-btn ip-btn-outline">
+                    Read the Blog
                 </a>
+            </div>
 
-                <a href="https://github.com/OrestisStefanou/InvestPalTelegramBot" class="repo-card" target="_blank">
-                    <h4>💬 Telegram Bot</h4>
-                    <p>Conversational interface for on-the-go investment queries</p>
+            <div class="ip-repos">
+                <a href="https://github.com/OrestisStefanou/MarketDataMcpServer" class="ip-repo" target="_blank">
+                    <h4>MarketDataMcpServer</h4>
+                    <p>Financial data via 25+ tools</p>
+                </a>
+                <a href="https://github.com/OrestisStefanou/InvestPal" class="ip-repo" target="_blank">
+                    <h4>InvestPal</h4>
+                    <p>Core AI advisor service</p>
+                </a>
+                <a href="https://github.com/OrestisStefanou/AlpacaMcpServer" class="ip-repo" target="_blank">
+                    <h4>AlpacaMcpServer</h4>
+                    <p>Stock and ETF trading</p>
+                </a>
+                <a href="https://github.com/OrestisStefanou/CoinbaseMcpServer" class="ip-repo" target="_blank">
+                    <h4>CoinbaseMcpServer</h4>
+                    <p>Crypto trading integration</p>
+                </a>
+                <a href="https://github.com/OrestisStefanou/InvestPalTelegramBot" class="ip-repo" target="_blank">
+                    <h4>InvestPalTelegramBot</h4>
+                    <p>Telegram chat interface</p>
                 </a>
             </div>
         </div>
-    </section>
+    </div>
 
-    <script>
-        // Hamburger menu toggle
-        const hamburger = document.getElementById('hamburger');
-        const navbarLinks = document.getElementById('navbarLinks');
+    <!-- Attribution -->
+    <div class="ip-attribution">
+        Built by <a href="/">Orestis Stefanou</a>
+    </div>
 
-        hamburger.addEventListener('click', () => {
-            navbarLinks.classList.toggle('active');
+</div>
+
+<script>
+    // Hamburger menu
+    const hamburger = document.getElementById('ipHamburger');
+    const navLinks = document.getElementById('ipNavLinks');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
         });
+    });
 
-        // Close menu when clicking on a link
-        const navLinks = navbarLinks.querySelectorAll('a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navbarLinks.classList.remove('active');
-            });
+    // Scroll-triggered fade-in
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('ip-visible');
+                observer.unobserve(entry.target);
+            }
         });
-    </script>
-</body>
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-</html>
+    document.querySelectorAll('.ip-fade-in').forEach(el => observer.observe(el));
+</script>
