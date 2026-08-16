@@ -1,7 +1,7 @@
 ---
 layout: null
 title: InvestPal
-description: "InvestPal is a self-hosted, single-user investment analyst built on the Model Context Protocol. Keyless market data, fifteen value-investing skills, and optional brokerage integrations, all running on your own machine."
+description: "InvestPal is an AI investment analyst that runs on your own machine. It researches any stock, ETF or coin from primary sources, follows fifteen written value-investing procedures, remembers your goals, and can connect to your own brokerage."
 permalink: /investpal/
 ---
 <!DOCTYPE html>
@@ -9,20 +9,20 @@ permalink: /investpal/
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>InvestPal: a self-hosted investment analyst</title>
+<title>InvestPal: an AI investment analyst that runs on your own machine</title>
 <meta name="description" content="{{ page.description }}">
 <link rel="canonical" href="{{ site.url }}/investpal/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="InvestPal">
-<meta property="og:title" content="InvestPal: a self-hosted investment analyst">
+<meta property="og:title" content="InvestPal: an AI investment analyst that runs on your own machine">
 <meta property="og:description" content="{{ page.description }}">
 <meta property="og:url" content="{{ site.url }}/investpal/">
 <meta property="og:image" content="{{ site.url }}/assets/img/investpal/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="InvestPal: a self-hosted investment analyst">
+<meta name="twitter:title" content="InvestPal: an AI investment analyst that runs on your own machine">
 <meta name="twitter:description" content="{{ page.description }}">
 <meta name="twitter:image" content="{{ site.url }}/assets/img/investpal/og.png">
 
@@ -50,7 +50,7 @@ if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}})();
   "name": "InvestPal",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "macOS, Linux",
-  "description": "A self-hosted, single-user investment analyst built on the Model Context Protocol.",
+  "description": "An AI investment analyst that runs on your own machine.",
   "url": "{{ site.url }}/investpal/",
   "codeRepository": "https://github.com/OrestisStefanou/InvestPalEcosystem",
   "author": { "@type": "Person", "name": "Orestis Stefanou" }
@@ -93,27 +93,29 @@ if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}})();
     </a>
 
     <nav class="nav-links" aria-label="Sections">
-      <a class="nav-link" href="#skills">Skills</a>
-      <a class="nav-link" href="#tools">Tools</a>
-      <a class="nav-link" href="#architecture">Architecture</a>
-      <a class="nav-link" href="#get-started">Get started</a>
+      <a class="nav-link" href="#use">Ways to use it</a>
+      <a class="nav-link" href="#features">What it does</a>
+      <a class="nav-link" href="#method">The method</a>
+      <a class="nav-link" href="#private">Privacy</a>
     </nav>
 
     <details class="nav-mobile">
       <summary aria-label="Menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </summary>
       <div class="nav-mobile-sheet">
-        <a href="#skills">Skills</a>
-        <a href="#tools">Tools</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#surfaces">Ways to use it</a>
+        <a href="#use">Ways to use it</a>
+        <a href="#features">What it does</a>
+        <a href="#method">The method</a>
+        <a href="#data">Where the data comes from</a>
+        <a href="#private">Privacy</a>
         <a href="#get-started">Get started</a>
         <a href="https://github.com/OrestisStefanou/InvestPalEcosystem">GitHub</a>
       </div>
     </details>
 
     <div class="nav-tools">
+      <a class="nav-cta" href="#get-started">Get started</a>
       <a class="icon-btn" href="https://github.com/OrestisStefanou/InvestPalEcosystem" aria-label="InvestPal on GitHub">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
       </a>
@@ -132,470 +134,339 @@ if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}})();
   <div class="wrap">
     <svg class="hero-mark" role="img" aria-label="InvestPal"><use href="#ip-owl"></use></svg>
 
-    <h1 class="h1">An investment analyst that runs on your own machine.</h1>
+    <h1 class="h1">An investment analyst that runs on <span class="gold-word">your own machine</span>.</h1>
 
-    <p class="deck">InvestPal is a self-hosted, single-user investment advisor built on the Model
-    Context Protocol. Five MCP servers put keyless market data, fifteen value-investing skills and,
-    optionally, your own brokerage accounts in front of Claude. Your profile, notes and history
-    stay in one SQLite file on your laptop.</p>
-
-    <div class="install">
-      <div class="install-shell">
-        <div class="install-bar">
-          <span class="install-label">Install</span>
-          <button class="copy-btn" type="button" data-copy="install-cmd">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span data-copy-label>Copy</span>
-          </button>
-        </div>
-        <pre id="install-cmd"><span class="tok-dim">$</span> git clone https://github.com/OrestisStefanou/InvestPalEcosystem
-<span class="tok-dim">$</span> cd InvestPalEcosystem
-<span class="tok-dim">$</span> make setup</pre>
-      </div>
-      <p class="hero-note">That is the whole thing. <code>make setup</code> checks prerequisites,
-      clones the five service repos, installs their dependencies, writes your configuration,
-      prepares the database and search index, and starts everything. No API key required: in the
-      Claude Code cockpit, Claude Code is the LLM.</p>
-    </div>
+    <p class="deck">Ask it whether a company is worth owning and it does the work properly: pulls the
+    filings, walks through a written valuation procedure, checks it against what you already hold,
+    and tells you what it found. It remembers your goals between conversations, and nothing about
+    your portfolio ever leaves your laptop.</p>
 
     <div class="btn-row hero-cta">
       <a class="btn btn--primary" href="#get-started">Get started</a>
-      <a class="btn btn--ghost" href="https://github.com/OrestisStefanou/InvestPalEcosystem">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-        View on GitHub
-      </a>
-      <a class="btn btn--ghost" href="/InvestPal-2.0.html">Read the write-up</a>
+      <a class="btn btn--ghost" href="#use">See how you would use it</a>
     </div>
 
     <figure class="terminal reveal">
       <div class="terminal-bar">
         <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-        <span class="terminal-title">investpal · claude code cockpit</span>
+        <span class="terminal-title">a conversation with InvestPal</span>
       </div>
       <div class="terminal-body">
 <p><span class="t-prompt">&gt;</span> <span class="t-user">is ASML expensive at these levels?</span></p>
 <div class="t-gap"></div>
-<p><span class="t-tool">●</span> getUserProfileNotes()
-  <span class="t-dim">→ horizon 10y+ · risk tolerance moderate · prefers franchises</span></p>
-<p><span class="t-tool">●</span> getStockFinancials(symbol=<span class="t-dim">"ASML"</span>)</p>
-<p><span class="t-tool">●</span> getSkill(name=<span class="t-dim">"calculate_intrinsic_value"</span>)</p>
+<p><span class="t-dim">Checking your profile, pulling the financials, and running the
+intrinsic value procedure.</span></p>
 <div class="t-rule"></div>
-<p>Running the Graham &amp; Dodd three-element framework.</p>
+<p>You hold this for the long run and you prefer franchises, so the
+question is whether the moat justifies the price.</p>
 <div class="t-gap"></div>
 <p>  Net asset (reproduction) value   <span class="t-dim">~</span>&#8364;118 / share
-  Earnings power value (EPV)       <span class="t-dim">~</span>&#8364;196 / share
-  EPV &gt; asset value                <span class="t-dim">franchise, not a commodity business</span></p>
+  Earnings power value             <span class="t-dim">~</span>&#8364;196 / share
+  Earnings power above asset value <span class="t-dim">a franchise, not a commodity business</span></p>
 <div class="t-gap"></div>
-<p>At &#8364;742 you are paying roughly 3.8&#215; earnings power value, so
-almost the whole price is growth value. That is defensible only
-if the moat holds for a decade. Shall I run
-<span class="t-dim">assess_competitive_moat</span> next?</p>
+<p>At &#8364;742 you are paying roughly 3.8&#215; earnings power, so almost the
+whole price is growth you have not seen yet. That is defensible
+only if the moat holds for a decade. Shall I test the moat next?</p>
       </div>
     </figure>
-    <p class="figure-note">Illustrative session. The figures above are invented for this page and
-    are not output from a real run.</p>
+    <p class="figure-note">Illustrative. The figures above are invented for this page and are not
+    output from a real run.</p>
   </div>
 </section>
 
-<!-- ============================ pillars ============================ -->
-<section class="band band--soft">
+<!-- ============================ proof strip ============================ -->
+<section class="band band--sunk stats-band">
   <div class="wrap">
-    <div class="band-head reveal">
-      <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>What it is</p>
-      <h2 class="h2">Three things it does differently.</h2>
-      <p class="deck">InvestPal is not a hosted chatbot with a market-data plugin. It is a set of
-      MCP servers you run yourself, a database you own, and a written methodology the agent is
-      required to follow.</p>
-    </div>
-
-    <div class="reveal">
-      <div class="tabs" role="tablist" aria-label="What InvestPal does differently">
-        <button class="tab" role="tab" id="tab-local" aria-controls="panel-local" aria-selected="true" tabindex="0">Local-first</button>
-        <button class="tab" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" tabindex="-1">Method, not vibes</button>
-        <button class="tab" role="tab" id="tab-mcp" aria-controls="panel-mcp" aria-selected="false" tabindex="-1">Composable over MCP</button>
-      </div>
-
-      <div class="tabpanel" role="tabpanel" id="panel-local" aria-labelledby="tab-local" tabindex="0">
-        <div class="pillar">
-          <div>
-            <h3 class="h3">Your portfolio never leaves the room.</h3>
-            <p>There is no hosted backend, no account, no auth and no tenancy. Setup creates a
-            single turso/SQLite file on your machine, and your profile, conversation notes,
-            reminders and workflow results all live inside it.</p>
-            <ul class="pillar-facts">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Embeddings are computed on your own CPU with <code>BAAI/bge-small-en-v1.5</code>. Note text is never sent anywhere.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Brokerage credentials travel as per-request headers and are never stored.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><code>.env.secrets</code> is mode 600 and denied to the agent by the cockpit's permission rules.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Turso Cloud sync exists and is entirely opt-in and manual. Nothing syncs on startup, on shutdown, or on a timer.</span></li>
-            </ul>
-          </div>
-          <dl class="pillar-aside">
-            <dt>investpal.db</dt>
-            <dd>One SQLite file with native vector search, created on first start. No database server to run.</dd>
-            <dt>EMBEDDING_ENABLED</dt>
-            <dd>Set it to <code>false</code> and semantic search over your notes is switched off entirely.</dd>
-            <dt>ALPACA_READ_ONLY · COINBASE_READ_ONLY · IB_READ_ONLY</dt>
-            <dd>Each hides every order-placing tool from the advisor, so it can read a portfolio but cannot act on it.</dd>
-          </dl>
-        </div>
-      </div>
-
-      <div class="tabpanel" role="tabpanel" id="panel-method" aria-labelledby="tab-method" tabindex="0" hidden>
-        <div class="pillar">
-          <div>
-            <h3 class="h3">Fifteen procedures instead of an opinion.</h3>
-            <p>Skills are step-by-step analytical procedures that encode a methodology: Graham
-            &amp; Dodd on valuation, Howard Marks on cycles and second-level thinking. They are
-            plain Python in the repository, so you can read exactly what the model was told before
-            it answered you.</p>
-            <ul class="pillar-facts">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>“Always prefer a skill over ad-hoc analysis” is in the advisor's own prompt.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>So is the line “skipping a relevant skill is a defect.”</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Answers adapt to a declared knowledge level: beginner, intermediate or advanced.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>The same procedures run unattended inside scheduled workflows.</span></li>
-            </ul>
-          </div>
-          <dl class="pillar-aside">
-            <dt>getSkillDefinitions</dt>
-            <dd>Lists every skill with a one-line summary of what it is and when to reach for it.</dd>
-            <dt>getSkill</dt>
-            <dd>Returns the full written procedure for the agent to work through, step by step.</dd>
-            <dt>Lineage</dt>
-            <dd>Graham &amp; Dodd's <em>Security Analysis</em> for valuation; Howard Marks' <em>The Most Important Thing</em> for cycles, sentiment and second-level thinking.</dd>
-          </dl>
-        </div>
-      </div>
-
-      <div class="tabpanel" role="tabpanel" id="panel-mcp" aria-labelledby="tab-mcp" tabindex="0" hidden>
-        <div class="pillar">
-          <div>
-            <h3 class="h3">Five servers, four front-ends, one protocol.</h3>
-            <p>Every capability is an MCP tool, and nothing is hard-wired to a particular client.
-            The same toolset drives the Claude Code cockpit, Claude Desktop, a browser console and
-            anything you build yourself on the REST API.</p>
-            <ul class="pillar-facts">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Market data is a standalone Go server; each broker is a standalone Python server.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Adding a broker means adding a server, not rewriting the agent.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>The core exposes a REST API on <code>:8000</code> and its own MCP app on <code>:9000</code>.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Claude Code and Claude Desktop connect straight to the MCP servers, bypassing the REST layer.</span></li>
-            </ul>
-          </div>
-          <dl class="pillar-aside">
-            <dt>InvestPal core</dt>
-            <dd>FastAPI. REST on <code>:8000</code>, MCP app on <code>:9000</code>.</dd>
-            <dt>MarketDataMcpServer</dt>
-            <dd>Go, <code>:8082</code>. Twenty tools, no API keys.</dd>
-            <dt>AlpacaMcpServer · CoinbaseMcpServer · InteractiveBrokersMcpServer</dt>
-            <dd>Python and FastMCP, on <code>:9091</code>, <code>:9090</code> and <code>:9092</code>. All optional.</dd>
-          </dl>
-        </div>
-      </div>
-    </div>
+    <dl class="stats">
+      <div class="stat"><dt>Written analytical procedures</dt><dd><span class="stat-n">15</span></dd></div>
+      <div class="stat"><dt>Free primary data sources</dt><dd><span class="stat-n">8</span></dd></div>
+      <div class="stat"><dt>Brokerages supported</dt><dd><span class="stat-n">3</span></dd></div>
+      <div class="stat"><dt>File on your machine</dt><dd><span class="stat-n">1</span></dd></div>
+    </dl>
   </div>
 </section>
 
-<!-- ============================ skills ============================ -->
-<section class="band" id="skills">
-  <div class="wrap">
-    <div class="band-head reveal">
-      <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Skills</p>
-      <h2 class="h2">A written methodology, not a personality.</h2>
-      <p class="deck">Fifteen analytical procedures the advisor is required to follow. They are the
-      difference between an answer and a defensible answer.</p>
-    </div>
-
-    <div class="quotes reveal">
-      <figure class="quote">
-        <blockquote class="quote-text">“Risk is not volatility. A stock that drops 50% while its intrinsic value remains unchanged has become less risky.”</blockquote>
-        <figcaption class="quote-src">analyze_portfolio_risk</figcaption>
-      </figure>
-      <figure class="quote">
-        <blockquote class="quote-text">“Investment success comes from buying things well, not from buying good things.”</blockquote>
-        <figcaption class="quote-src">analyze_stock_valuation</figcaption>
-      </figure>
-      <figure class="quote">
-        <blockquote class="quote-text">“The danger is not having a wrong opinion. It is having the same opinion as everyone else and mistaking it for insight.”</blockquote>
-        <figcaption class="quote-src">apply_second_level_thinking</figcaption>
-      </figure>
-      <figure class="quote">
-        <blockquote class="quote-text">“Themes are usually right about the world and wrong about the investment.”</blockquote>
-        <figcaption class="quote-src">evaluate_investment_theme</figcaption>
-      </figure>
-    </div>
-
-    <div class="skill-grid reveal">
-      <div class="skill"><span class="skill-name">analyze_balance_sheet</span><p>Liquidity, solvency, asset quality and capital structure, read against the company's sector profile.</p></div>
-      <div class="skill"><span class="skill-name">analyze_cash_flow</span><p>Operating and free cash flow, cash quality, and the maintenance-versus-growth CapEx gap that reveals owner earnings.</p></div>
-      <div class="skill"><span class="skill-name">analyze_earnings_quality</span><p>Eight dimensions, from cash conversion to tax quality, testing whether reported earnings are real.</p></div>
-      <div class="skill"><span class="skill-name">analyze_income_statement</span><p>Sustainable operating income via 7–15 year margin averaging, plus pricing power and hidden growth spend.</p></div>
-      <div class="skill"><span class="skill-name">analyze_macro_impact</span><p>Whether current earnings sit above or below sustainable levels, and what that does to the cost of capital.</p></div>
-      <div class="skill"><span class="skill-name">analyze_management_commentary</span><p>Guidance architecture, tone shifts, and the gap between stated priorities and actual capital allocation.</p></div>
-      <div class="skill"><span class="skill-name">analyze_portfolio_risk</span><p>Aggregate risk of permanent capital loss across eight dimensions, including hidden correlations and forced-selling exposure.</p></div>
-      <div class="skill"><span class="skill-name">analyze_stock_valuation</span><p>Whether the price on offer is a good purchase, a separate question from whether it is a good business.</p></div>
-      <div class="skill"><span class="skill-name">apply_second_level_thinking</span><p>A nine-point stress test of a thesis against consensus, looking for informational, analytical, behavioural or structural edge.</p></div>
-      <div class="skill"><span class="skill-name">assess_competitive_moat</span><p>Franchise or commodity business, decided by comparing earnings power value against asset value.</p></div>
-      <div class="skill"><span class="skill-name">assess_market_sentiment</span><p>A 22-item heated-versus-cold checklist across the economic cycle, the credit cycle and investor psychology.</p></div>
-      <div class="skill"><span class="skill-name">calculate_intrinsic_value</span><p>Graham &amp; Dodd in three elements: asset value, earnings power value, and growth value only where a franchise exists.</p></div>
-      <div class="skill"><span class="skill-name">compare_sector_peers</span><p>Three to six peers ranked on growth, profitability, valuation multiples and balance sheet health.</p></div>
-      <div class="skill"><span class="skill-name">evaluate_investment_theme</span><p>Turns a theme into a falsifiable claim, then finds which link in the value chain actually captures the economics.</p></div>
-      <div class="skill"><span class="skill-name">evaluate_margin_of_safety</span><p>Defensive-investing discipline applied to a single position or a proposed trade.</p></div>
-    </div>
-
-    <p class="skill-note">Two tools expose the skills to the agent: <code>getSkillDefinitions</code>
-    to see what exists, and <code>getSkill</code> to read the full procedure. You can inspect exactly
-    the reasoning the advisor was asked to perform.</p>
-  </div>
-</section>
-
-<!-- ============================ tools ============================ -->
-<section class="band band--soft" id="tools">
-  <div class="wrap">
-    <div class="band-head reveal">
-      <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Tools</p>
-      <h2 class="h2">Everything the advisor can actually reach.</h2>
-      <p class="deck">No black box. This is the complete tool surface, exactly as the agent sees it.</p>
-    </div>
-
-    <div class="tool-groups">
-      <section class="tool-group reveal">
-        <div class="tool-group-head">
-          <h3>Market data</h3>
-          <span class="tool-count">20 tools · no API keys</span>
-        </div>
-        <ul class="tool-list">
-          <li>stockSearch</li><li>etfSearch</li><li>getETF</li><li>getStockOverview</li>
-          <li>getStockFinancials</li><li>getSectors</li><li>getSectorStocks</li><li>getMarketNews</li>
-          <li>getSuperInvestors</li><li>getSuperInvestorPortfolio</li><li>getInsiderTransactions</li>
-          <li>getCompanyKpiMetrics</li><li>getEconomicIndicatorTimeSeries</li><li>getCommodityTimeSeries</li>
-          <li>getCurrencyExchangeRate</li><li>searchCryptocurrencies</li><li>getCryptocurrencyDataById</li>
-          <li>getCryptocurrencyNews</li><li>getPolymarketEventOdds</li><li>calculateInvestmentFutureValue</li>
-        </ul>
-        <p>Stocks, ETFs, sectors, financial statements, insider filings, super-investor holdings,
-        economic indicators, commodities, crypto and prediction-market odds.</p>
-      </section>
-
-      <section class="tool-group reveal">
-        <div class="tool-group-head">
-          <h3>Memory and profile</h3>
-          <span class="tool-count">6 tools</span>
-        </div>
-        <ul class="tool-list">
-          <li>getUserProfileNotes</li><li>createUserProfileNote</li><li>markUserProfileNoteAsOutdated</li>
-          <li>getUserConversationNotes</li><li>createUserConversationNote</li><li>searchUserConversationNotes</li>
-        </ul>
-        <p>A profile that builds up over time, and conversation notes searchable by meaning rather
-        than keyword. <code>searchUserConversationNotes</code> returns a similarity score between
-        0.0 and 1.0. A second agent writes this memory in the background so the conversation is
-        never interrupted by bookkeeping.</p>
-      </section>
-
-      <section class="tool-group reveal">
-        <div class="tool-group-head">
-          <h3>Reminders and scheduled workflows</h3>
-          <span class="tool-count">10 tools</span>
-        </div>
-        <ul class="tool-list">
-          <li>createAgentReminder</li><li>getAgentReminders</li><li>updateAgentReminder</li><li>deleteAgentReminder</li>
-          <li>createAgentWorkflow</li><li>getAgentWorkflows</li><li>updateAgentWorkflow</li><li>deleteAgentWorkflow</li>
-          <li>getWorkflowResults</li><li>storeWorkflowResult</li>
-        </ul>
-        <p>Workflows are cron-scheduled tasks the advisor runs on a recurring basis, such as a
-        weekly portfolio review. Each run is stored, <code>next_run_at</code> is advanced from the
-        cron expression and the lock released, all in one transaction. Workflows are
-        <code>active</code>, <code>paused</code> or <code>running</code>.</p>
-      </section>
-
-      <section class="tool-group reveal">
-        <div class="tool-group-head">
-          <h3>Brokerages</h3>
-          <span class="tool-count">all optional</span>
-        </div>
-        <ul class="tool-list">
-          <li>Alpaca · 6 tools</li><li>Coinbase · 5 tools</li><li>Interactive Brokers · 14 tools</li>
-        </ul>
-        <p>Read accounts, positions, balances, orders and trade history. Alpaca points at the paper
-        endpoint by default and live trading needs an explicit override. Setting the relevant
-        <code>READ_ONLY</code> flag hides every order-placing tool. Interactive Brokers never
-        accepts a trading warning on your behalf: <code>placeOrder</code> returns
-        <code>NEEDS_CONFIRMATION</code> with a <code>reply_id</code>, and the order stays off the
-        market until <code>confirmOrder</code> is called.</p>
-      </section>
-    </div>
-
-    <div class="callout reveal">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
-      <p><strong>You do not need an Alpaca, Coinbase or Interactive Brokers account.</strong>
-      InvestPal is fully functional as a conversational research tool on market data alone.
-      Brokerage integrations are optional, off by default, and can be run read-only.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ data sources ============================ -->
-<section class="band" id="sources">
-  <div class="wrap">
-    <div class="band-head reveal">
-      <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Data</p>
-      <h2 class="h2">Almost none of it needs an API key.</h2>
-      <p class="deck">The market-data server draws on public sources. There is no data vendor to
-      sign up with, no key to rotate, and no per-call bill.</p>
-    </div>
-
-    <div class="table-scroll reveal">
-      <table>
-        <caption>Sources used by MarketDataMcpServer</caption>
-        <thead>
-          <tr><th scope="col">Source</th><th scope="col">Used for</th><th scope="col">Key</th></tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row">FRED</th><td>Economic indicators, commodities</td><td><span class="pill pill--none">none</span></td></tr>
-          <tr><th scope="row">Frankfurter (ECB rates)</th><td>Currency exchange rates</td><td><span class="pill pill--none">none</span></td></tr>
-          <tr><th scope="row">SEC EDGAR</th><td>Insider transactions (Form 4)</td><td><span class="pill">contact address</span></td></tr>
-          <tr><th scope="row">stockanalysis.com</th><td>Stocks, ETFs, sectors, financials, news</td><td><span class="pill pill--none">none</span></td></tr>
-          <tr><th scope="row">dataroma.com</th><td>Super investor portfolios</td><td><span class="pill pill--none">none</span></td></tr>
-          <tr><th scope="row">CoinGecko</th><td>Cryptocurrency search and data</td><td><span class="pill">optional</span></td></tr>
-          <tr><th scope="row">CoinDesk, CoinTelegraph</th><td>Cryptocurrency news</td><td><span class="pill pill--none">none</span></td></tr>
-          <tr><th scope="row">Polymarket Gamma</th><td>Prediction market odds</td><td><span class="pill pill--none">none</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ architecture ============================ -->
-<section class="band band--soft" id="architecture">
-  <div class="wrap">
-    <div class="band-head reveal">
-      <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Architecture</p>
-      <h2 class="h2">Five services, all on localhost.</h2>
-      <p class="deck">Clients talk to the core over REST, or straight to the MCP servers. The core
-      orchestrates the servers on behalf of anything that cannot speak MCP itself.</p>
-    </div>
-
-    <div class="arch reveal"><svg viewBox="0 0 900 452" role="img" aria-labelledby="arch-title arch-desc">
-<title id="arch-title">InvestPal architecture</title>
-<desc id="arch-desc">Four clients connect to InvestPal Core, a FastAPI service exposing a REST API on port 8000 and an MCP app on port 9000, which stores everything in a local SQLite file and orchestrates four MCP servers: Market Data on 8082, Alpaca on 9091, Coinbase on 9090 and Interactive Brokers on 9092. Claude Code and Claude Desktop can also reach those MCP servers directly.</desc>
-<rect class="a-box" x="60" y="16" width="192" height="56" rx="9"/>
-<text class="a-title" x="156" y="40" text-anchor="middle">Claude Code cockpit</text>
-<text class="a-sub" x="156" y="58" text-anchor="middle">make claude</text>
-<path class="a-line" d="M156 72 V118"/>
-<rect class="a-box" x="268" y="16" width="192" height="56" rx="9"/>
-<text class="a-title" x="364" y="40" text-anchor="middle">Claude Desktop</text>
-<text class="a-sub" x="364" y="58" text-anchor="middle">MCP client</text>
-<path class="a-line" d="M364 72 V118"/>
-<rect class="a-box" x="476" y="16" width="192" height="56" rx="9"/>
-<text class="a-title" x="572" y="40" text-anchor="middle">Streamlit dev console</text>
-<text class="a-sub" x="572" y="58" text-anchor="middle">:8501</text>
-<path class="a-line" d="M572 72 V118"/>
-<rect class="a-box" x="684" y="16" width="192" height="56" rx="9"/>
-<text class="a-title" x="780" y="40" text-anchor="middle">Your own client</text>
-<text class="a-sub" x="780" y="58" text-anchor="middle">REST</text>
-<path class="a-line" d="M780 72 V118"/>
-<path class="a-line" d="M156 118 H780"/>
-<path class="a-line" d="M468 118 V154"/>
-<polygon class="a-arrow" points="464,154 472,154 468,160"/>
-<text class="a-cap" x="478" y="112">REST  ·  MCP</text>
-<rect class="a-core" x="200" y="160" width="536" height="92" rx="9"/>
-<text class="a-title" x="468" y="196" text-anchor="middle">InvestPal Core  ·  FastAPI</text>
-<text class="a-sub" x="468" y="219" text-anchor="middle">REST :8000   ·   MCP app :9000</text>
-<text class="a-sub" x="468" y="238" text-anchor="middle">sessions  ·  chat  ·  memory  ·  reminders  ·  workflows  ·  skills</text>
-<rect class="a-box" x="760" y="178" width="116" height="56" rx="9"/>
-<text class="a-title" x="818" y="202" text-anchor="middle">investpal.db</text>
-<text class="a-sub" x="818" y="220" text-anchor="middle">local SQLite</text>
-<path class="a-line" d="M736 206 H750"/>
-<polygon class="a-arrow" points="750,202 750,210 758,206"/>
-<path class="a-line" d="M468 252 V300"/>
-<path class="a-line" d="M156 300 H780"/>
-<text class="a-cap" x="478" y="294">MCP</text>
-<path class="a-line" d="M156 300 V330"/>
-<polygon class="a-arrow" points="152,330 160,330 156,336"/>
-<path class="a-line" d="M364 300 V330"/>
-<polygon class="a-arrow" points="360,330 368,330 364,336"/>
-<path class="a-line" d="M572 300 V330"/>
-<polygon class="a-arrow" points="568,330 576,330 572,336"/>
-<path class="a-line" d="M780 300 V330"/>
-<polygon class="a-arrow" points="776,330 784,330 780,336"/>
-<rect class="a-box" x="60" y="336" width="192" height="68" rx="9"/>
-<text class="a-title" x="156" y="364" text-anchor="middle">Market Data MCP</text>
-<text class="a-sub" x="156" y="384" text-anchor="middle">Go  ·  :8082</text>
-<rect class="a-box" x="268" y="336" width="192" height="68" rx="9"/>
-<text class="a-title" x="364" y="364" text-anchor="middle">Alpaca MCP</text>
-<text class="a-sub" x="364" y="384" text-anchor="middle">Python  ·  :9091</text>
-<rect class="a-box" x="476" y="336" width="192" height="68" rx="9"/>
-<text class="a-title" x="572" y="364" text-anchor="middle">Coinbase MCP</text>
-<text class="a-sub" x="572" y="384" text-anchor="middle">Python  ·  :9090</text>
-<rect class="a-box" x="684" y="336" width="192" height="68" rx="9"/>
-<text class="a-title" x="780" y="364" text-anchor="middle">Interactive Brokers MCP</text>
-<text class="a-sub" x="780" y="384" text-anchor="middle">Python  ·  :9092</text>
-<path class="a-dash" d="M60 44 H26 V370 H52"/>
-<polygon class="a-arrow-accent" points="52,366 52,374 60,370"/>
-<text class="a-cap a-cap-accent" x="26" y="432">Claude Code and Claude Desktop also reach the MCP servers directly, without the REST layer.</text>
-</svg></div>
-
-    <div class="agent-grid">
-      <article class="agent reveal">
-        <h3>InvestmentManagerAgent</h3>
-        <p>The user-facing advisor. Holds the persona, reaches for skills, calls the market-data and brokerage tools.</p>
-      </article>
-      <article class="agent reveal">
-        <h3>UserContextMemoryManagerAgent</h3>
-        <p>Writes long-term memory in the background on a cheaper model, so the conversation is never interrupted to take notes.</p>
-      </article>
-      <article class="agent reveal">
-        <h3>WorkflowExecutionAgent</h3>
-        <p>Non-conversational. Runs scheduled workflows when they come due and stores the report.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ surfaces ============================ -->
-<section class="band" id="surfaces">
+<!-- ============================ ways to use it ============================ -->
+<section class="band" id="use">
   <div class="wrap">
     <div class="band-head reveal">
       <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Ways to use it</p>
-      <h2 class="h2">Four front-ends over the same toolset.</h2>
-      <p class="deck">Once the services are running, pick whichever surface suits you. You are not
-      required to write any code.</p>
+      <h2 class="h2">Use it where you already talk to AI.</h2>
+      <p class="deck">InvestPal has no app of its own to learn. It plugs into the tools you have,
+      and you talk to it the way you already do.</p>
     </div>
 
     <div class="surface-grid reveal">
-      <article class="surface">
+      <article class="surface surface--lead">
         <p class="surface-tag">Recommended</p>
-        <h3>Claude Code cockpit</h3>
-        <p>Run Claude Code from inside the repository and it becomes the advisor itself. It loads
-        the canonical advisor persona automatically at session start, has the full market-data and
-        brokerage toolset, and surfaces and runs any scheduled workflows that are due. This is the
-        power-user terminal.</p>
-        <p class="surface-link"><a href="https://github.com/OrestisStefanou/InvestPalEcosystem/blob/main/docs/claude-code-cockpit.md">Cockpit guide →</a></p>
+        <h3>Claude Code</h3>
+        <p>Run Claude Code inside the InvestPal folder and it becomes the analyst. It picks up your
+        profile at the start of every session, has the full research and brokerage toolset, and runs
+        any reviews that have come due while you were away.</p>
+        <p class="surface-link"><a href="https://github.com/OrestisStefanou/InvestPalEcosystem/blob/main/docs/claude-code-cockpit.md">How to set it up</a></p>
       </article>
 
       <article class="surface">
         <p class="surface-tag">No terminal needed</p>
         <h3>Claude Desktop</h3>
-        <p>Add InvestPal as MCP tools inside Claude Desktop and use them in an ordinary Claude
-        chat. Best for occasional questions. It does not load the persona and does not execute
-        scheduled workflows.</p>
-        <p class="surface-link"><a href="https://github.com/OrestisStefanou/InvestPalEcosystem/blob/main/docs/claude-desktop.md">Claude Desktop guide →</a></p>
+        <p>Add InvestPal to Claude Desktop and ask your questions in an ordinary chat. Best if you
+        dip in occasionally rather than sitting down to a research session.</p>
+        <p class="surface-link"><a href="https://github.com/OrestisStefanou/InvestPalEcosystem/blob/main/docs/claude-desktop.md">How to set it up</a></p>
       </article>
 
       <article class="surface">
-        <p class="surface-tag">Local testing</p>
-        <h3>Streamlit dev console</h3>
-        <p>A simple browser chat UI that talks to the REST API. Useful for trying things out
-        locally. It is a development tool and is not intended for production use.</p>
-        <p class="surface-link"><a href="https://github.com/OrestisStefanou/InvestPalEcosystem/blob/main/docs/dev-ui.md">Dev console guide →</a></p>
+        <p class="surface-tag">Bring your own</p>
+        <h3>Any MCP client</h3>
+        <p>InvestPal speaks the Model Context Protocol over HTTP, so any assistant that supports MCP
+        can use the same tools. Claude Code and Claude Desktop are the two documented setups, and
+        other clients follow the same pattern.</p>
       </article>
 
       <article class="surface">
-        <p class="surface-tag">Build your own</p>
-        <h3>The REST API</h3>
-        <p>Sessions, chat, workflows, workflow results and reminders are all exposed over HTTP,
-        with OpenAPI docs at <code>/docs</code>. Brokerage credentials are passed per request as
-        headers and are never stored server-side.</p>
-        <p class="surface-link"><a href="https://github.com/OrestisStefanou/InvestPalEcosystem/blob/main/docs/custom-ui.md">Custom UI guide →</a></p>
+        <p class="surface-tag">Build on it</p>
+        <h3>Your own app</h3>
+        <p>There is a REST API underneath if you want to put your own interface on top, or wire
+        InvestPal into something you already run.</p>
+        <p class="surface-link"><a href="https://github.com/OrestisStefanou/InvestPalEcosystem/blob/main/docs/custom-ui.md">API guide</a></p>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- ============================ what it does ============================ -->
+<section class="band band--soft" id="features">
+  <div class="wrap">
+    <div class="band-head reveal">
+      <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>What it does</p>
+      <h2 class="h2">Four things a good analyst does for you.</h2>
+    </div>
+
+    <div class="features">
+      <article class="feature reveal">
+        <p class="feature-n">01</p>
+        <div class="feature-body">
+          <h3>Researches anything you can name</h3>
+          <p>Stocks, ETFs, cryptocurrencies, commodities, currencies and economic indicators. It can
+          look up a company's financial statements, see which sectors are moving, read who has been
+          buying their own shares, check what well-known investors hold, and even pull the odds
+          markets are putting on real-world events.</p>
+        </div>
+      </article>
+
+      <article class="feature reveal">
+        <p class="feature-n">02</p>
+        <div class="feature-body">
+          <h3>Remembers you between conversations</h3>
+          <p>Tell it your risk tolerance, your horizon and what you are trying to achieve, once. It
+          builds a picture of you and keeps notes as you talk, searchable by meaning rather than by
+          exact words, so you can ask what you concluded about something months ago. A second agent
+          maintains that memory quietly in the background so your conversation is never interrupted
+          by bookkeeping.</p>
+        </div>
+      </article>
+
+      <article class="feature reveal">
+        <p class="feature-n">03</p>
+        <div class="feature-body">
+          <h3>Keeps working when you close the laptop</h3>
+          <p>Ask it to watch something and it will. It tracks the dates you care about and reminds
+          you, and it can run reviews on a schedule, a portfolio check every Monday morning for
+          instance, leaving the write-up waiting for you next time you open it.</p>
+        </div>
+      </article>
+
+      <article class="feature reveal">
+        <p class="feature-n">04</p>
+        <div class="feature-body">
+          <h3>Sees your real portfolio, if you let it</h3>
+          <p>Connect Alpaca, Coinbase or Interactive Brokers and the advice is about what you
+          actually hold, not a hypothetical. This is entirely optional and off until you turn it on.
+          You can keep it read-only so it can look but never act. When it can place orders, Alpaca
+          points at a paper account until you deliberately change that, and Interactive Brokers
+          keeps every order off the market until you confirm it.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="callout reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
+      <p><strong>You do not need a brokerage account to use InvestPal.</strong> It works as a
+      research companion on market data alone. Connecting a broker is something you can do later,
+      or never.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ the method ============================ -->
+<section class="band" id="method">
+  <div class="wrap">
+    <div class="band-head reveal">
+      <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>The method</p>
+      <h2 class="h2">It follows a method, not a mood.</h2>
+      <p class="deck">Most AI gives you a fluent answer assembled on the spot. InvestPal works
+      through a written procedure instead, the same one every time, so you can tell the difference
+      between analysis and a confident paragraph. Fifteen of them are built in, drawn from Graham
+      and Dodd on valuation and Howard Marks on cycles and risk.</p>
+    </div>
+
+    <div class="quotes reveal">
+      <figure class="quote">
+        <blockquote class="quote-text">“Risk is not volatility. A stock that drops 50% while its intrinsic value remains unchanged has become less risky.”</blockquote>
+        <figcaption class="quote-src">From the portfolio risk procedure</figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote class="quote-text">“Investment success comes from buying things well, not from buying good things.”</blockquote>
+        <figcaption class="quote-src">From the valuation procedure</figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote class="quote-text">“The danger is not having a wrong opinion. It is having the same opinion as everyone else and mistaking it for insight.”</blockquote>
+        <figcaption class="quote-src">From the second-level thinking procedure</figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote class="quote-text">“Themes are usually right about the world and wrong about the investment.”</blockquote>
+        <figcaption class="quote-src">From the investment theme procedure</figcaption>
+      </figure>
+    </div>
+
+    <div class="method-groups">
+      <section class="method-group reveal">
+        <h3 class="method-q">Is this a good business?</h3>
+        <ul class="method-list">
+          <li><span class="ml-name">Competitive moat</span><span class="ml-desc">Whether this is a franchise or a commodity business, judged by comparing its earnings power to what its assets are worth.</span></li>
+          <li><span class="ml-name">Earnings quality</span><span class="ml-desc">Whether the reported profit is real, tested eight different ways.</span></li>
+          <li><span class="ml-name">Cash generation</span><span class="ml-desc">What the business actually produces once you strip out the spending it needs just to stand still.</span></li>
+          <li><span class="ml-name">Balance sheet strength</span><span class="ml-desc">How much it owes, what it owns, and whether it could survive a bad year.</span></li>
+          <li><span class="ml-name">Profitability and pricing power</span><span class="ml-desc">Sustainable operating income averaged across a full cycle, not a flattering quarter.</span></li>
+          <li><span class="ml-name">What management is signalling</span><span class="ml-desc">What their guidance and tone imply, and whether their spending matches their stated priorities.</span></li>
+        </ul>
+      </section>
+
+      <section class="method-group reveal">
+        <h3 class="method-q">What is it worth?</h3>
+        <ul class="method-list">
+          <li><span class="ml-name">Intrinsic value</span><span class="ml-desc">Asset value, earnings power, and growth counted only where a genuine franchise exists to protect it.</span></li>
+          <li><span class="ml-name">Price against value</span><span class="ml-desc">Whether the price on offer is a good purchase, which is a separate question from whether it is a good business.</span></li>
+          <li><span class="ml-name">Against its peers</span><span class="ml-desc">Ranked against three to six competitors on growth, profitability, multiples and balance sheet health.</span></li>
+        </ul>
+      </section>
+
+      <section class="method-group reveal">
+        <h3 class="method-q">Should I act now?</h3>
+        <ul class="method-list">
+          <li><span class="ml-name">Second-level thinking</span><span class="ml-desc">Where your view actually differs from everyone else's, and whether you have a reason to be right.</span></li>
+          <li><span class="ml-name">Market temperature</span><span class="ml-desc">A twenty-two point read on where the cycle stands, from euphoric to frozen.</span></li>
+          <li><span class="ml-name">Macro conditions</span><span class="ml-desc">Whether today's earnings sit above or below what is sustainable, and what that does to the discount rate.</span></li>
+          <li><span class="ml-name">Testing a theme</span><span class="ml-desc">Turning a story about the future into a claim that could be proved wrong, then finding who in the chain actually captures the money.</span></li>
+        </ul>
+      </section>
+
+      <section class="method-group reveal">
+        <h3 class="method-q">How exposed am I?</h3>
+        <ul class="method-list">
+          <li><span class="ml-name">Portfolio risk</span><span class="ml-desc">Your aggregate risk of permanent loss across eight dimensions, including correlations you did not know you had and what would force you to sell at the wrong moment.</span></li>
+          <li><span class="ml-name">Margin of safety</span><span class="ml-desc">How much would have to go wrong before you lose money, rather than simply miss out on some.</span></li>
+        </ul>
+      </section>
+    </div>
+
+    <p class="skill-note">Every procedure is written out in full and versioned in the open, so you
+    can read exactly what the analyst was asked to do before it answered you.
+    <a href="https://github.com/OrestisStefanou/InvestPalEcosystem">See them on GitHub</a></p>
+  </div>
+</section>
+
+<!-- ============================ data ============================ -->
+<section class="band band--soft" id="data">
+  <div class="wrap">
+    <div class="band-head reveal">
+      <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Where the data comes from</p>
+      <h2 class="h2">Primary sources, not a data vendor.</h2>
+      <p class="deck">The numbers come from the institutions that publish them and from official
+      filings, so you can trace any figure back to where it came from. None of it sits behind a
+      subscription.</p>
+    </div>
+
+    <div class="sources reveal">
+      <article class="source">
+        <h3>Federal Reserve</h3>
+        <p>Economic indicators and commodity prices, from the St. Louis Fed's FRED database.</p>
+      </article>
+      <article class="source">
+        <h3>European Central Bank</h3>
+        <p>Official daily reference rates for currency conversion.</p>
+      </article>
+      <article class="source">
+        <h3>SEC EDGAR</h3>
+        <p>Insider buying and selling, read straight from the Form 4 filings companies are required to make.</p>
+      </article>
+      <article class="source">
+        <h3>Dataroma</h3>
+        <p>What well-known investors actually hold, compiled from their quarterly 13F disclosures.</p>
+      </article>
+      <article class="source">
+        <h3>stockanalysis.com</h3>
+        <p>Company and ETF fundamentals, financial statements, sector performance and market news.</p>
+      </article>
+      <article class="source">
+        <h3>CoinGecko</h3>
+        <p>Cryptocurrency prices, market data and search across thousands of coins.</p>
+      </article>
+      <article class="source">
+        <h3>CoinDesk and CoinTelegraph</h3>
+        <p>Cryptocurrency news as it is published.</p>
+      </article>
+      <article class="source">
+        <h3>Polymarket</h3>
+        <p>What prediction markets are pricing for real-world events.</p>
+      </article>
+    </div>
+
+    <p class="skill-note">No data subscription, no API keys to manage, and no per-call bill. The
+    only credentials InvestPal ever asks for are your own brokerage login details, and only if you
+    decide to connect one.</p>
+  </div>
+</section>
+
+<!-- ============================ privacy ============================ -->
+<section class="band" id="private">
+  <div class="wrap">
+    <div class="band-head reveal">
+      <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Privacy</p>
+      <h2 class="h2">Everything stays on your machine.</h2>
+      <p class="deck">There is no InvestPal server. No account, no sign-up, and no company holding a
+      database of what you own. You run it, and it runs on your hardware.</p>
+    </div>
+
+    <ul class="privacy reveal">
+      <li>
+        <h3>One file, on your disk</h3>
+        <p>Your profile, your notes, your reminders and every report it has written for you live in
+        a single file created the first time you start it. Back it up, move it, or delete it.</p>
+      </li>
+      <li>
+        <h3>Nothing to sign up for</h3>
+        <p>No account, no login, no subscription and no multi-user database with your name in it.</p>
+      </li>
+      <li>
+        <h3>Your notes are searched locally</h3>
+        <p>Finding an old note by meaning rather than keyword runs on your own processor. The text
+        of your notes is never sent anywhere to make that work.</p>
+      </li>
+      <li>
+        <h3>Brokerage credentials are never stored</h3>
+        <p>They are passed through at the moment they are needed and then forgotten. They are not
+        written to the database.</p>
+      </li>
+      <li>
+        <h3>Cloud backup only if you ask</h3>
+        <p>Optional sync to your own cloud database exists, and it runs only when you explicitly
+        trigger it. Nothing syncs on a timer or behind your back.</p>
+      </li>
+    </ul>
+
+    <p class="skill-note">InvestPal is built from five small services that all run on your machine.
+    <a href="https://github.com/OrestisStefanou/InvestPalEcosystem">The full architecture and every
+    line of source is on GitHub</a>.</p>
   </div>
 </section>
 
@@ -605,18 +476,20 @@ if the moat holds for a decade. Shall I run
     <div class="band-head reveal">
       <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Get started</p>
       <h2 class="h2">One command, then a conversation.</h2>
+      <p class="deck">Setup is a single command that does everything: checks what you have, fetches
+      what it needs, prepares your database and starts the whole thing running.</p>
     </div>
 
     <div class="install reveal">
       <div class="install-shell">
         <div class="install-bar">
-              <span class="install-label">Terminal</span>
-              <button class="copy-btn" type="button" data-copy="start-cmd">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                <span data-copy-label>Copy</span>
-              </button>
-            </div>
-            <pre id="start-cmd"><span class="tok-dim">$</span> git clone https://github.com/OrestisStefanou/InvestPalEcosystem
+          <span class="install-label">Terminal</span>
+          <button class="copy-btn" type="button" data-copy="start-cmd">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span data-copy-label>Copy</span>
+          </button>
+        </div>
+        <pre id="start-cmd"><span class="tok-dim">$</span> git clone https://github.com/OrestisStefanou/InvestPalEcosystem
 <span class="tok-dim">$</span> cd InvestPalEcosystem
 <span class="tok-dim">$</span> make setup
 <span class="tok-dim">$</span> make claude</pre>
@@ -624,47 +497,39 @@ if the moat holds for a decade. Shall I run
     </div>
 
     <div class="start">
-      <div class="reveal">
-        <h3 class="minor-head">Prerequisites</h3>
-        <ul class="prereq">
-          <li>git</li><li>make</li><li>curl</li><li>nc</li><li>Go 1.25+</li><li>uv</li><li>Java 1.8+ (Interactive Brokers only)</li>
-        </ul>
-        <p class="figure-note"><code>make setup</code> checks all of these and tells you what is
-        missing. <code>make doctor</code> confirms the services are healthy afterwards.</p>
-      </div>
-
       <ol class="steps reveal">
         <li class="step">
           <div>
             <h3>Run setup</h3>
-            <p>It checks prerequisites, clones the five service repositories, installs their
-            dependencies, writes your configuration, prepares the database and search index, and
-            starts everything.</p>
+            <p>It checks what you already have installed and tells you what is missing, then fetches
+            everything, writes your configuration, prepares your database and starts running.</p>
           </div>
         </li>
         <li class="step">
           <div>
             <h3>Answer three optional questions</h3>
-            <p>Whether to enable InvestPal's own backend agent, and whether to connect Alpaca and
-            Coinbase. All three default to no and all three can be skipped with Enter, or with
-            <code>make setup YES=1</code>.</p>
+            <p>Whether to connect a brokerage, and whether to use your own AI provider key. All
+            three default to no and every one can be skipped by pressing Enter.</p>
           </div>
         </li>
         <li class="step">
           <div>
-            <h3>Open the cockpit</h3>
-            <p><code>make claude</code> starts Claude Code as the advisor. It loads the persona,
-            picks up your profile and runs any workflows that are due.</p>
-          </div>
-        </li>
-        <li class="step">
-          <div>
-            <h3>Re-run it whenever</h3>
-            <p><code>make setup</code> only does what is still missing. <code>make setup FORCE=1</code>
-            reconfigures from scratch, and <code>make pull</code> updates the service repos.</p>
+            <h3>Start talking</h3>
+            <p>One more command opens the analyst. It introduces itself, asks what you are trying to
+            achieve, and gets to work.</p>
           </div>
         </li>
       </ol>
+
+      <aside class="start-aside reveal">
+        <h3 class="minor-head">Worth knowing</h3>
+        <p>You do not need an AI provider key. In the Claude Code setup, Claude Code itself is the
+        model, so there is nothing extra to pay for or sign up to.</p>
+        <p>You do not need a brokerage account either. InvestPal works as a research companion on
+        market data alone.</p>
+        <p>It runs on macOS and Linux. Setup checks the handful of developer tools it needs and
+        tells you exactly what to install if any are missing.</p>
+      </aside>
     </div>
   </div>
 </section>
@@ -673,12 +538,11 @@ if the moat holds for a decade. Shall I run
 <section class="band closer">
   <svg class="closer-mark" aria-hidden="true"><use href="#ip-owl"></use></svg>
   <div class="wrap">
-    <h2 class="h2">Run it yourself. Read every line.</h2>
-    <p class="deck">InvestPal is a personal project, built in the open, and it runs entirely on
-    your machine.</p>
+    <h2 class="h2">Run it yourself. <span class="gold-word">Read every line.</span></h2>
+    <p class="deck">InvestPal is a personal project, built in the open, and it runs entirely on your
+    machine.</p>
     <div class="btn-row">
       <a class="btn btn--primary" href="https://github.com/OrestisStefanou/InvestPalEcosystem">Get started on GitHub</a>
-      <a class="btn btn--ghost" href="/InvestPal-2.0.html">Read the write-up</a>
     </div>
 
     <p class="disclaimer"><strong>Not investment advice.</strong> InvestPal is software. Its output
@@ -699,7 +563,7 @@ if the moat holds for a decade. Shall I run
     <p>Built by <a href="/">Orestis Stefanou</a></p>
     <nav aria-label="Footer">
       <a href="https://github.com/OrestisStefanou/InvestPalEcosystem">GitHub</a>
-      <a href="/InvestPal-2.0.html">Write-up</a>
+      <a href="#use">Ways to use it</a>
       <a href="#get-started">Get started</a>
       <a href="/">Blog</a>
     </nav>
