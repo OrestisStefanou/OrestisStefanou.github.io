@@ -192,8 +192,8 @@ only if the moat holds for a decade. Shall I test the moat next?</p>
     <div class="band-head reveal">
       <p class="eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Ways to use it</p>
       <h2 class="h2">Use it where you already talk to AI.</h2>
-      <p class="deck">InvestPal has no app of its own to learn. It plugs into the tools you have,
-      and you talk to it the way you already do.</p>
+      <p class="deck">Mostly it plugs into the tools you already have, and you talk to it the way
+      you already do. There is a web app too, if you would rather have one.</p>
     </div>
 
     <div class="surface-grid reveal">
@@ -204,6 +204,17 @@ only if the moat holds for a decade. Shall I test the moat next?</p>
         profile at the start of every session, has the full research and brokerage toolset, and runs
         any reviews that have come due while you were away.</p>
         <p class="surface-link"><a href="https://github.com/OrestisStefanou/InvestPalEcosystem/blob/main/docs/claude-code-cockpit.md">How to set it up</a></p>
+      </article>
+
+      <article class="surface surface--wide">
+        <p class="surface-tag">In your browser</p>
+        <h3>The web app</h3>
+        <p>A local browser app, started with one command alongside everything else. Chat with the
+        full history of every past conversation, schedule the reviews that run without you and read
+        their reports, and see what it is holding on to for you. It runs on your machine like the
+        rest of it, and because it drives InvestPal's own agent rather than borrowing Claude Code's,
+        this is the one surface that needs an Anthropic or OpenAI key.</p>
+        <p class="surface-link"><a href="https://github.com/OrestisStefanou/InvestPalEcosystem/blob/main/docs/web-ui.md">How to set it up</a></p>
       </article>
 
       <article class="surface">
@@ -421,9 +432,9 @@ only if the moat holds for a decade. Shall I test the moat next?</p>
       </article>
     </div>
 
-    <p class="skill-note">No data subscription, no API keys to manage, and no per-call bill. The
-    only credentials InvestPal ever asks for are your own brokerage login details, and only if you
-    decide to connect one.</p>
+    <p class="skill-note">No data subscription, no data-provider keys to manage, and no per-call
+    bill for any of this. The only credentials InvestPal asks for are your own brokerage login
+    details, and only if you decide to connect one.</p>
   </div>
 </section>
 
@@ -524,8 +535,10 @@ only if the moat holds for a decade. Shall I test the moat next?</p>
 
       <aside class="start-aside reveal">
         <h3 class="minor-head">Worth knowing</h3>
-        <p>You do not need an AI provider key. In the Claude Code setup, Claude Code itself is the
-        model, so there is nothing extra to pay for or sign up to.</p>
+        <p>Whether you need an AI provider key depends on how you use it. In the Claude Code and
+        Claude Desktop setups you do not: there, Claude is already the model, so there is nothing
+        extra to pay for or sign up to. The web app and the REST API run InvestPal's own agent
+        instead, and that needs a key from Anthropic, OpenAI or Google.</p>
         <p>You do not need a brokerage account either. InvestPal works as a research companion on
         market data alone.</p>
         <p>It runs on macOS and Linux. Setup checks the handful of developer tools it needs and
