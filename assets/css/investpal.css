@@ -33,24 +33,20 @@
   --nav-bg: rgba(255, 255, 255, .82);
   --shadow: 0 1px 2px rgba(18, 35, 58, .04), 0 8px 24px -12px rgba(18, 35, 58, .12);
 
-  /* logo lockup */
+  /* wordmark */
   --logo-word: #12233a;
   --logo-accent: #c9932c;
-  --logo-tag: #5d6b7d;
-  --logo-disc: #f5f7fa;
-  --logo-disc-edge: #dde4ec;
-  --logo-owl: #1a3a5c;
-  --logo-owl-2: #2c5478;
-  --logo-belly: #e8eef5;
-  --logo-eye: #ffffff;
-  /* owl mark */
-  --mark-bg: #1a3a5c;
-  --mark-body: #e8eef5;
-  --mark-wing: #c3cfdd;
-  --mark-face: #f5f7fa;
+  /* owl mark. Matches assets/logo-light.png in the InvestPalEcosystem repo,
+     which is the canonical lockup. The mark holds these colours in both
+     themes; only the gold follows --accent. */
+  --mark-bg: #f5f7fa;         /* disc */
+  --mark-disc-edge: #dde4ec;  /* disc ring */
+  --mark-body: #1a3a5c;       /* ears and body */
+  --mark-wing: #2c5478;       /* wing panels */
+  --mark-face: #e8eef5;       /* face and belly */
   --mark-eye: #ffffff;
   --mark-pupil: #1a3a5c;
-  --mark-accent: #c9932c;
+  --mark-accent: #c9932c;     /* beak and chevrons */
 
   --radius: 12px;
   --radius-sm: 8px;
@@ -92,16 +88,7 @@
 
     --logo-word: #e8eef5;
     --logo-accent: #e0b055;
-    --logo-tag: #97a6b8;
-    --logo-disc: #e8eef5;
-    --logo-disc-edge: #c3cfdd;
-    --logo-owl: #16304e;
-    --logo-owl-2: #2c5478;
-    --logo-belly: #e8eef5;
 
-    --mark-bg: #24486e;
-    --mark-wing: #a8bdd4;
-    --mark-pupil: #12233a;
     --mark-accent: #e0b055;
   }
 }
@@ -133,16 +120,7 @@
 
   --logo-word: #e8eef5;
   --logo-accent: #e0b055;
-  --logo-tag: #97a6b8;
-  --logo-disc: #e8eef5;
-  --logo-disc-edge: #c3cfdd;
-  --logo-owl: #16304e;
-  --logo-owl-2: #2c5478;
-  --logo-belly: #e8eef5;
 
-  --mark-bg: #24486e;
-  --mark-wing: #a8bdd4;
-  --mark-pupil: #12233a;
   --mark-accent: #e0b055;
 }
 
