@@ -661,7 +661,14 @@ code:not(pre code) {
 
 .surface { background: var(--bg); padding: clamp(1.5rem, 3vw, 2.15rem); display: flex; flex-direction: column; }
 .surface--lead { grid-column: 1 / -1; border-top: 3px solid var(--accent); }
-@media (max-width: 820px) { .surface--lead { grid-column: auto; } }
+/* Full width like the lead card, but without the gold top border, which is what
+   marks the recommended surface. Five cards in a three-column grid would
+   otherwise leave one orphan on a third row. */
+.surface--wide { grid-column: 1 / -1; }
+@media (max-width: 820px) {
+  .surface--lead { grid-column: auto; }
+  .surface--wide { grid-column: auto; }
+}
 .band--soft .surface { background: var(--bg); }
 .surface-tag {
   font-size: .72rem; font-weight: 600; letter-spacing: .12em;
