@@ -1,7 +1,7 @@
 ---
 layout: null
 title: InvestPal
-description: "InvestPal is an AI investment analyst that runs on your own machine. It researches any stock, ETF or coin from primary sources, follows fifteen written value-investing procedures, remembers your goals, and can connect to your own brokerage."
+description: "InvestPal is an AI investment analyst that runs on your own machine. It researches any stock or ETF from primary sources, follows fifteen written value-investing procedures, remembers your goals, and can connect to your own brokerage."
 permalink: /investpal/
 ---
 <!DOCTYPE html>
@@ -179,7 +179,7 @@ only if the moat holds for a decade. Shall I test the moat next?</p>
   <div class="wrap">
     <dl class="stats">
       <div class="stat"><dt>Written analytical procedures</dt><dd><span class="stat-n">15</span></dd></div>
-      <div class="stat"><dt>Free primary data sources</dt><dd><span class="stat-n">8</span></dd></div>
+      <div class="stat"><dt>Free primary data sources</dt><dd><span class="stat-n">6</span></dd></div>
       <div class="stat"><dt>Brokerages supported</dt><dd><span class="stat-n">3</span></dd></div>
       <div class="stat"><dt>File on your machine</dt><dd><span class="stat-n">1</span></dd></div>
     </dl>
@@ -257,10 +257,11 @@ only if the moat holds for a decade. Shall I test the moat next?</p>
         <p class="feature-n">01</p>
         <div class="feature-body">
           <h3>Researches anything you can name</h3>
-          <p>Stocks, ETFs, cryptocurrencies, commodities, currencies and economic indicators. It can
-          look up a company's financial statements, see which sectors are moving, read who has been
-          buying their own shares, check what well-known investors hold, and even pull the odds
-          markets are putting on real-world events.</p>
+          <p>Stocks, ETFs, commodities, currencies and economic indicators, with price history for
+          cryptocurrencies. It can look up a company's financial statements, read the management
+          commentary filed alongside them, see who has been buying their own shares, check what
+          well-known investors hold, and pull the treasury yield curve or the date a company next
+          reports.</p>
         </div>
       </article>
 
@@ -400,7 +401,7 @@ only if the moat holds for a decade. Shall I test the moat next?</p>
     <div class="sources reveal">
       <article class="source">
         <h3>Federal Reserve</h3>
-        <p>Economic indicators and commodity prices, from the St. Louis Fed's FRED database.</p>
+        <p>Economic indicators, commodity prices and treasury rates, from the Federal Reserve and its FRED database.</p>
       </article>
       <article class="source">
         <h3>European Central Bank</h3>
@@ -408,33 +409,28 @@ only if the moat holds for a decade. Shall I test the moat next?</p>
       </article>
       <article class="source">
         <h3>SEC EDGAR</h3>
-        <p>Insider buying and selling, read straight from the Form 4 filings companies are required to make.</p>
+        <p>Financial statements as companies filed them, insider buying and selling from Form 4, what
+        institutions hold from their quarterly 13F disclosures, and the management commentary written
+        into the 10-K and 10-Q.</p>
       </article>
       <article class="source">
-        <h3>Dataroma</h3>
-        <p>What well-known investors actually hold, compiled from their quarterly 13F disclosures.</p>
+        <h3>Yahoo Finance</h3>
+        <p>Price history and quotes, financial statements and the key metrics that go with them.</p>
       </article>
       <article class="source">
-        <h3>stockanalysis.com</h3>
-        <p>Company and ETF fundamentals, financial statements, sector performance and market news.</p>
+        <h3>International Monetary Fund</h3>
+        <p>Cross-country macroeconomic series, including inflation and the direction of trade.</p>
       </article>
       <article class="source">
-        <h3>CoinGecko</h3>
-        <p>Cryptocurrency prices, market data and search across thousands of coins.</p>
-      </article>
-      <article class="source">
-        <h3>CoinDesk and CoinTelegraph</h3>
-        <p>Cryptocurrency news as it is published.</p>
-      </article>
-      <article class="source">
-        <h3>Polymarket</h3>
-        <p>What prediction markets are pricing for real-world events.</p>
+        <h3>OECD</h3>
+        <p>Comparable indicators for member economies, including leading indicators and unemployment.</p>
       </article>
     </div>
 
-    <p class="skill-note">No data subscription, no data-provider keys to manage, and no per-call
-    bill for any of this. The only credentials InvestPal asks for are your own brokerage login
-    details, and only if you decide to connect one.</p>
+    <p class="skill-note">No paid data subscription and no per-call bill for any of this. Commodity
+    prices and the macro series need one free key from the St. Louis Fed, which is a registration
+    rather than a purchase. The only other credentials InvestPal asks for are your own brokerage
+    login details, and only if you decide to connect one.</p>
   </div>
 </section>
 
