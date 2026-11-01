@@ -1,81 +1,41 @@
-# Site settings
-title: Orestis Stefanou Website
-description: 'My Projects' # this means to ignore newlines until "baseurl:"
-permalink: ':title:output_ext'
-baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://orestisstefanou.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-logo: "/assets/img/branding/logo.jpg"
-logo-icon: "/assets/img/branding/logo.jpg"
-logo-icon-SEO: "/assets/img/branding/background.jpg" # must be a non SVG file
+# Site
+title: Orestis Stefanou
+tagline: AI Engineer
+description: "Orestis Stefanou, AI engineer working in finance. Builder of InvestPal, an AI investment analyst that runs on your own machine, and Loci, a memory store for coding agents."
+url: "https://orestisstefanou.github.io"
+baseurl: ""
+lang: en
 
-# Night/Dark mode
-# Default mode is "auto", "auto" is for auto nightshift
-# (19:00 - 07:00), "manual" is for manual toggle, and
-# "on/off" is for default on/off.
-#
-# Whatever the user's choice is, it will supersede the
-# default setting of the site and be kept during the
-# visit (session). Only the dark mode setting is "manual",
-# it will be always kept on every visit (i.e. no matter
-# the browser is closed or not)
-night_mode: "auto"
+# Keeps the post URLs the old theme published (/Crypto-Trading, /Stock-Price-Prediction, ...)
+permalink: /:title:output_ext
 
-logo-dark: "/assets/img/branding/logo.svg"
-highlight_theme: syntax-base16.monokai.dark # select a dark theme for the code highlighter if needed
+# Person
+author:
+  name: Orestis Stefanou
+  role: AI Engineer
+  location: Cyprus
+  email: stefanouorestis@gmail.com
+  github: OrestisStefanou
+  linkedin: orestis-stefanou
+  portrait: /assets/img/site/portrait.jpg
 
-# Author settings
-author: Orestis Stefanou # add your name
-author-pic: Myself_Neon_grey.jpg
-about-author: Machine Learning Engineer, currently working at Plum Fintech
-
-# Contact links
-email: stefanouorestis@gmail.com # Add your Email address
-phone: 97657569
-website: https://orestisstefanou.github.io # Add your website
-linkedin: Orestis Stefanou # Add your Linkedin handle
-github: OrestisStefanou # Add your Github handle
-twitter: '' # Add your Twitter handle
-bandcamp: orestis # Add your Bandcamp username
-
-# Newsletter
-mailchimp: "https://github.us1.list-manage.com/subscribe/post?u=8ece198b3eb260e6838461a60&amp;id=397d90b5f4"
-
-# Disqus
-discus_identifier: orestisstefanou-github-io # Add your discus identifier
-comments_curtain: yes # leave empty to show the disqus embed directly
-
-# Tracker
+# Google Analytics
 analytics: G-R8SZS2YBZK
-fbadmin: ar.maybach
 
-# Paginate
-paginate: 6
-paginate_path: 'page:num'
+# Build
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+highlighter: rouge
 words_per_minute: 200
 
-# Build settings
-markdown: kramdown
-mathjax: true
-highlighter: rouge
-compress_html:
-  clippings: all
-  comments: all
-  startings: [html, head, body]
-
-# Outputting
-timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-
-category_archive:
-  type: liquid
-  path: /categories/
-
-sass:
-  style: compressed
-
 plugins:
-  - jekyll-paginate
   - jekyll-feed
   - jekyll-sitemap
 
+feed:
+  path: feed.xml
+
 include: [_pages]
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock", "package-lock.json", "assets/css/sass/"]
+exclude: [README.md, LICENSE, Gemfile, Gemfile.lock, vendor, .bundle]

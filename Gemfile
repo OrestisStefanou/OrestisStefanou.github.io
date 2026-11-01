@@ -1,9 +1,5 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem 'jekyll'
-
-group :jekyll_plugins do
-  gem "jekyll-paginate"
-  gem "jekyll-feed"
-  gem "jekyll-sitemap"
-end
+# Same gem set GitHub Pages builds with
+gem "github-pages", group: :jekyll_plugins
+gem "webrick"

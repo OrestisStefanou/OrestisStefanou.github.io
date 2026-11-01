@@ -1,0 +1,27 @@
+---
+layout: base
+title: Writing
+permalink: /writing/
+description: "Engineering write-ups by Orestis Stefanou on AI agents, machine learning in production and investing software."
+---
+<section class="page-head">
+  <span class="label">Writing</span>
+  <h1>Engineering notes</h1>
+  <p>Long-form write-ups of how things were built. Older posts describe earlier versions of projects and are kept for reference.</p>
+</section>
+
+{%- assign by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" -%}
+{%- for year in by_year %}
+<section class="year">
+  <h2 class="mono">{{ year.name }}</h2>
+  <ul class="posts">
+    {%- for post in year.items %}
+    <li class="post">
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <span class="mono date">{{ post.date | date: "%-d %b" }}</span>
+      <p>{{ post.summary | default: post.description }}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endfor %}

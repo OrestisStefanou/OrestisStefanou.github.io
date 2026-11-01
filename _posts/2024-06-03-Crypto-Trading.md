@@ -8,6 +8,9 @@ img: posts/20240603/crypto_trading.jpg
 tags: [crypto, ml-ops, machine-learning]
 author: Stefanou Orestis
 description: "How to use MLFlow to manage end to end machine learning workflows that will be used for crypto trading."
+featured: true
+short_title: "Managing a pool of ML models for crypto trading"
+summary: "Using MLflow to train, register, batch-predict and serve a pool of crypto trading models, end to end."
 ---
 
 ### Github url: https://github.com/OrestisStefanou/CryptoTrading
