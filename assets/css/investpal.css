@@ -301,6 +301,10 @@ code:not(pre code) {
 .nav-link:hover { color: var(--fg); }
 .nav-link:hover::after { transform: scaleX(1); }
 
+.nav-link--home { margin-left: .5rem; padding-left: 1rem; border-left: 1px solid var(--border); border-radius: 0; color: var(--fg-soft); }
+.nav-link--home::after { left: 1rem; }
+.nav-link, .nav-cta { white-space: nowrap; }
+@media (max-width: 1200px) { .nav-link--home { display: none; } }
 .nav-tools { display: flex; align-items: center; gap: .35rem; margin-left: 1rem; }
 
 .nav-cta {
