@@ -8,6 +8,9 @@ img: posts/20251227/ai_investment_advisor.jpg
 tags: [investing, AI]
 author: Stefanou Orestis
 description: "InvestPal is a comprehensive AI-powered investment advisory ecosystem that delivers personalized financial insights and market intelligence through multiple channels."
+superseded_by:
+  url: /investpal/
+  text: "See what InvestPal is today →"
 ---
 
 InvestPal is a comprehensive AI-powered investment advisory ecosystem that delivers personalized financial insights and market intelligence through multiple channels. The platform combines cutting-edge artificial intelligence with real-time market data to provide users with professional-grade investment advice accessible through both web services and messaging platforms.

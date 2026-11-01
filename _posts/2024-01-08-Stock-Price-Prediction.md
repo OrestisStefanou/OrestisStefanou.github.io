@@ -8,6 +8,9 @@ img: posts/20240108/algorithmic-trading.png
 tags: [investing, stock-market, machine-learning]
 author: Stefanou Orestis
 description: "An end to end machine learning project to predict and serve stock price predictions"
+featured: true
+short_title: "Stock price prediction, end to end"
+summary: "One stock-agnostic model that predicts whether a price will be higher in six months, served behind an API with SHAP explanations."
 ---
 The goal of this project is to develop a machine learning model that will predict if a stock price will be higher or lower six months from the time we request a prediction. After the model development is done we will also create a microservice that will serve the prediction probabilities along with the prediction factors(shap values). The model will be stock agnostic meaning that it will be trained with data from multiple stocks so that we can have a single model that will give predictions for any stock.
 

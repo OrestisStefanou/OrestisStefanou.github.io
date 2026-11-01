@@ -1,25 +1,162 @@
 ---
-layout: home-page
+layout: base
 ---
-{% include calculate_relative_base.html %}
-
-<ol class="post-card-box clearfix">
-  {% for post in paginator.posts %}
-  {% include remove_double_slash.html %}
-  <li>
-    <div class="post-card">
-      <a href="{{ post_url }}" title="{{ post.title }}" class="post-card-image" style="background: url('{{ relativebase }}assets/img/{{ post.img }}') center no-repeat; background-size: cover;">
-      </a>
-      <div class="post-card-body">
-        <p class="post-card-title-and-meta">
-          
-          <a href="{{ post_url }}" class="post-card-link">
-          {{ post.title }}
-          </a>
-          {% include post_meta.html type="post-card-meta" date="none" %}
-        </p>
-      </div>
+<header class="hero" id="top">
+  <div class="hero-text">
+    <span class="label">{{ site.author.role }} · {{ site.author.location }}</span>
+    <h1>I ship AI to <em>production</em> in finance.</h1>
+    <p class="intro">I'm an <strong>AI engineer at a wealth management platform</strong>, and I've worked in fintech since 2021, from production ML to trading infrastructure for institutional crypto. On my own time I build <strong>InvestPal</strong>, an AI investment analyst that runs on your machine, and <strong>Loci</strong>, a memory store for coding agents.</p>
+    <div class="links">
+      <a href="https://github.com/{{ site.author.github }}">GitHub</a>
+      <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}">LinkedIn</a>
+      <a class="email" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
     </div>
-  </li>
-  {% endfor %}
-</ol>
+  </div>
+  <figure class="portrait">
+    <picture>
+      <source srcset="/assets/img/site/portrait.webp" type="image/webp">
+      <img src="/assets/img/site/portrait.jpg" alt="Portrait of {{ site.author.name }}" width="720" height="720" fetchpriority="high">
+    </picture>
+  </figure>
+</header>
+
+<section class="block" id="work" aria-labelledby="work-h">
+  <header>
+    <span class="label">Selected work</span>
+    <h2 id="work-h">Things I've built</h2>
+    <p>Two open-source projects and one case study.</p>
+  </header>
+  <div class="work">
+
+    <article class="project">
+      <div class="head">
+        <h3>InvestPal</h3>
+        <span class="mono kind">open source · local-first</span>
+      </div>
+      <p class="pitch">An AI investment analyst that runs on your own machine. Ask whether a company is worth owning and it does the work: pulls the filings, runs a written valuation procedure and checks the answer against what you already hold.</p>
+      <ul>
+        <li>Fifteen written analysis procedures, from earnings quality to margin of safety, versioned in the open</li>
+        <li>Eight free primary data sources instead of a paid data vendor</li>
+        <li>Remembers your goals, runs scheduled reviews, and can connect to Alpaca, Coinbase or Interactive Brokers, read-only if you prefer</li>
+        <li>Use it from Claude Code, Claude Desktop, any MCP client, a local web app or its REST API</li>
+      </ul>
+      <div class="foot">
+        <span class="mono stack">Go · Python · TypeScript · MCP</span>
+        <a class="cta" href="/investpal/">See InvestPal →</a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="head">
+        <h3>Loci</h3>
+        <span class="mono kind">open source · Go</span>
+      </div>
+      <p class="pitch">Agent conversations are per session and disposable. Loci keeps what they produce and files it by the work it belongs to, so the next session, or the next person, starts from what was already settled.</p>
+      <ul>
+        <li>Captures every Claude Code session in a repository through hooks</li>
+        <li>Agents save decisions and their reasons as memories, attached to a project, a task and tags</li>
+        <li>Search by text or by meaning, with embeddings from a local model</li>
+        <li>One static binary, one database file per store, nothing leaves your machine</li>
+      </ul>
+      <div class="foot">
+        <span class="mono stack">Go · Turso · Ollama · Claude Code hooks</span>
+        <a class="cta" href="https://github.com/OrestisStefanou/Loci">View on GitHub →</a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="head">
+        <h3>A self-improving software factory</h3>
+        <span class="mono kind">case study</span>
+      </div>
+      <p class="pitch">A pipeline of agents that takes a ticket from a rough brief to a monitored production change. The engineer decides at two points: what to build, and whether it ships.</p>
+      {% include factory-loop.html %}
+      <ul>
+        <li>A spec review runs before any code exists, so a broken spec costs minutes instead of a full run</li>
+        <li>Every loop has a cap, and the run hands back to the engineer instead of guessing</li>
+        <li>The spec's production signals become live checks after deploy</li>
+      </ul>
+      <div class="foot">
+        <span class="mono stack">Claude Code · subagents · workflows · Loci</span>
+        <a class="cta" href="/software-factory/">Read the case study →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="block" id="experience" aria-labelledby="exp-h">
+  <header>
+    <span class="label">Experience</span>
+    <h2 id="exp-h">Where I've worked</h2>
+    <p>Fintech since 2021.</p>
+  </header>
+  <ol class="roles">
+    <li class="role now">
+      <span class="mono when">2026 to now</span>
+      <div>
+        <h3>AI Engineer <span class="at">· Sophic</span></h3>
+        <p>AI engineering for a wealth management platform.</p>
+      </div>
+    </li>
+    <li class="role">
+      <span class="mono when">2025 to 2026</span>
+      <div>
+        <h3>Software Engineer <span class="at">· Talos Trading</span></h3>
+        <p>Low-latency integrations with crypto exchanges and OTC desks for institutional trading, in Go over FIX, REST and WebSocket.</p>
+      </div>
+    </li>
+    <li class="role">
+      <span class="mono when">2022 to 2024</span>
+      <div>
+        <h3>Machine Learning Engineer <span class="at">· Plum</span></h3>
+        <p>Automated the ML lifecycle from data pipelines to deployment and monitoring, so a small team could run more models. Built Plum AI, an in-app assistant that helped users put the app's features to work for their money.</p>
+      </div>
+    </li>
+    <li class="role">
+      <span class="mono when">2021 to 2022</span>
+      <div>
+        <h3>Software Engineering Intern <span class="at">· Hellas Direct</span></h3>
+        <p>Backend for an online insurance platform, and a Slack bot that answered the business's data questions.</p>
+      </div>
+    </li>
+    <li class="role">
+      <span class="mono when">2021</span>
+      <div>
+        <h3>BSc Informatics and Telecommunications <span class="at">· University of Athens</span></h3>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="block" id="writing" aria-labelledby="writing-h">
+  <header>
+    <span class="label">Writing</span>
+    <h2 id="writing-h">Engineering notes</h2>
+    <p>Long-form write-ups of how things were built.</p>
+  </header>
+  <div>
+    <ul class="posts">
+      {%- assign featured = site.posts | where: "featured", true -%}
+      {%- for post in featured limit: 3 %}
+      <li class="post">
+        <h3><a href="{{ post.url }}">{{ post.short_title | default: post.title }}</a></h3>
+        <span class="mono date">{{ post.date | date: "%b %Y" }}</span>
+        <p>{{ post.summary | default: post.description }}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+    <a class="archive mono" href="/writing/">All writing →</a>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <span class="label">Contact</span>
+  <h2 id="contact-h">Working on agents, ML or fintech infrastructure? Let's talk.</h2>
+  <p>The fastest way to reach me is email. I'm also on GitHub and LinkedIn.</p>
+  <div class="links">
+    <a class="email" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+    <a href="https://github.com/{{ site.author.github }}">GitHub</a>
+    <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}">LinkedIn</a>
+  </div>
+</section>
