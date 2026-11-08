@@ -150,6 +150,7 @@ section.block > header p { color: var(--muted); font-size: 14px; }
 .prose ul, .prose ol { padding-left: 22px; margin-bottom: 0; }
 .prose li + li { margin-top: 0.35em; }
 .prose li::marker { color: var(--accent); }
+.prose .posts { padding-left: 0; }
 .prose a { color: var(--accent); text-decoration-color: currentColor; text-decoration-thickness: 1px; }
 .prose strong { font-weight: 600; }
 .prose img { display: block; border-radius: 4px; margin-inline: auto; }
