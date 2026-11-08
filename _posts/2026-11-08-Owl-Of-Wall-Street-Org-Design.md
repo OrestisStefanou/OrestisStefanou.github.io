@@ -150,4 +150,4 @@ The two never call each other at runtime. The company publishes versioned files,
 
 ## Next
 
-The next step is the data layer the agents will read from, then the first hand-run of `/weekly-insight`. Both get their own write-up; the [project page](/owl-of-wall-street/) lists the series as it grows.
+The next step is writing the agent definitions and running `/weekly-insight` by hand on a real week, without publishing anything. For that first run the agents use plain web search instead of a proper data layer. That is deliberate: the run will show exactly which data the agents reach for and where the Fact-Checker cannot trace a number, and the data layer gets built from that list rather than from a guess. Both steps get their own write-up; the [project page](/owl-of-wall-street/) lists the series as it grows.
