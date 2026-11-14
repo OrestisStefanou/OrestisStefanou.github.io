@@ -13,7 +13,7 @@ It has two goals, and they carry equal weight:
 1. **Build a product that is useful** to people starting or continuing their investment journey.
 2. **Show, in public, how to build a tech product from scratch with AI.** Every decision, agent design, failure and cost gets written up here.
 
-<p class="notice">Status: product defined, no code yet. This page is updated as the project moves. The <a href="#the-series">series below</a> covers each step in depth.</p>
+<p class="notice">Status: the research and editorial agents are built and the weekly insight pipeline has had its first dry run. Nothing is published yet. This page is updated as the project moves. The <a href="#the-series">series below</a> covers each step in depth.</p>
 
 ## What it will offer
 
@@ -23,7 +23,7 @@ Everything is aimed at beginner and intermediate investors, anywhere in the worl
 |---|---|---|
 | **Learn** | A curriculum of educational articles, from compounding to portfolio construction | Free, always |
 | **Insights** | One themed market insight a week, with a house thesis that can be proven wrong | Free, always |
-| **Track Record** | A public scorecard of every thesis, misses included | Free, always |
+| **Track Record** | A public record of every thesis and how it turned out, misses included | Free, always |
 | **AI advisor** | A personal advisor on Telegram that turns your goals into a named ETF portfolio | Free to start; donations or a premium tier later |
 
 Every article will come with a short animated video: the week's market moves in a minute, or a concept like compounding made visual. Every number in a video comes from the same data as the article and is fact-checked the same way.
@@ -50,9 +50,9 @@ Agents hand work to each other through files in the repository, never through hi
 
 ## The weekly insight
 
-{% include owl-weekly.html %}
+{% include owl-weekly-v2.html %}
 
-I decide twice: which theme to write about, and whether the finished piece ships. Everything between those two points is delegated, and every review loop has a cap. When a loop hits its cap, the work comes back to me instead of being forced through.
+I decide twice: which theme to write about, and whether the finished piece ships. Before I pick, the Risk Officer screens the three candidate themes, so weak ideas are caught before anyone drafts them. Everything between the two decisions is delegated, and every review loop has a cap. When a loop hits its cap, the work comes back to me instead of being forced through. The first dry run, and what it changed, is in [The first dry run of an AI investment team]({% post_url 2026-11-14-Owl-Of-Wall-Street-First-Dry-Run %}).
 
 ## Decisions so far
 
@@ -71,13 +71,18 @@ I decide twice: which theme to write about, and whether the finished piece ships
 | Model portfolios | Re-evaluated every quarter and when a fund changes; versioned |
 | Repository | Monorepo |
 | Rollout | Workflows run by hand first, automated after about four clean weeks |
+| Agent knowledge | Analytical skills from InvestPal, distilled from investing books, adapted to ETF exposures |
+| House theses | About an exposure, and may name the funds that deliver it. Companies are discussed as evidence, not as the subject |
+| Compliance | Clear "not investment advice" disclosures. Legal questions are noted, never a gate, at this stage |
+| Data | Web search until Owl builds its own data tools. No paid data licences |
+| Thesis outcomes | Every thesis states what would prove it wrong. No mechanical scoring; how outcomes are judged is still open |
 
 ## Roadmap
 
 | Phase | Scope | Status |
 |---|---|---|
-| 0. Define | Product definition, org design, data sources | **In progress** |
-| 1. Content engine | Research and editorial agents, website, first educational articles, weekly insights | Next |
+| 0. Define | Product definition, org design, data sources | Done |
+| 1. Content engine | Research and editorial agents, website, first educational articles, weekly insights | **In progress**: agents built, first dry run done |
 | 2. Planning engine | ETF universes, model portfolios, goals-based probability engine | |
 | 3. Advisor beta | Telegram bot, onboarding, goals, memory; closed beta | |
 | 4. Public launch | Track Record, The Team page, public advisor, payments behind a switch | |
