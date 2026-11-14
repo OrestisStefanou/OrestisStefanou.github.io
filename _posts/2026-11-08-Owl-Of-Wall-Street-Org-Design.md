@@ -119,6 +119,8 @@ I decide twice: what to write about, and whether it ships. Every loop has a cap,
 
 Every thesis is logged in a structured registry: the claim, the horizon, a measurable proxy and what would invalidate it. Step 0 scores the open ones every week, and the results go on a public track record, misses included.
 
+*Update, 14 November 2026: after the first dry run, the step-0 scoring script was dropped and a theme screen was added before my pick. See [The first dry run of an AI investment team]({% post_url 2026-11-14-Owl-Of-Wall-Street-First-Dry-Run %}).*
+
 ## Two kinds of agents
 
 Not every agent in the company is a subagent.
