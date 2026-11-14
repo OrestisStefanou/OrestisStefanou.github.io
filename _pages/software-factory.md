@@ -97,6 +97,10 @@ A factory that only runs gets no better. Once a week, a measurement pass reads t
 
 Agents propose the labels, and the engineer confirms them. The output is not a dashboard for its own sake. Each recurring miss turns into a change at the stage that should have caught it: a new rule for a reviewer, a new defect class for spec review, a new QA scenario type, a new memory. The spec review step itself came out of this process.
 
+## In front of the factory: triage
+
+Not every ticket needs a spec interview. For small requests on an internal app, a triage agent decides against a fixed rubric which ones need no new design, writes a one-page proposal, and after a single approval sends them straight into the build. [How the triage agent works]({% post_url 2026-11-14-Triage-Agent %}).
+
 ## Principles
 
 | Principle | In practice |
