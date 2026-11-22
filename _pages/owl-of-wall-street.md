@@ -13,7 +13,7 @@ It has two goals, and they carry equal weight:
 1. **Build a product that is useful** to people starting or continuing their investment journey.
 2. **Show, in public, how to build a tech product from scratch with AI.** Every decision, agent design, failure and cost gets written up here.
 
-<p class="notice">Status: the research and editorial agents are built and the weekly insight pipeline has had its first dry run. Nothing is published yet. This page is updated as the project moves. The <a href="#the-series">series below</a> covers each step in depth.</p>
+<p class="notice">Status: the weekly insight pipeline wrote its first approved article (on the Anthropic IPO) after two dry runs. Articles are approved in the repository; where readers will see them is the next decision. A CTO agent now owns engineering. This page is updated as the project moves. The <a href="#the-series">series below</a> covers each step in depth.</p>
 
 ## What it will offer
 
@@ -22,8 +22,8 @@ Everything is aimed at beginner and intermediate investors, anywhere in the worl
 | Product | What it is | Price |
 |---|---|---|
 | **Learn** | A curriculum of educational articles, from compounding to portfolio construction | Free, always |
-| **Insights** | One themed market insight a week, with a house thesis that can be proven wrong | Free, always |
-| **Track Record** | A public record of every thesis and how it turned out, misses included | Free, always |
+| **Insights** | One themed market insight a week: what happened, why it matters, and what it means for long-term investors (the house view) | Free, always |
+| **Track Record** | A public record of every house view, its review date, what would change it, and whether it was held or changed, misses included | Free, always |
 | **AI advisor** | A personal advisor on Telegram that turns your goals into a named ETF portfolio | Free to start; donations or a premium tier later |
 
 Every article will come with a short animated video: the week's market moves in a minute, or a concept like compounding made visual. Every number in a video comes from the same data as the article and is fact-checked the same way.
@@ -52,7 +52,7 @@ Agents hand work to each other through files in the repository, never through hi
 
 {% include owl-weekly-v2.html %}
 
-I decide twice: which theme to write about, and whether the finished piece ships. Before I pick, the Risk Officer screens the three candidate themes, so weak ideas are caught before anyone drafts them. Everything between the two decisions is delegated, and every review loop has a cap. When a loop hits its cap, the work comes back to me instead of being forced through. The first dry run, and what it changed, is in [The first dry run of an AI investment team]({% post_url 2026-11-14-Owl-Of-Wall-Street-First-Dry-Run %}).
+I decide twice: which theme to write about, and whether the finished piece ships. Before I pick, the Risk Officer screens the three candidate themes, so weak ideas are caught before anyone drafts them. Everything between the two decisions is delegated, and every review loop has a cap. When a loop hits its cap, the work comes back to me instead of being forced through. The finished article arrives as a draft pull request; when I approve it, the draft label comes off and the view enters the track record, and I merge. The first dry run, and what it changed, is in [The first dry run of an AI investment team]({% post_url 2026-11-14-Owl-Of-Wall-Street-First-Dry-Run %}). The second run, the change of job it led to, and the first approved article are in [Two failed runs and a first article]({% post_url 2026-11-22-Owl-Of-Wall-Street-First-Article %}).
 
 ## Decisions so far
 
@@ -72,17 +72,22 @@ I decide twice: which theme to write about, and whether the finished piece ships
 | Repository | Monorepo |
 | Rollout | Workflows run by hand first, automated after about four clean weeks |
 | Agent knowledge | Analytical skills from InvestPal, distilled from investing books, adapted to ETF exposures |
-| House theses | About an exposure, and may name the funds that deliver it. Companies are discussed as evidence, not as the subject |
+| House view | What the week means for long-term investors. No edge over the market required; every week publishes, and "no change" is a valid view |
+| Subjects | ETFs are the main focus, not a limit: a view may name a bond held directly, or a single company against a benchmark |
 | Compliance | Clear "not investment advice" disclosures. Legal questions are noted, never a gate, at this stage |
 | Data | Web search until Owl builds its own data tools. No paid data licences |
-| Thesis outcomes | Every thesis states what would prove it wrong. No mechanical scoring; how outcomes are judged is still open |
+| Tracking views | Each view has a review date and what would change it, and is marked held or changed when revisited. No score |
+| Writing | Plain language: financial terms are allowed, but each is explained where it appears. Length is a guide, not a limit |
+| AI disclosure | Every article says it was written by AI agents running on Anthropic's Claude models, and approved by me |
+| Approval | Articles arrive as draft pull requests; my approval and merge put them on the record. Distribution to readers is still open |
+| Engineering | A CTO agent I work with directly; technical decisions are recorded as plain-language decision records |
 
 ## Roadmap
 
 | Phase | Scope | Status |
 |---|---|---|
 | 0. Define | Product definition, org design, data sources | Done |
-| 1. Content engine | Research and editorial agents, website, first educational articles, weekly insights | **In progress**: agents built, first dry run done |
+| 1. Content engine | Research and editorial agents, website, first educational articles, weekly insights | **In progress**: first article approved; website and publishing next |
 | 2. Planning engine | ETF universes, model portfolios, goals-based probability engine | |
 | 3. Advisor beta | Telegram bot, onboarding, goals, memory; closed beta | |
 | 4. Public launch | Track Record, The Team page, public advisor, payments behind a switch | |
